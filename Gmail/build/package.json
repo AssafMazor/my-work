@@ -1,0 +1,61 @@
+{
+    "name": "ocea",
+    "version": "1.0.0",
+    "description": "The next gen of eLearning",
+    "repository": {
+        "type": "git, module",
+        "url": "git+https://github.com/GoogleCloudPlatform/nodejs-getting-started.git"
+    },
+    "private": true,
+    "scripts": {
+        "gulp": "gulp",
+        "minify": "gulp minify",
+        "start": "node app.js",
+        "test": "repo-tools test app && ava -t 30s --tap test/*.test.js",
+        "e2e": "repo-tools test deploy && E2E_TESTS=True ava -t 30s --tap test/*.test.js",
+        "cover": "nyc --cache npm test; nyc report --reporter=html"
+    },
+    "author": "Shaul Mazor",
+    "license": "Apache-2.0",
+    "semistandard": {
+        "globals": [
+            "after",
+            "afterEach",
+            "before",
+            "beforeEach",
+            "describe",
+            "it"
+        ]
+    },
+    "dependencies": {
+        "ajv": "^8.6.2",
+        "express": "4.17.1"
+    },
+    "devDependencies": {
+        "del": "6.0.0",
+        "gulp": "4.0.2",
+        "gulp-concat": "^2.6.1",
+        "gulp-concat-css": "^3.1.0",
+        "gulp-csso": "^4.0.1",
+        "gulp-minify-css": "^1.2.4",
+        "gulp-sass": "4.1.0",
+        "gulp-uglify": "^3.0.2",
+        "handlebars": "4.7.7",
+        "node-sass": "5.0.0",
+        "yargs": "^7.1.1",
+        "clear-module": "4.1.1",
+        "fancy-log": "1.3.3",
+        "lodash": "4.17.21"
+    },
+    "engines": {
+        "node": "15.x.x"
+    },
+    "_moduleAliases": {
+        "@auth-service": "."
+    },
+    "bugs": {
+        "url": "https://github.com/GoogleCloudPlatform/nodejs-getting-started/issues"
+    },
+    "homepage": "https://github.com/GoogleCloudPlatform/nodejs-getting-started#readme",
+    "main": "app.js"
+}

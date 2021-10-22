@@ -1,0 +1,78 @@
+.mobile-dialog {
+  z-index: 13;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .inside {
+    width: 533px;
+    height: 99%;
+    flex-direction: column;
+    display: flex;
+
+    .sender-input {
+      width: 100%;
+      height: 6%;
+      border-bottom: 1px solid #b7b7b7;
+      display: flex;
+      justify-content: flex-end;
+
+      .sender {
+        flex: 1;
+        border: none;
+      }
+
+      .feather-chevron-down {
+        align-items: center;
+        height: 100%;
+        display: flex;
+      }
+    }
+
+    .send-input {
+      width: 100%;
+      height: 6%;
+      border-bottom: 1px solid #b7b7b7;
+      display: flex;
+      justify-content: flex-end;
+
+      .send {
+        flex: 1;
+        border: none;
+      }
+
+      .feather-chevron-down {
+        align-items: center;
+        height: 100%;
+        display: flex;
+      }
+    }
+
+    .type-input {
+      width: 100%;
+      height: 6%;
+      border-bottom: 1px solid #b7b7b7;
+      display: flex;
+      justify-content: flex-end;
+
+      .input-type {
+        flex: 1;
+        border: none;
+      }
+    }
+
+    .textarea-wrap {
+      flex: 1;
+      display: flex;
+
+      .description {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    }
+  }
+}
