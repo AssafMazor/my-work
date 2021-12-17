@@ -10,12 +10,11 @@
 
   .inside-menu {
     position: absolute;
-    padding-top: 65px;
     width: 234px;
+    top: 164px;
   }
 
   .main-box-wrap {
-    padding-top: 14px;
     justify-content: center;
     display: -webkit-box;
     display: -webkit-flex;
@@ -27,7 +26,6 @@
     position: relative;
     padding-left: 13px;
     box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.12);
-    margin-top: 10px;
   }
 
   .main-box {
@@ -47,12 +45,8 @@
     opacity: 0.7;
   }
 
-  .snoozed {
-    background-image: url(https://www.gstatic.com/images/icons/material/system/1x/watch_later_white_20dp.png);
-    height: 20px;
-    width: 20px;
-    background-repeat: no-repeat;
-    opacity: 0.7;
+  .feather-trash-2 {
+    color: #ccd1dc;
   }
 
   .important {
@@ -182,7 +176,7 @@
     position: absolute;
     top: 37px;
     right: 29px;
-    z-index: 10;
+    z-index: 6;
   }
 
   .primary-svg {

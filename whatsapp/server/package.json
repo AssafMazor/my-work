@@ -1,0 +1,39 @@
+{
+    "name": "ocean-project",
+    "version": "1.0.0",
+    "description": "The next gen of eLearning",
+    "repository": {
+        "type": "git, module",
+        "url": "git+https://github.com/GoogleCloudPlatform/nodejs-getting-started.git"
+    },
+    "private": true,
+    "scripts": {
+        "minify": "gulp minify",
+        "start": "node app.js",
+        "test": "repo-tools test app && ava -t 30s --tap test/*.test.js",
+        "e2e": "repo-tools test deploy && E2E_TESTS=True ava -t 30s --tap test/*.test.js",
+        "cover": "nyc --cache npm test; nyc report --reporter=html"
+    },
+    "author": "Shaul Mazor",
+    "license": "Apache-2.0",
+    "semistandard": {
+        "globals": [
+            "after",
+            "afterEach",
+            "before",
+            "beforeEach",
+            "describe",
+            "it"
+        ]
+    },
+    "dependencies": {
+        "express": "4.17.1"
+    },
+    "engines": {
+        "node": "15.x.x"
+    },
+    "_moduleAliases": {
+        "@auth-service": "."
+    },
+    "main": "app.js"
+}

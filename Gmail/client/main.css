@@ -4,6 +4,7 @@
 @import url("./components/composeDialog/composeDialog.css");
 @import url("./components/viewMailDialog/viewMailDialog.css");
 @import url("./responsive.css");
+@import url("./components/list-item/list-item.css");
 
 body {
   margin: 0;
@@ -27,13 +28,6 @@ body {
   width: 20px;
   fill: #f1f3f5;
   height: 20px;
-}
-
-.square {
-  width: 20px;
-  height: 20px;
-  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/check_box_outline_blank_white_20dp.png);
-  background-repeat: no-repeat;
 }
 
 .list {
@@ -65,7 +59,6 @@ body {
   display: flex;
   height: 100%;
   width: 225px;
-  border-bottom: 3px solid red;
   margin-left: 9px;
   align-items: flex-end;
 }
@@ -158,24 +151,6 @@ body {
   padding-bottom: 6px;
 }
 
-.square-row {
-  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/check_box_outline_blank_black_20dp.png);
-  width: 20px;
-  height: 20px;
-  background-repeat: no-repeat;
-  filter: opacity(0.5) drop-shadow(0 0 0 #5f6368);
-  margin-left: 13px;
-}
-
-.star {
-  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/star_border_black_20dp.png);
-  width: 20px;
-  height: 20px;
-  filter: opacity(0.5) drop-shadow(0 0 0 #5f6368);
-  background-repeat: no-repeat;
-  margin-left: 7px;
-}
-
 .arrow {
   background-image: url(https://www.gstatic.com/images/icons/material/system/1x/label_important_outline_black_20dp.png);
   width: 20px;
@@ -186,11 +161,11 @@ body {
 }
 
 .show {
-  display: block;
+  display: block !important;
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .exit-wrap {

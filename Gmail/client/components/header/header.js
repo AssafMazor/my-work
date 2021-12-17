@@ -10,13 +10,17 @@ class UI_Header {
             this.html = result;
             $(".header-wrap").html(this.html);
 
+            app.dataService.onSelectedItemQueueEvent.push((arrayLength) => {
+                this.onSelectedDeleted(arrayLength);
+            });
+
             this.initEvents();
        });
     }
 
     initEvents(){
         $(".search-btn").click(function (){
-            app.dataService.search($(".input").val())
+            app.dataService.fillterItems($(".input").val())
         })
         $(".threeRows").click(function (){
             if( $(".menu-list").hasClass("show")){
@@ -35,5 +39,8 @@ class UI_Header {
                 $(".compose-dialog-wrap").removeClass("hide");
             }
         });
+    }
+
+    onSelectedDeleted(selectedLength){
     }
 }   

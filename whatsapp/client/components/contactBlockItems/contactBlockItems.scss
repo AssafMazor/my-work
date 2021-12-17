@@ -1,0 +1,12 @@
+.item {
+  .close-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-left: 24px;
+
+    .close-btn {
+      color: #626669;
+    }
+  }
+}

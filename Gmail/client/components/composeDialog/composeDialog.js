@@ -21,7 +21,8 @@ class ComposeDialog {
             this.onCloseClick($(e.currentTarget))    
         });
         $(".send-btn").on('click', (e) => {
-            this.onSendClick($(e.currentTarget))         
+            this.checkEmail();
+            this.onSendClick();         
         });
         $(".feather-send").on('click', (e) => {
             this.onSendClick($(e.currentTarget))         
@@ -36,9 +37,33 @@ class ComposeDialog {
         $(".compose-dialog-wrap").addClass("hide");
     }
 
+    checkEmail(){
+        const regex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
+        if(!regex.test($(".to-email").val())){
+            return false
+        }
+        if(!regex.test($(".subject").val())){
+            return false
+        }
+        return true
+    }
+
     onSendClick(){
-        app.dataService.addNewMail({});
-        this.onCloseClick();
+        if(this.checkEmail()){
+            app.dataService.addNewMail({
+                "email":$(".to-email").val(),
+                "mainTitle":$(".subject").val(),
+                "title":$(".discription").val(),
+                "id":this.id,
+                "isImportant":false,
+                "isDeleted":false,
+                "category":1,
+                "checked":false,
+                "sentTime":new Date().getTime()
+            })
+        }else {
+            alert("Need data")
+        }
     }
 }
 

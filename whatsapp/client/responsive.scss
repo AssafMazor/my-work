@@ -1,0 +1,110 @@
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    .inside {
+      height: 100%;
+      .right {
+        display: none;
+      }
+
+      .left {
+        .header {
+          .three-dots {
+            padding-right: 8px;
+            height: 18px;
+            color: #fff;
+          }
+
+          .search-btn {
+            color: #fff;
+          }
+
+          .text {
+            color: #fff;
+          }
+        }
+        .categories {
+          display: flex;
+          align-items: center;
+          height: 44px;
+          width: 100%;
+          justify-content: center;
+
+          .chats-wrap {
+            display: flex;
+            width: 96px;
+            border-bottom: 1px solid white;
+            justify-content: center;
+          }
+
+          .chats {
+            color: #fff;
+          }
+
+          .status-wrap {
+            display: flex;
+            width: 96px;
+            justify-content: center;
+
+            .status {
+              color: #fff;
+            }
+          }
+
+          .calls {
+            display: flex;
+            width: 96px;
+            justify-content: center;
+
+            .call {
+              color: #fff;
+            }
+          }
+
+          .camera {
+            fill: #b4d9d2;
+            padding-left: 36px;
+          }
+        }
+        .item {
+          &:hover {
+            background-color: #121a1f;
+          }
+        }
+      }
+
+      .message-wrap {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+
+        .header {
+          .phone {
+            fill: #fff;
+            stroke: transparent;
+            padding-right: 13px;
+            padding-left: 10px;
+            height: 20px;
+          }
+          .video {
+            stroke: transparent;
+            fill: white;
+          }
+          .three-dots {
+            color: #fff;
+          }
+          .pic {
+            margin-right: 0;
+          }
+          .back-arrow {
+            padding-right: 21px;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

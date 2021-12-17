@@ -1,0 +1,132 @@
+.add-contact-item {
+  overflow: hidden;
+  transition: flex 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+  background-color: #131c21;
+
+  &.show {
+    left: 0;
+  }
+
+  .header {
+    background-color: #323739;
+    display: flex;
+    justify-content: flex-end;
+    height: 108px;
+    color: #e1e1e3;
+    align-items: flex-end;
+    box-sizing: border-box;
+    padding: 27px;
+    padding-bottom: 7px;
+
+    .text {
+      font-size: 21px;
+      padding-right: 12px;
+    }
+
+    .exit-btn {
+      transform: rotate(180deg);
+      cursor: pointer;
+    }
+  }
+
+  .group-pic {
+    .logo {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 28px;
+      height: 200px;
+    }
+
+    .camera {
+      position: absolute;
+      top: 220px;
+      color: white;
+      left: 48%;
+    }
+
+    .info {
+      position: absolute;
+      top: 251px;
+      color: #8d9093;
+      left: 48%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      width: 101px;
+      left: 158px;
+    }
+  }
+
+  .add-contact {
+    height: 40%;
+    position: relative;
+
+    .change-name-row {
+      border-bottom: 1px solid white;
+      display: flex;
+      margin: 28px 32px;
+      align-items: center;
+      position: relative;
+
+      .accept-group-bg {
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 46px;
+        font-size: 14px;
+        border-radius: 50%;
+        background-color: #00af9c;
+        position: absolute;
+        top: 86px;
+        left: -100%;
+        transition: all 0.3s ease-in-out;
+
+        &.show {
+          left: 45%;
+          display: flex !important;
+        }
+
+        .add-user-btn {
+          fill: #fff;
+        }
+      }
+
+      .emoji-btn {
+        color: #4a5152;
+        padding-right: 6px;
+      }
+
+      .remaining-length {
+        color: #4a5152;
+      }
+
+      .add-contact-input {
+        background: none;
+        border: none;
+        flex: 1;
+        z-index: 3;
+        height: 36px;
+        cursor: pointer;
+        color: #d4d5cc;
+        direction: rtl;
+        outline: none;
+      }
+      .group-type {
+        color: #7b8783;
+        color: #7b8783;
+        position: absolute;
+        transition: all 0.3s ease-in-out;
+        right: 0;
+        bottom: 5px;
+      }
+    }
+  }
+}

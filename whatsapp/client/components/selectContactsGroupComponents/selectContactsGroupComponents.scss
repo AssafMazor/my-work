@@ -1,0 +1,100 @@
+.select-contacts {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+  background-color: #131c21;
+
+  &.show {
+    left: 0;
+  }
+
+  .header {
+    background-color: #323739;
+    display: flex;
+    justify-content: flex-end;
+    height: 108px;
+    color: #e1e1e3;
+    align-items: flex-end;
+    box-sizing: border-box;
+    padding: 27px;
+    padding-bottom: 7px;
+
+    .text {
+      font-size: 21px;
+      padding-right: 12px;
+    }
+
+    .exit-btn {
+      transform: rotate(180deg);
+      cursor: pointer;
+    }
+  }
+
+  .input-wrap {
+    box-sizing: border-box;
+    padding: 27px 34 0 34;
+
+    .select-contact-input {
+      width: 100%;
+      background: none;
+      border: none;
+      justify-content: flex-end;
+      display: flex;
+      direction: rtl;
+      font-size: 15px;
+      border-bottom: 1px solid #3b4247;
+      padding-bottom: 6px;
+      outline: none;
+      color: #afd5cc;
+    }
+  }
+
+  .item {
+    &:hover {
+      background-color: #121a1f;
+    }
+
+    &.selected {
+      background-color: #2d3134;
+    }
+    .check-wrap {
+      flex: 1;
+      height: 100%;
+      align-items: center;
+      display: flex;
+
+      .check {
+        color: #fff;
+        padding-left: 12px;
+      }
+    }
+  }
+
+  .accept-group-bg {
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    font-size: 14px;
+    border-radius: 50%;
+    background-color: #00af9c;
+    position: absolute;
+    bottom: 27px;
+    left: -100%;
+    transition: all 0.3s ease-in-out;
+
+    &.show {
+      left: 45%;
+      display: flex !important;
+    }
+
+    .add-user-btn {
+      color: white;
+    }
+  }
+}

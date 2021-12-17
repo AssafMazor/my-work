@@ -1,0 +1,70 @@
+.contact-block-list {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+  background-color: #131c21;
+
+  &.show {
+    left: 0;
+  }
+
+  .header {
+    background-color: #323739;
+    display: flex;
+    justify-content: flex-end;
+    height: 108px;
+    color: #e1e1e3;
+    align-items: flex-end;
+    box-sizing: border-box;
+    padding: 27px;
+    padding-bottom: 7px;
+
+    .text {
+      font-size: 21px;
+      padding-right: 12px;
+    }
+
+    .exit-btn {
+      transform: rotate(180deg);
+      cursor: pointer;
+    }
+  }
+
+  .add-contact-block {
+    border-bottom: 1px solid #252d32;
+    width: 418px;
+    height: 61px;
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+
+    .text {
+      color: #d6e2e3;
+    }
+
+    .add-contact {
+      padding-right: 22px;
+      color: #828689;
+      padding-left: 30px;
+    }
+  }
+
+  .block-list {
+    height: 678px;
+  }
+
+  .information-warp {
+    height: 72px;
+    padding: 18px 34px 32px 20px;
+
+    .info {
+      color: #777c7f;
+      text-align: end;
+    }
+  }
+}

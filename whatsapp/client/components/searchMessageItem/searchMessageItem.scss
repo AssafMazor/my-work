@@ -1,0 +1,26 @@
+.search-message-item {
+  flex-direction: column;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: #131c21;
+  border-top: 1px solid #30383c;
+  height: 72px;
+
+  &:hover {
+    background-color: #2d3134;
+  }
+
+  .message-content {
+    color: #a2a5a7;
+    display: flex;
+  }
+
+  .time {
+    color: #a2a5a7;
+  }
+
+  .bold {
+    color: #00af9c;
+  }
+}
