@@ -1,0 +1,84 @@
+.profile-menu {
+  background-color: #ededed;
+
+  .header {
+    color: #e1e1e3;
+    background-color: #00bfa5;
+  }
+
+  .change-profile {
+    .change-profile-logo {
+      .background {
+        fill: #7f8080;
+      }
+
+      .primary {
+        fill: #858585;
+      }
+    }
+
+    .change-profile-logo-img {
+      &:hover .camera {
+        color: gray;
+      }
+    }
+
+    .camera {
+      color: white;
+    }
+
+    .info {
+      color: #cbcdcf;
+    }
+  }
+
+  .change-name {
+    border-bottom: 3px solid #e1e1e1;
+    background-color: #fff;
+
+    .title {
+      color: #0a9688;
+    }
+
+    .change-name-row {
+      .change {
+        color: #828689;
+      }
+
+      .name {
+        color: black;
+      }
+
+      .check {
+        color: #919191;
+      }
+    }
+  }
+
+  .informaition {
+    color: #828282;
+  }
+
+  .change-title {
+    border-bottom: 3px solid #e1e1e1;
+    background-color: #fff;
+
+    .title {
+      color: #0a9688;
+    }
+
+    .change-title-row {
+      .change {
+        color: #828689;
+      }
+
+      .title {
+        color: black;
+      }
+
+      .check {
+        color: #919191;
+      }
+    }
+  }
+}

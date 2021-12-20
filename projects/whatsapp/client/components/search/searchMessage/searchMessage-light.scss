@@ -1,0 +1,35 @@
+.search-message-panle {
+  border-right: 3px solid #e5e5e6;
+
+  .header {
+    background-color: #ededed;
+
+    .text {
+      color: black;
+    }
+
+    .exit-btn {
+      color: #51585c;
+    }
+  }
+
+  .search-input-message-wrap {
+    background-color: #f7f7f7;
+
+    .inside-message-input {
+      background-color: #ffffff;
+
+      .search-input-message {
+        color: black;
+      }
+
+      .search-btn {
+        color: #d3d5d6;
+      }
+    }
+  }
+
+  .search-message-list {
+    background-color: #ffffff;
+  }
+}

@@ -1,0 +1,18 @@
+.search-message-panle {
+  border-right: 3px solid #e5e5e6; }
+  .search-message-panle .header {
+    background-color: #ededed; }
+    .search-message-panle .header .text {
+      color: black; }
+    .search-message-panle .header .exit-btn {
+      color: #51585c; }
+  .search-message-panle .search-input-message-wrap {
+    background-color: #f7f7f7; }
+    .search-message-panle .search-input-message-wrap .inside-message-input {
+      background-color: #ffffff; }
+      .search-message-panle .search-input-message-wrap .inside-message-input .search-input-message {
+        color: black; }
+      .search-message-panle .search-input-message-wrap .inside-message-input .search-btn {
+        color: #d3d5d6; }
+  .search-message-panle .search-message-list {
+    background-color: #ffffff; }

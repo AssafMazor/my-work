@@ -1,0 +1,37 @@
+.message-wrap-container {
+  .message-panle {
+    .item-wrap {
+      .type {
+        color: #dcf8c6;
+
+        &.sender {
+          color: #ffffff;
+        }
+      }
+
+      .message-item-wrap {
+        .message-item {
+          background-color: #dcf8c6;
+
+          .text {
+            color: black;
+          }
+
+          .info-wrap {
+            .check {
+              color: #4fc3f7;
+            }
+
+            .time {
+              color: black;
+            }
+          }
+
+          &.sender {
+            background-color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}

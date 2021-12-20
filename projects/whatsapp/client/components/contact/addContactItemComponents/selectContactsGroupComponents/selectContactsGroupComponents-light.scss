@@ -1,0 +1,42 @@
+.select-contacts {
+  background-color: #ededed;
+
+  .header {
+    background-color: #00bfa5;
+    color: #e1e1e3;
+  }
+
+  .input-wrap {
+    box-sizing: border-box;
+    padding: 27px 34 0 34;
+    background-color: #ffffff;
+
+    .select-contact-input {
+      border-bottom: 1px solid #3b4247;
+      color: black;
+    }
+  }
+
+  .item {
+    &:hover {
+      background-color: #f5f5f5;
+    }
+
+    &.selected {
+      background-color: #f5f5f5;
+    }
+    .check-wrap {
+      .check {
+        color: #fff;
+      }
+    }
+  }
+
+  .accept-group-bg {
+    background-color: #00af9c;
+
+    .add-user-btn {
+      color: white;
+    }
+  }
+}

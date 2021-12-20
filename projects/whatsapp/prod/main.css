@@ -1,0 +1,34 @@
+@import url("./components/main/welcomeComponents/welcomeComponents.css");
+@import url("./components/main/mainComponets/mainComponets.css");
+@import url("./components/contact/contactListComponents/contactListComponents.css");
+@import url("./components/contact/contact-items-componets/contact-items-componets.css");
+@import url("./components/messages/messageComponets/messageComponets.css");
+@import url("./components/messages/message-item-componets/message-item-componets.css");
+@import url("./components/search/searchMessageItem/searchMessageItem.css");
+@import url("./components/search/searchMessage/searchMessage.css");
+@import url("./components/settings/chatBgColorComponents/chatBgColorComponents.css");
+@import url("./components/settings/block-contact/contactBlockItems/contactBlockItems.css");
+@import url("./components/settings/profileComponents/changeNewProfilePicComponent/changeNewProfilePicComponent.css");
+@import url("./components/settings/profileComponents/profileComponents.css");
+@import url("./components/contact/addContactItemComponents/addContactItemComponents.css");
+@import url("./components/settings/block-contact/contactBlockListComponents/contactBlockListComponents.css");
+@import url("./components/settings/block-contact/addContactBlock/addContactBlock-light.css");
+@import url("./components/contact/addContactItemComponents/selectContactsGroupComponents/selectContactsGroupComponents.css");
+@import url("./components/messages/groupInformationComponent/groupInformationComponent.css");
+@import url("./components/settings/chooseThemeComponent/chooseThemeComponent.css");
+@import url("./responsive.css");
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.hide {
+  display: none !important;
+}
+
+.emoji-picker__wrapper {
+  position: absolute;
+  display: block;
+  bottom: 81px;
+  right: 683px;
+}

@@ -1,0 +1,35 @@
+.right {
+  .inside-right {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #4adf83;
+
+    .white-phone-svg {
+      display: block !important;
+    }
+
+    .phone-svg {
+      display: none;
+    }
+
+    .info-wrap {
+      .title {
+        color: #525252;
+      }
+
+      .info {
+        color: #888989;
+        border-bottom: 1px solid #e5e5e6;
+      }
+
+      .information-row {
+        .information {
+          color: #888989;
+        }
+
+        .mini-computer {
+          color: #828689;
+        }
+      }
+    }
+  }
+}

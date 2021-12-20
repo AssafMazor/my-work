@@ -1,0 +1,34 @@
+.message-wrap .header {
+  background-color: #ededed; }
+  .message-wrap .header .inside-header .svgs-wrap .open-settings-menu {
+    color: #51585c; }
+  .message-wrap .header .inside-header .svgs-wrap .search-message-btn {
+    color: #51585c; }
+  .message-wrap .header .inside-header .text {
+    color: black; }
+
+.message-wrap .fillters-row {
+  background-color: #f0f0f0; }
+  .message-wrap .fillters-row .search-input {
+    background-color: #ffffff;
+    color: black; }
+  .message-wrap .fillters-row .add-file {
+    color: #51585c; }
+  .message-wrap .fillters-row .emoji-btn .emoji {
+    color: #51585c; }
+  .message-wrap .fillters-row .send-btn {
+    color: #51585c; }
+
+.message-wrap .exit-group-row {
+  background-color: #ffffff; }
+  .message-wrap .exit-group-row .text {
+    color: #a7a9ab; }
+
+.message-wrap .settings-modal {
+  background-color: #fff; }
+  .message-wrap .settings-modal .item {
+    background-color: #fff; }
+    .message-wrap .settings-modal .item:hover {
+      background-color: #f5f5f5; }
+    .message-wrap .settings-modal .item .text {
+      color: black; }

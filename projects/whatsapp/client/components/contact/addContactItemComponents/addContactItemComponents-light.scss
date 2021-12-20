@@ -1,0 +1,57 @@
+.add-contact-item {
+  background-color: #fff;
+
+  .header {
+    background-color: #00bfa5;
+    color: #e1e1e3;
+  }
+
+  .group-pic {
+    background-color: white;
+    .camera {
+      color: white;
+    }
+
+    .info {
+      color: #cbcdcf;
+    }
+
+    .background {
+      fill: #7f8080;
+    }
+
+    .primary {
+      fill: #858585;
+    }
+  }
+
+  .add-contact {
+    .change-name-row {
+      border-bottom: 3px solid #00bfa5;
+
+      .accept-group-bg {
+        background-color: #00af9c;
+
+        .add-user-btn {
+          color: white;
+        }
+      }
+
+      .emoji-btn {
+        color: #4a5152;
+      }
+
+      .remaining-length {
+        color: #4a5152;
+      }
+
+      .add-contact-input {
+        color: black;
+      }
+
+      .group-type {
+        color: #7b8783;
+      }
+    }
+  }
+}

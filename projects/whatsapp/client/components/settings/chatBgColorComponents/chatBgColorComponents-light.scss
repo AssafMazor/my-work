@@ -1,0 +1,46 @@
+.chat-Background {
+  background-color: #ededed;
+
+  .header {
+    background-color: #00bfa5;
+    color: #e1e1e3;
+  }
+
+  .add-Chat-Background {
+    .text {
+      color: #96a29d;
+    }
+
+    .square {
+      border: 1px solid #a4a7a9;
+
+      &.check-bg {
+        background-color: #00af9c;
+      }
+
+      .check-mark {
+        color: white;
+      }
+    }
+  }
+
+  .change-background-color {
+    .color {
+      &.green {
+        background-color: #12261f;
+      }
+
+      &.brown {
+        background-color: #212a5c;
+      }
+
+      &.normal {
+        background-color: #0d1418;
+      }
+
+      &:hover {
+        border: 4px solid #75787a;
+      }
+    }
+  }
+}

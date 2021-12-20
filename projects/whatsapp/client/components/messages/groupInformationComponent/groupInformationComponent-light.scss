@@ -1,0 +1,50 @@
+.contact-info {
+  border-right: 3px solid #e5e5e6;
+  background-color: #fff;
+
+  .header {
+    background-color: #ededed;
+
+    .text {
+      color: black;
+    }
+
+    .exit-btn {
+      color: #b2b5b6;
+    }
+  }
+
+  .pic-wrap {
+    background-color: #ffffff;
+  }
+
+  .group-name-wrap {
+    background-color: #fff;
+
+    .group-name {
+      color: black;
+    }
+
+    .group-contact-num {
+      color: #8c8c8c;
+    }
+  }
+
+  .group-contact-list {
+    background-color: #fff;
+
+    .item {
+      border-top: 1px solid#e5e5e6;
+    }
+  }
+
+  .delete-chat {
+    .name {
+      color: #f14a46;
+    }
+
+    .clear-chat-btn {
+      color: #f14a46;
+    }
+  }
+}

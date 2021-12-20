@@ -1,0 +1,91 @@
+.left {
+  border-left: 3px solid #e5e5e6;
+  .header {
+    background-color: #ededed;
+
+    .items-row {
+      .settings {
+        color: black;
+      }
+
+      .add-conatct {
+        color: black;
+      }
+
+      .status {
+        color: black;
+      }
+    }
+  }
+
+  .input {
+    background-color: #f6f6f6;
+
+    .inside-input {
+      background-color: #fff;
+
+      .search-input {
+        color: black;
+      }
+
+      .search-btn {
+        color: black;
+      }
+    }
+  }
+
+  .list {
+    background: #fff;
+  }
+
+  .settings-menu {
+    .header {
+      background-color: #00bfa5;
+      color: #e1e1e3;
+    }
+
+    .profile {
+      background-color: #fff;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      .info-wrap {
+        .name {
+          color: black;
+        }
+
+        .title {
+          color: #626262;
+        }
+      }
+    }
+
+    .item-list {
+      background-color: #fff;
+
+      .item {
+        background-color: #fff;
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+
+        .info {
+          color: black;
+        }
+
+        .pic {
+          color: #828689;
+        }
+      }
+
+      .item {
+        .blocked-contact {
+          color: black;
+        }
+      }
+    }
+  }
+}
