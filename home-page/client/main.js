@@ -1,5 +1,9 @@
-import {UI_Main} from './components/main/mainComponets/mainComponets.js';
-import {DataService} from './services/Data.Service.js';
+
+function onScrollDownBtnClick(){
+    $("html, body").animate({
+        scrollTop: $(".projects-page").offset().top - 200
+    }, "slow");
+}
 
 window.app = {};
 
