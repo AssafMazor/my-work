@@ -1,13 +1,21 @@
-
+$(document).ready(function () {
+    $(window.scroll).scroll(function () {
+        if(window.pageYOffset > 700){
+            $(".arrow-up-wrap").removeClass("hide")
+        }else {
+            $(".arrow-up-wrap").addClass("hide")
+        }
+    })
+})
 function onScrollDownBtnClick(){
     $("html, body").animate({
-        scrollTop: $(".projects-page").offset().top - 200
+        scrollTop: $(".projects-page").offset().top - 10
     }, "slow");
 }
 
-window.app = {};
+function onArrowUpClick(){
+    $("html, body").animate({
+        scrollTop: $(".welcome-page").offset().top - 0
+    }, "slow");
+}
 
-$(document).ready(function (){
-    app.dataService = new DataService();
-    new UI_Main();
-})

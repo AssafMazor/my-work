@@ -45,7 +45,6 @@ body {
       flex-direction: column;
 
       .description {
-        width: 983px;
         align-items: center;
         height: 100%;
         display: flex;
@@ -53,18 +52,21 @@ body {
 
         .Lighthouse {
           height: 408px;
+          padding-right: 29px;
         }
 
         .info-wrap {
-          padding-left: 14px;
+          padding-left: 15px;
+          margin-right: 25px;
           .info {
-            font-size: 77px;
+            font-size: 122px;
             color: #444444;
           }
           .title {
-            font-size: 35px;
+            font-size: 42px;
             color: #444444;
-            text-align: center;
+            direction: rtl;
+            padding-top: 7px;
           }
         }
       }
@@ -160,42 +162,71 @@ body {
     padding-top: 109px;
     display: flex;
     height: 588px;
+    padding-bottom: 200px;
 
     .inside {
       width: 892px;
       display: flex;
       flex-direction: column;
-      padding-right: 47px;
       justify-content: center;
       align-items: center;
-    }
 
-    .text-col {
-      width: 892px;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
+      .text-col {
+        width: 892px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
 
-      .title {
-        font-size: 3.125vw;
-        font-weight: 700;
-        line-height: 1.2;
-      }
+        .title {
+          font-size: 3.125vw;
+          font-weight: 700;
+          line-height: 1.2;
+          padding-bottom: 18px;
+        }
 
-      .info {
-        color: #444444;
-        font-size: 1.4vw;
-        width: 504px;
-        text-align: end;
+        .info {
+          color: #444444;
+          font-size: 1.4vw;
+          width: 504px;
+          text-align: end;
 
-        .git-htb-link {
-          text-decoration: none;
-          color: #00af9c;
+          .git-htb-link {
+            text-decoration: none;
+            color: #00af9c;
+          }
+        }
+
+        .logo {
+          border-radius: 50%;
+          width: 245px;
+          margin: 38px 0;
         }
       }
     }
-    .logo {
-      border-radius: 50%;
+  }
+
+  .hide {
+    display: none !important;
+  }
+
+  .arrow-up-wrap {
+    position: fixed;
+    bottom: 2.6vw;
+    right: 30px;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+    background-color: #f5d488;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.35) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    .arrow-up {
+      width: 63%;
+      height: 61%;
     }
   }
 }

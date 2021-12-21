@@ -34,22 +34,24 @@ body {
       align-items: center;
       flex-direction: column; }
       body .welcome-page .container .description {
-        width: 983px;
         align-items: center;
         height: 100%;
         display: flex;
         justify-content: center; }
         body .welcome-page .container .description .Lighthouse {
-          height: 408px; }
+          height: 408px;
+          padding-right: 29px; }
         body .welcome-page .container .description .info-wrap {
-          padding-left: 14px; }
+          padding-left: 15px;
+          margin-right: 25px; }
           body .welcome-page .container .description .info-wrap .info {
-            font-size: 77px;
+            font-size: 122px;
             color: #444444; }
           body .welcome-page .container .description .info-wrap .title {
-            font-size: 35px;
+            font-size: 42px;
             color: #444444;
-            direction: rtl; }
+            direction: rtl;
+            padding-top: 7px; }
       body .welcome-page .container .bottom-arrow-wrap {
         animation: bounce infinite 1.2s ease-in-out;
         cursor: pointer; }
@@ -110,33 +112,55 @@ body {
     justify-content: center;
     padding-top: 109px;
     display: flex;
-    height: 588px; }
+    height: 588px;
+    padding-bottom: 200px; }
     body .about-me .inside {
       width: 892px;
       display: flex;
       flex-direction: column;
-      padding-right: 47px;
       justify-content: center;
       align-items: center; }
-    body .about-me .text-col {
-      width: 892px;
-      display: flex;
-      align-items: center;
-      flex-direction: column; }
-      body .about-me .text-col .title {
-        font-size: 3.125vw;
-        font-weight: 700;
-        line-height: 1.2; }
-      body .about-me .text-col .info {
-        color: #444444;
-        font-size: 1.4vw;
-        width: 504px;
-        text-align: end; }
-        body .about-me .text-col .info .git-htb-link {
-          text-decoration: none;
-          color: #00af9c; }
-    body .about-me .logo {
-      border-radius: 50%; }
+      body .about-me .inside .text-col {
+        width: 892px;
+        display: flex;
+        align-items: center;
+        flex-direction: column; }
+        body .about-me .inside .text-col .title {
+          font-size: 3.125vw;
+          font-weight: 700;
+          line-height: 1.2;
+          padding-bottom: 18px; }
+        body .about-me .inside .text-col .info {
+          color: #444444;
+          font-size: 1.4vw;
+          width: 504px;
+          text-align: end; }
+          body .about-me .inside .text-col .info .git-htb-link {
+            text-decoration: none;
+            color: #00af9c; }
+        body .about-me .inside .text-col .logo {
+          border-radius: 50%;
+          width: 245px;
+          margin: 38px 0; }
+  body .hide {
+    display: none !important; }
+  body .arrow-up-wrap {
+    position: fixed;
+    bottom: 2.6vw;
+    right: 30px;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 50%;
+    background-color: #f5d488;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.35) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; }
+    body .arrow-up-wrap .arrow-up {
+      width: 63%;
+      height: 61%; }
 
 @keyframes bounce {
   from {

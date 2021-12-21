@@ -3,13 +3,23 @@
     .container {
       height: 800px !important;
       .description {
-        flex-direction: column;
+        flex-direction: column-reverse;
         .lighthouse {
           padding-left: 51px;
+          height: 326px !important;
+        }
+        .info-wrap {
+          .info {
+            font-size: 105px !important;
+          }
+          .title {
+            text-align: center;
+          }
         }
       }
     }
   }
+
   .projects-page {
     padding-top: 47px;
 
@@ -31,6 +41,7 @@
       }
     }
   }
+
   .about-me {
     .text-col {
       .title {
@@ -42,9 +53,11 @@
         padding-top: 14px;
         width: 387px !important;
       }
-      .logo {
-        width: 300px;
-      }
     }
+  }
+
+  .arrow-up-wrap {
+    width: 8vw !important;
+    height: 8vw !important;
   }
 }
