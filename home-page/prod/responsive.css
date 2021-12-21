@@ -1,32 +1,35 @@
-@media only screen and (max-width: 600px) {
-  .welcome-page .container {
-    height: 800px !important; }
-    .welcome-page .container .description {
-      flex-direction: column-reverse; }
-      .welcome-page .container .description .lighthouse {
+@media only screen and (max-width: 400px) {
+  body .welcome-page .container {
+    height: 744px !important; }
+    body .welcome-page .container .description {
+      flex-direction: column-reverse;
+      height: auto !important; }
+      body .welcome-page .container .description .lighthouse {
         padding-left: 51px;
-        height: 326px !important; }
-      .welcome-page .container .description .info-wrap .info {
-        font-size: 105px !important; }
-      .welcome-page .container .description .info-wrap .title {
+        height: 287px !important; }
+      body .welcome-page .container .description .info-wrap .info {
+        font-size: 71px !important; }
+      body .welcome-page .container .description .info-wrap .title {
         text-align: center; }
-  .projects-page {
-    padding-top: 47px; }
-    .projects-page .header .text {
-      font-size: 6.125vw !important; }
-    .projects-page .container .project-wrap {
-      width: 435px !important;
+    body .welcome-page .container .bottom-arrow-wrap {
+      padding-top: 15px; }
+  body .projects-page {
+    padding-top: 91px; }
+    body .projects-page .header .text {
+      font-size: 9.125vw !important; }
+    body .projects-page .container .project-wrap {
+      width: 330px !important;
       height: 351px !important; }
-      .projects-page .container .project-wrap .project-link {
-        width: 258px !important;
-        height: 220px !important; }
-  .about-me .text-col .title {
-    font-size: 6.125vw !important;
+      body .projects-page .container .project-wrap .project-link {
+        width: 231px !important;
+        height: 193px !important; }
+  body .about-me .text-col .title {
+    font-size: 11.125vw !important;
     padding-bottom: 5px; }
-  .about-me .text-col .info {
-    font-size: 3.4vw !important;
+  body .about-me .text-col .info {
     padding-top: 14px;
-    width: 387px !important; }
-  .arrow-up-wrap {
-    width: 8vw !important;
-    height: 8vw !important; } }
+    width: 355px !important;
+    font-size: 19px !important; }
+  body .arrow-up-wrap {
+    width: 13vw !important;
+    height: 13vw !important; } }

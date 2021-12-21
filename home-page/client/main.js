@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $(window.scroll).scroll(function () {
-        if(window.pageYOffset > 700){
+        if(window.pageYOffset > 600){
             $(".arrow-up-wrap").removeClass("hide")
         }else {
             $(".arrow-up-wrap").addClass("hide")
@@ -9,7 +9,7 @@ $(document).ready(function () {
 })
 function onScrollDownBtnClick(){
     $("html, body").animate({
-        scrollTop: $(".projects-page").offset().top - 10
+        scrollTop: $(".projects-page").offset().top
     }, "slow");
 }
 
