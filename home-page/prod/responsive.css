@@ -1,0 +1,26 @@
+@media only screen and (max-width: 600px) {
+  .welcome-page .container {
+    height: 800px !important; }
+    .welcome-page .container .description {
+      flex-direction: column; }
+      .welcome-page .container .description .lighthouse {
+        padding-left: 51px; }
+  .projects-page {
+    padding-top: 47px; }
+    .projects-page .header .text {
+      font-size: 6.125vw !important; }
+    .projects-page .container .project-wrap {
+      width: 435px !important;
+      height: 351px !important; }
+      .projects-page .container .project-wrap .project-link {
+        width: 258px !important;
+        height: 220px !important; }
+  .about-me .text-col .title {
+    font-size: 6.125vw !important;
+    padding-bottom: 5px; }
+  .about-me .text-col .info {
+    font-size: 3.4vw !important;
+    padding-top: 14px;
+    width: 387px !important; }
+  .about-me .text-col .logo {
+    width: 300px; } }

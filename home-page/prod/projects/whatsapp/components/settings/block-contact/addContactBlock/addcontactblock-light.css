@@ -1,0 +1,18 @@
+.add-contact-block-dialog {
+  background-color: #fff; }
+  .add-contact-block-dialog .header {
+    background-color: #009688;
+    color: #ffffff; }
+    .add-contact-block-dialog .header .close-btn {
+      color: #b2dfdb; }
+  .add-contact-block-dialog .list {
+    background-color: #fff; }
+    .add-contact-block-dialog .list .item {
+      background-color: #fff;
+      border-bottom: 1px solid #30383c; }
+      .add-contact-block-dialog .list .item:hover {
+        background-color: #f5f5f5; }
+      .add-contact-block-dialog .list .item .info-wrap .name {
+        color: black; }
+      .add-contact-block-dialog .list .item .info-wrap .title {
+        color: #626262; }

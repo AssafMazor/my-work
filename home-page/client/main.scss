@@ -64,6 +64,7 @@ body {
           .title {
             font-size: 35px;
             color: #444444;
+            text-align: center;
           }
         }
       }
@@ -87,8 +88,6 @@ body {
     padding-top: 48px;
 
     .inside {
-      max-width: 64vw;
-
       .header {
         display: flex;
         width: 100%;
@@ -160,16 +159,21 @@ body {
     justify-content: center;
     padding-top: 109px;
     display: flex;
+    height: 588px;
 
     .inside {
+      width: 892px;
       display: flex;
+      flex-direction: column;
+      padding-right: 47px;
       justify-content: center;
+      align-items: center;
     }
 
     .text-col {
       width: 892px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       flex-direction: column;
 
       .title {
@@ -183,7 +187,15 @@ body {
         font-size: 1.4vw;
         width: 504px;
         text-align: end;
+
+        .git-htb-link {
+          text-decoration: none;
+          color: #00af9c;
+        }
       }
+    }
+    .logo {
+      border-radius: 50%;
     }
   }
 }

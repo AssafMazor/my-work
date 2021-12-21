@@ -1,0 +1,173 @@
+@import url("./components/header/header.css");
+@import url("./components/list/list.css");
+@import url("./components/menu/menu.css");
+@import url("./components/composeDialog/composeDialog.css");
+@import url("./components/viewMailDialog/viewMailDialog.css");
+@import url("./responsive.css");
+@import url("./components/list-item/list-item.css");
+
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  overflow-y: hidden;
+}
+
+.wrapper {
+  height: 100%;
+  background-color: #55688a;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  height: calc(100% - 80px);
+}
+
+.item {
+  width: 20px;
+  fill: #f1f3f5;
+  height: 20px;
+}
+
+.list {
+  background-color: #ebeced;
+  flex: 1;
+}
+
+.container-header {
+  padding-left: 18px;
+  display: flex;
+  background-color: #55688a;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+
+.primary-type {
+  display: flex;
+  height: 47px;
+}
+
+.social-Type {
+  display: flex;
+  height: 47px;
+  padding-left: 10px;
+}
+
+.primary-wrap {
+  display: flex;
+  height: 100%;
+  width: 225px;
+  margin-left: 9px;
+  align-items: flex-end;
+}
+
+.primary-icon {
+  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/inbox_gm_googlered600_20dp.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  width: 20px;
+  height: 20px;
+  padding-left: 5px;
+  padding-bottom: 9px;
+}
+
+.social-icon {
+  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/people_black_20dp.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  width: 20px;
+  height: 20px;
+  padding-left: 5px;
+  padding-bottom: 9px;
+  filter: opacity(0.5) drop-shadow(0 0 0 #5f6368);
+}
+
+.promotions-icon {
+  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/local_offer_black_20dp.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  width: 20px;
+  height: 20px;
+  padding-left: 5px;
+  padding-bottom: 9px;
+  filter: opacity(0.5) drop-shadow(0 0 0 #5f6368);
+}
+
+.promotions-type {
+  padding-left: 7px;
+  color: #5f6368;
+  height: 47px;
+}
+
+.email-type {
+  color: red;
+  padding-left: 7px;
+  padding-bottom: 6px;
+}
+
+.mail-list {
+  background-color: rgba(255, 255, 255, 0.902);
+  box-shadow: inset 0 -1px 0 0 rgb(100 121 143 / 12%);
+  width: 100%;
+  display: flex;
+  height: 57px;
+}
+
+.email-type-social {
+  padding-top: 26px;
+  padding-left: 7px;
+  color: #5f6368;
+}
+
+.promotions-kinds {
+  padding-top: 26px;
+  padding-left: 7px;
+  color: #5f6368;
+}
+
+.promotions-wrap {
+  display: flex;
+  height: 100%;
+  width: 225px;
+  margin-left: 9px;
+  align-items: flex-end;
+}
+
+.social-wrap {
+  display: flex;
+  height: 100%;
+  width: 225px;
+  margin-left: 9px;
+  align-items: flex-end;
+}
+
+.email-type-social {
+  padding-left: 7px;
+  padding-bottom: 6px;
+}
+
+.arrow {
+  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/label_important_outline_black_20dp.png);
+  width: 20px;
+  height: 20px;
+  filter: opacity(0.5) drop-shadow(0 0 0 #5f6368);
+  background-repeat: no-repeat;
+  margin-left: 5px;
+}
+
+.show {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.exit-wrap {
+  cursor: pointer;
+}

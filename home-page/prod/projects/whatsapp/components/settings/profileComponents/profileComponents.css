@@ -1,0 +1,122 @@
+.profile-menu {
+  overflow: hidden;
+  transition: flex 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+  background-color: #131c21; }
+  .profile-menu.show {
+    left: 0; }
+  .profile-menu .header {
+    background-color: #323739;
+    display: flex;
+    justify-content: flex-end;
+    height: 108px;
+    color: #e1e1e3;
+    align-items: flex-end;
+    box-sizing: border-box;
+    padding: 27px;
+    padding-bottom: 7px; }
+    .profile-menu .header .text {
+      font-size: 21px;
+      padding-right: 12px; }
+    .profile-menu .header .exit-btn {
+      transform: rotate(180deg);
+      cursor: pointer; }
+  .profile-menu .change-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .profile-menu .change-profile .change-profile-logo {
+      padding-top: 15px;
+      fill: #33393e;
+      border-radius: 50%;
+      transform: translateZ(0);
+      display: flex;
+      justify-content: center; }
+    .profile-menu .change-profile .change-profile-logo-img {
+      padding-top: 15px;
+      fill: #33393e;
+      border-radius: 50%;
+      transform: translateZ(0);
+      display: flex;
+      justify-content: center; }
+      .profile-menu .change-profile .change-profile-logo-img:hover {
+        opacity: 0.4; }
+    .profile-menu .change-profile .camera {
+      position: absolute;
+      top: 200px;
+      color: white; }
+    .profile-menu .change-profile .info {
+      position: absolute;
+      color: #cbcdcf;
+      top: 250px;
+      text-align: center;
+      width: 118px; }
+    .profile-menu .change-profile .input-file {
+      display: flex;
+      width: 0; }
+  .profile-menu .change-name {
+    padding: 14px 30px 10px;
+    border-bottom: 3px solid #11191e;
+    padding-top: 50px; }
+    .profile-menu .change-name .title {
+      width: 100%;
+      justify-content: flex-end;
+      display: flex;
+      color: #0a9688; }
+    .profile-menu .change-name .change-name-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding-top: 10px; }
+      .profile-menu .change-name .change-name-row .change {
+        transform: rotate(270deg);
+        color: #828689; }
+      .profile-menu .change-name .change-name-row .name {
+        color: #d4d5d7;
+        background: none;
+        border: none;
+        font-size: 15px;
+        width: 100%;
+        cursor: pointer; }
+      .profile-menu .change-name .change-name-row .check {
+        color: white;
+        cursor: pointer; }
+  .profile-menu .informaition {
+    color: #9a9a9a;
+    line-height: 20px;
+    font-size: 14px;
+    margin: 4px 30px 28px 20px;
+    text-align: end;
+    padding-top: 15px; }
+  .profile-menu .change-title {
+    padding: 14px 30px 10px;
+    border-bottom: 3px solid #11191e;
+    padding-top: 50px; }
+    .profile-menu .change-title .title {
+      width: 100%;
+      justify-content: flex-end;
+      display: flex;
+      color: #0a9688; }
+    .profile-menu .change-title .change-title-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding-top: 10px; }
+      .profile-menu .change-title .change-title-row .change {
+        transform: rotate(270deg);
+        color: #828689; }
+      .profile-menu .change-title .change-title-row .title {
+        color: #d4d5d7;
+        background: none;
+        border: none;
+        font-size: 15px;
+        cursor: pointer; }
+      .profile-menu .change-title .change-title-row .check {
+        color: white;
+        cursor: pointer; }

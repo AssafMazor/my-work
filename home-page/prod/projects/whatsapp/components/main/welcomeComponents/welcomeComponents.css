@@ -1,0 +1,39 @@
+.right {
+  display: flex;
+  width: 70%;
+  height: 100%; }
+  .right .inside-right {
+    background-color: #262d31;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+    .right .inside-right .phone-svg {
+      border-radius: 50%; }
+    .right .inside-right .info-wrap {
+      max-width: 560px; }
+      .right .inside-right .info-wrap .title {
+        font-size: 36px;
+        font-weight: 300;
+        color: #d9d9d0;
+        margin-top: 38px;
+        text-align: center; }
+      .right .inside-right .info-wrap .info {
+        margin-top: 24px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #a6a8ab;
+        text-align: center;
+        border-bottom: 1px solid #3c4247;
+        height: 69px; }
+      .right .inside-right .info-wrap .information-row {
+        display: flex;
+        padding-top: 28px; }
+        .right .inside-right .info-wrap .information-row .information {
+          text-align: center;
+          color: #a6a8ab; }
+        .right .inside-right .info-wrap .information-row .mini-computer {
+          color: #828689;
+          padding-left: 10px; }

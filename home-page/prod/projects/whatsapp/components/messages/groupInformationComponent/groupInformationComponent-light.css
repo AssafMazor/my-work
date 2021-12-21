@@ -1,0 +1,25 @@
+.contact-info {
+  border-right: 3px solid #e5e5e6;
+  background-color: #fff; }
+  .contact-info .header {
+    background-color: #ededed; }
+    .contact-info .header .text {
+      color: black; }
+    .contact-info .header .exit-btn {
+      color: #b2b5b6; }
+  .contact-info .pic-wrap {
+    background-color: #ffffff; }
+  .contact-info .group-name-wrap {
+    background-color: #fff; }
+    .contact-info .group-name-wrap .group-name {
+      color: black; }
+    .contact-info .group-name-wrap .group-contact-num {
+      color: #8c8c8c; }
+  .contact-info .group-contact-list {
+    background-color: #fff; }
+    .contact-info .group-contact-list .item {
+      border-top: 1px solid #e5e5e6; }
+  .contact-info .delete-chat .name {
+    color: #f14a46; }
+  .contact-info .delete-chat .clear-chat-btn {
+    color: #f14a46; }

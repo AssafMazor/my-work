@@ -29,11 +29,15 @@ function copyAssets(cb) {
 }
 
 function copyProjectsAssets(cb) {
+
+
     projectArr.forEach(projectName => {
         gulp.src([`../../projects/${projectName}/prod/**/**.**`]).pipe(gulp.dest(`../prod/projects/${projectName}`)).on('end', () => {
+            gulp.src([`../prod/**/**.**`]).pipe(gulp.dest(`../../../mysite/assafmazor.github.io`))
             cb();
         })
     });
+
 
 }
 
