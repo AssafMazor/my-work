@@ -85,7 +85,6 @@ body {
     display: flex;
     justify-content: center;
     padding-top: 48px;
-    height: 627px;
 
     .inside {
       max-width: 64vw;
@@ -152,6 +151,38 @@ body {
             }
           }
         }
+      }
+    }
+  }
+
+  .about-me {
+    width: 100%;
+    justify-content: center;
+    padding-top: 109px;
+    display: flex;
+
+    .inside {
+      display: flex;
+      justify-content: center;
+    }
+
+    .text-col {
+      width: 892px;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+
+      .title {
+        font-size: 3.125vw;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .info {
+        color: #444444;
+        font-size: 1.4vw;
+        width: 504px;
+        text-align: end;
       }
     }
   }

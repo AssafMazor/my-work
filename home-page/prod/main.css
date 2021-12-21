@@ -59,8 +59,7 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 48px;
-    height: 627px; }
+    padding-top: 48px; }
     body .projects-page .inside {
       max-width: 64vw; }
       body .projects-page .inside .header {
@@ -107,6 +106,28 @@ body {
                 height: 236px;
                 border-radius: 23px;
                 width: 291px; }
+  body .about-me {
+    width: 100%;
+    justify-content: center;
+    padding-top: 109px;
+    display: flex; }
+    body .about-me .inside {
+      display: flex;
+      justify-content: center; }
+    body .about-me .text-col {
+      width: 892px;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column; }
+      body .about-me .text-col .title {
+        font-size: 3.125vw;
+        font-weight: 700;
+        line-height: 1.2; }
+      body .about-me .text-col .info {
+        color: #444444;
+        font-size: 1.4vw;
+        width: 504px;
+        text-align: end; }
 
 @keyframes bounce {
   from {
