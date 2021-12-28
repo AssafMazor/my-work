@@ -1,0 +1,16 @@
+.change-new-profile-pic-wrap .change-new-profile-pic .header {
+  background-color: #00bfa5;
+  color: #e1e1e3; }
+
+.change-new-profile-pic-wrap .change-new-profile-pic .close-btn {
+  color: #b2ece4; }
+
+.change-new-profile-pic-wrap .pic-wrap {
+  background: #262d31; }
+
+.change-new-profile-pic-wrap .bottom {
+  background-color: #e6e6e6 !important; }
+  .change-new-profile-pic-wrap .bottom .mark-wrap {
+    background-color: #00af9c; }
+    .change-new-profile-pic-wrap .bottom .mark-wrap .mark-btn {
+      color: #f1f1f2; }

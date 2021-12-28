@@ -1,0 +1,69 @@
+.create-new-label-dialog {
+  padding: 24px 24px;
+  box-sizing: border-box;
+  height: 199px;
+  background-color: #fff;
+  border-radius: 9px;
+  box-shadow: 0px 2px 2px 0px #00000024, 0px 3px 1px -2px #0000001f, 0px 1px 5px 0px #00000033;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 504px;
+  z-index: 7;
+  top: 364px;
+  transition: all 0.3s ease-in-out;
+  left: -200%; }
+  .create-new-label-dialog.show {
+    left: 708px; }
+  .create-new-label-dialog .header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 16px; }
+    .create-new-label-dialog .header .text {
+      font-size: 1.375rem;
+      color: #212121;
+      display: flex;
+      justify-content: flex-start;
+      flex: 1; }
+    .create-new-label-dialog .header .close-btn-wrap {
+      border-radius: 50%;
+      width: 38px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b2b2b3; }
+      .create-new-label-dialog .header .close-btn-wrap:hover {
+        background: #f2f2f2;
+        color: #2b2b2b;
+        outline: 1px solid #646464; }
+      .create-new-label-dialog .header .close-btn-wrap .close-btn {
+        width: 20px;
+        cursor: pointer; }
+  .create-new-label-dialog .title {
+    color: #5f6368;
+    font-size: 0.875rem; }
+  .create-new-label-dialog .new-lable-input {
+    width: 415px;
+    margin-top: 5px; }
+  .create-new-label-dialog .bottom {
+    height: 57px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; }
+    .create-new-label-dialog .bottom .create-btn {
+      background-color: #1a73e8;
+      font-size: 0.875rem;
+      height: 36;
+      width: 80px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      border-radius: 7px; }
+      .create-new-label-dialog .bottom .create-btn:hover {
+        box-shadow: 0 1px 2px 0 #1a73e873, 0 1px 3px 1px #1a73e84d;
+        background-color: #297be6; }

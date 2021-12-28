@@ -1,0 +1,87 @@
+.label-dialog {
+  background-color: white;
+  width: 188px;
+  position: absolute;
+  top: 108px;
+  left: 387px;
+  height: 175px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+  padding: 8px 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px; }
+  .label-dialog .header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; }
+    .label-dialog .header .text {
+      color: #b2b2b3;
+      font-size: 14px;
+      display: flex;
+      justify-content: flex-start;
+      flex: 1; }
+    .label-dialog .header .close-btn {
+      width: 20px;
+      color: #b2b2b3;
+      cursor: pointer; }
+  .label-dialog .lables-list {
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+    max-height: 240px;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: scroll; }
+    .label-dialog .lables-list .item {
+      width: 100%;
+      height: 32px;
+      display: flex;
+      align-items: center; }
+      .label-dialog .lables-list .item:hover {
+        background-color: #eeeeee; }
+      .label-dialog .lables-list .item .label-name {
+        padding-left: 4px;
+        cursor: pointer;
+        font-size: 12px; }
+  .label-dialog .item {
+    background-color: #fff; }
+    .label-dialog .item.checked .square {
+      background-color: #484f59; }
+    .label-dialog .item.checked svg {
+      display: block !important; }
+  .label-dialog .create-new-lable {
+    border-top: 1px solid #ebebeb;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 188px;
+    padding-left: 8px;
+    box-sizing: border-box; }
+    .label-dialog .create-new-lable:hover {
+      background-color: #eeeeee; }
+    .label-dialog .create-new-lable .text {
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      cursor: pointer; }
+    .label-dialog .create-new-lable .apply-wrap {
+      width: 27px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #00af9c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 20;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out; }
+      .label-dialog .create-new-lable .apply-wrap .apply-btn {
+        color: #f1f1f2;
+        width: 20px; }

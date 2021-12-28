@@ -1,0 +1,55 @@
+.mobile-dialog {
+  z-index: 13;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .mobile-dialog .inside {
+    width: 533px;
+    height: 99%;
+    flex-direction: column;
+    display: flex; }
+    .mobile-dialog .inside .sender-input {
+      width: 100%;
+      height: 6%;
+      border-bottom: 1px solid #b7b7b7;
+      display: flex;
+      justify-content: flex-end; }
+      .mobile-dialog .inside .sender-input .sender {
+        flex: 1;
+        border: none; }
+      .mobile-dialog .inside .sender-input .feather-chevron-down {
+        align-items: center;
+        height: 100%;
+        display: flex; }
+    .mobile-dialog .inside .send-input {
+      width: 100%;
+      height: 6%;
+      border-bottom: 1px solid #b7b7b7;
+      display: flex;
+      justify-content: flex-end; }
+      .mobile-dialog .inside .send-input .send {
+        flex: 1;
+        border: none; }
+      .mobile-dialog .inside .send-input .feather-chevron-down {
+        align-items: center;
+        height: 100%;
+        display: flex; }
+    .mobile-dialog .inside .type-input {
+      width: 100%;
+      height: 6%;
+      border-bottom: 1px solid #b7b7b7;
+      display: flex;
+      justify-content: flex-end; }
+      .mobile-dialog .inside .type-input .input-type {
+        flex: 1;
+        border: none; }
+    .mobile-dialog .inside .textarea-wrap {
+      flex: 1;
+      display: flex; }
+      .mobile-dialog .inside .textarea-wrap .description {
+        width: 100%;
+        height: 100%;
+        border: none; }

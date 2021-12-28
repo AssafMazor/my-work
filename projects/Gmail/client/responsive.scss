@@ -1,19 +1,27 @@
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1000px) {
   .menu-list {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -100%;
     z-index: 5;
     height: 100%;
-    display: none;
+    width: 206px !important;
+    right: -100%;
+
+    &.show {
+      right: 0;
+    }
+
     .inside-menu {
       width: 0;
       height: 0;
       top: 78px;
       right: 0;
-      transition: width 0.3s ease-in-out;
+      right: -100%;
+
       &.show {
-        width: 234px;
+        width: 100%;
+        right: 0;
         height: 100%;
         background: #55688a;
       }
@@ -21,7 +29,7 @@
   }
 
   .compose-wrap {
-    top: 800px !important;
+    bottom: 14px !important;
     left: 7px !important;
   }
 
@@ -53,6 +61,10 @@
 
   .container-header {
     display: none !important;
+  }
+
+  .compose-dialog-wrap {
+    height: 100% !important;
   }
 
   .mail-list {
@@ -90,7 +102,7 @@
       flex-direction: column;
       box-sizing: border-box;
       padding-left: 32px;
-      align-items: flex-start;
+      align-items: flex-start !important;
       height: auto;
 
       .name-wrap {
@@ -183,5 +195,29 @@
     width: 100%;
     height: 100%;
     right: 0;
+
+    .info-wrap {
+      height: 68% !important;
+
+      .options-row {
+        .send-wrap {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+
+  .options-row {
+    align-items: center;
+  }
+
+  .mail-labels-wrap {
+    margin: 0 6px 2px 0;
+  }
+
+  .header-wrap {
+    .inside {
+      max-width: none;
+    }
   }
 }

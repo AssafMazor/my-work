@@ -1,0 +1,57 @@
+.change-new-profile-pic-wrap {
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  right: 31%;
+  top: 24%;
+  z-index: 3; }
+  .change-new-profile-pic-wrap .change-new-profile-pic {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    flex: 1;
+    position: relative; }
+    .change-new-profile-pic-wrap .change-new-profile-pic .header {
+      background-color: #323739;
+      display: flex;
+      justify-content: flex-end;
+      height: 49px;
+      color: #e1e1e3;
+      align-items: center;
+      box-sizing: border-box;
+      padding-right: 25px; }
+      .change-new-profile-pic-wrap .change-new-profile-pic .header .text {
+        font-size: 21px;
+        padding-right: 12px;
+        align-items: center;
+        display: flex;
+        height: 45px; }
+      .change-new-profile-pic-wrap .change-new-profile-pic .header .close-btn {
+        cursor: pointer;
+        color: gray; }
+    .change-new-profile-pic-wrap .change-new-profile-pic .pic-wrap {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      flex: 1;
+      background: #262d31; }
+      .change-new-profile-pic-wrap .change-new-profile-pic .pic-wrap .cr-image {
+        width: 3000px;
+        height: 1500px; }
+    .change-new-profile-pic-wrap .change-new-profile-pic .bottom {
+      width: 100%;
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #1e2528; }
+      .change-new-profile-pic-wrap .change-new-profile-pic .bottom .mark-wrap {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #00af9c;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        .change-new-profile-pic-wrap .change-new-profile-pic .bottom .mark-wrap .mark-btn {
+          color: #f1f1f2; }

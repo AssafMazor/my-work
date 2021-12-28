@@ -1,0 +1,7 @@
+.item .close-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 24px; }
+  .item .close-wrap .close-btn {
+    color: #626669; }

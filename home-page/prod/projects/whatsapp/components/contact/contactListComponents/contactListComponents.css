@@ -1,0 +1,145 @@
+.left {
+  width: 30%;
+  border-left: 1px solid #3f4448;
+  position: relative;
+  overflow: hidden; }
+  .left .header {
+    padding: 10px 16px;
+    background-color: #2a2f32;
+    display: flex;
+    align-items: center; }
+    .left .header .items-row {
+      flex: 1;
+      display: flex;
+      height: 100%;
+      align-items: center; }
+      .left .header .items-row .settings {
+        color: #b1b3b5;
+        padding-right: 8px;
+        cursor: pointer; }
+      .left .header .items-row .add-conatct {
+        color: #b1b3b5;
+        padding-right: 12px; }
+      .left .header .items-row .status {
+        color: #b1b3b5;
+        padding-right: 33px; }
+    .left .header .logo {
+      width: 40px;
+      height: 40px;
+      cursor: pointer; }
+  .left .input {
+    width: 100%;
+    height: 49px;
+    background-color: #131c21;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .left .input .inside-input {
+      background-color: #323739;
+      width: 392px;
+      border-radius: 18px;
+      height: 35px;
+      display: flex;
+      align-items: center; }
+      .left .input .inside-input .search-input {
+        width: 363px;
+        height: 100%;
+        background: none;
+        border: none;
+        border-radius: 10px;
+        direction: rtl;
+        color: white; }
+      .left .input .inside-input .search-btn {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        color: gray;
+        justify-content: center;
+        padding-right: 6px;
+        cursor: pointer; }
+  .left .list {
+    height: 100%; }
+  .left .settings-menu {
+    overflow: hidden;
+    transition: flex 0.3s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    bottom: 0;
+    width: 100%;
+    transition: all 0.3s ease-in-out; }
+    .left .settings-menu.show {
+      left: 0; }
+    .left .settings-menu .header {
+      background-color: #323739;
+      display: flex;
+      justify-content: flex-end;
+      height: 108px;
+      color: #e1e1e3;
+      align-items: flex-end;
+      box-sizing: border-box;
+      padding: 27px;
+      padding-bottom: 7px; }
+      .left .settings-menu .header .text {
+        font-size: 21px;
+        padding-right: 12px; }
+      .left .settings-menu .header .exit-btn {
+        transform: rotate(180deg);
+        cursor: pointer; }
+    .left .settings-menu .profile {
+      display: flex;
+      height: 113px;
+      align-items: center;
+      background-color: #131c21;
+      cursor: pointer; }
+      .left .settings-menu .profile:hover {
+        background-color: #2d3134; }
+      .left .settings-menu .profile .info-wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        padding-right: 16px; }
+        .left .settings-menu .profile .info-wrap .name {
+          color: #d6e2e3;
+          font-size: 18px; }
+        .left .settings-menu .profile .info-wrap .title {
+          color: #a2a5a7; }
+      .left .settings-menu .profile .logo {
+        width: 80px;
+        height: 80px; }
+    .left .settings-menu .item-list {
+      height: 100%;
+      background-color: #131c21;
+      width: 100%; }
+      .left .settings-menu .item-list .item {
+        position: relative;
+        display: flex;
+        flex: none;
+        align-items: center;
+        height: 60px;
+        background-color: #131c21;
+        cursor: pointer; }
+        .left .settings-menu .item-list .item:hover {
+          background-color: #2d3134; }
+        .left .settings-menu .item-list .item .info {
+          color: #d6e2e3;
+          flex: 1;
+          display: flex;
+          justify-content: flex-end;
+          height: 100%;
+          align-items: center; }
+        .left .settings-menu .item-list .item .pic {
+          color: #828689;
+          width: 74px;
+          display: flex;
+          justify-content: center; }
+      .left .settings-menu .item-list .item .blocked-contact {
+        color: #d6e2e3;
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        height: 100%;
+        align-items: center;
+        border-top: 1px solid #3f4448; }

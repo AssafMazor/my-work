@@ -1,9 +1,9 @@
 import './style.scss';
-import { add } from "./utils";
+import { add } from "./services/utils";
 
 function init() {
   const form = document.querySelector("form");
-  var compiled = require('./hello.html');
+  var compiled = require('./components/hello.html');
   const t =  compiled({name: "world"});
   const bibi = document.querySelector(".tmp") as HTMLInputElement;
   bibi.innerHTML = t;
