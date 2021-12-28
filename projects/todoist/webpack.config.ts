@@ -3,6 +3,7 @@ import { Configuration } from "webpack";
 
 const config: Configuration = {
   entry: "./src/index.ts",
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -14,6 +15,13 @@ const config: Configuration = {
             presets: ["@babel/preset-env", "@babel/preset-typescript"],
           },
         },
+      },
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader'
+        }
       },
       {
         test: /\.s[ac]ss$/i,
