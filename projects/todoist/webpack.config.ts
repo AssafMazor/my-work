@@ -35,13 +35,13 @@ const config: Configuration = {
         ],
       },
       { 
-          test: /\.html$/, 
-          loader: "underscore-template-loader" 
-        }
+        test: /\.hbs$/,
+        loader: "handlebars-loader"
+      }
     ]
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".js"]
   },
   output: {
     path: path.resolve(__dirname, "dist"),

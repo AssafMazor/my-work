@@ -1,0 +1,92 @@
+.project-dialog {
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px 0 rgb(0 0 0 / 16%);
+  background-color: #fff;
+  position: absolute;
+  top: 31%;
+  height: 251px;
+  width: 300px;
+  padding: 0 24px;
+  z-index: 4;
+  left: -100%;
+  transition: all 0.3s ease-in-out;
+
+  &.show {
+    left: 38%;
+  }
+
+  .header-project {
+    background-color: #fafafa;
+    border-bottom: 1px solid #dddddd;
+    height: 54px;
+    display: flex;
+    align-items: center;
+
+    .text {
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+
+  .title {
+    font-size: 14px;
+    width: 50%;
+    font-weight: 700;
+    display: block;
+    margin: 0 0 7px;
+    padding-top: 15px;
+  }
+
+  .label-name-input {
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    width: 100%;
+    outline: none;
+    display: flex;
+  }
+
+  .project-confirm {
+    height: 45%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    .cancel {
+      cursor: pointer;
+      line-height: 32px;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 4px;
+      border: 1px solid #cbcbcb;
+      font-size: 14px;
+
+      .text {
+        font-weight: 700;
+      }
+    }
+
+    .add-project {
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+      box-sizing: border-box;
+      width: 51px;
+      border: none;
+      margin-left: 11px;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: 700;
+      background-color: black;
+      cursor: pointer;
+
+      &.disable {
+        background-color: #c5c5c5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

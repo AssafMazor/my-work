@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import '../headerComponent/headerComponent.scss';
 
+const headerTemplate = require('../headerComponent/headerComponent.hbs');
+
 export class HeaderComponents {
 
     constructor(){
@@ -8,7 +10,7 @@ export class HeaderComponents {
     }
 
     setHtml(){
-      let compiled = require('../headerComponent/headerComponent.html');
-      $(".main .header").html(compiled)
+      $(".main .header").html(headerTemplate())
+
     }
 }

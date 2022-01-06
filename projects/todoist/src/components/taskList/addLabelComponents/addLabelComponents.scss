@@ -1,0 +1,210 @@
+.label-dialog {
+  width: 275px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px 0 #00000014;
+  position: absolute;
+  transition: 0.7s ease-in-out;
+  z-index: 4;
+  right: -200%;
+  bottom: -167px;
+
+  &.show {
+    right: -168px;
+  }
+
+  .add-new-label-header {
+    display: flex;
+    padding: 4px 10px;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+
+    .text {
+      border: 0;
+      line-height: 24px;
+      flex-grow: 1;
+      outline: none;
+      flex: 1;
+
+      &::placeholder {
+        color: #999999;
+      }
+    }
+
+    .close-btn {
+      width: 20px;
+      height: 20px;
+      color: gray;
+    }
+  }
+
+  .labels-list {
+    list-style: none;
+    padding: 0;
+    border-collapse: collapse;
+    max-height: 300px;
+    overflow-x: hidden;
+    margin: 0;
+
+    .add-task-new-label-item {
+      width: 100%;
+      height: 32px;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background-color: #f3f3f3;
+      }
+
+      .label-name {
+        padding-left: 4px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .square {
+        border: 1px solid #808080;
+        width: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        height: 15px;
+        margin-left: 10px;
+
+        &.checked {
+          background-color: #808080;
+        }
+
+        .feather-check {
+          height: 15px;
+          color: #fff;
+          stroke: #fff;
+          stroke-width: 4px;
+        }
+      }
+    }
+
+    .add-task-new-label-item {
+      background-color: #fff;
+      &.checked {
+        .square {
+          background-color: #808080;
+        }
+        svg {
+          display: block !important;
+        }
+        .add-new-label-square {
+          background-color: #808080;
+        }
+      }
+    }
+
+    .add-task-label-item {
+      width: 100%;
+      height: 32px;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background-color: #f3f3f3;
+      }
+
+      .label-name {
+        padding-left: 4px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .square {
+        border: 1px solid #808080;
+        width: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        height: 15px;
+        margin-left: 10px;
+
+        &.checked {
+          background-color: #808080;
+        }
+
+        .feather-check {
+          height: 15px;
+          color: #fff;
+          stroke: #fff;
+          stroke-width: 4px;
+        }
+      }
+    }
+
+    .add-task-label-item {
+      background-color: #fff;
+      &.checked {
+        .square {
+          background-color: #808080;
+        }
+        svg {
+          display: block !important;
+        }
+        .add-new-label-square {
+          background-color: #808080;
+        }
+      }
+    }
+  }
+
+  .add-new-label-footer {
+    padding: 4px 10px;
+    display: flex;
+    position: relative;
+
+    .text {
+      font-size: 15px;
+      color: #999999;
+    }
+
+    .apply-wrap {
+      width: 27px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #00af9c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      .apply-btn {
+        color: #f1f1f2;
+        width: 20px;
+      }
+    }
+
+    .add-wrap {
+      width: 27px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #00af9c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+      color: #fff;
+      transition: all 0.3s ease-in-out;
+
+      .apply-btn {
+        color: #f1f1f2;
+        width: 20px;
+      }
+    }
+  }
+}

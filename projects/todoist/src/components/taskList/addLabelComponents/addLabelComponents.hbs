@@ -1,0 +1,125 @@
+{{#if this.caller}}
+    <div class="add-new-label-header">
+
+    <input class="text" type="text" placeholder="Type a label">
+
+   <svg xmlns="http://www.w3.org/2000/svg" class="feather close-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+   <line x1="18" y1="6" x2="6" y2="18"/>
+   <line x1="6" y1="6" x2="18" y2="18"/>
+   </svg>
+
+    </div>
+
+    <div class="labels-list">
+
+        {{#each labelsList}}
+            <div class="add-task-new-label-item" data-id={{this.id}}>
+                <div class="square">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check hide">
+                    <polyline points="20 6 9 17 4 12">
+
+                    </polyline>
+                    </svg>
+
+                </div>
+
+                <div class="label-name">{{this.name}}
+                </div>
+
+            </div>
+
+        {{/each}}
+    </div>
+
+    <div class="add-new-label-footer">
+
+        <div class="text">create new
+        </div>
+
+        <div class="add-wrap hide">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="feather apply-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+            <polyline points="20 6 9 17 4 12"/>
+            </svg>
+
+        </div>
+        
+    </div>
+    
+{{else}}
+    <div class="add-new-label-header">
+
+    <input class="text" type="text" placeholder="Type a label">
+
+   <svg xmlns="http://www.w3.org/2000/svg" class="feather close-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+   <line x1="18" y1="6" x2="6" y2="18"/>
+   <line x1="6" y1="6" x2="18" y2="18"/>
+   </svg>
+
+    </div>
+
+    <div class="labels-list">
+        {{#each labelsList}}
+            {{#if this.isTaskHaveLabel}}
+                <div class="add-task-label-item checked" data-id={{this.id}}>
+
+                    <div class="square checked">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                        <polyline points="20 6 9 17 4 12">
+
+                        </polyline>
+                        </svg>
+                    </div> 
+
+                    <div class="label-name">{{this.name}}
+                    </div>
+
+                </div>
+            {{else}}
+                <div class="add-task-label-item" data-id={{this.id}}>
+
+                    <div class="square">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                        <polyline points="20 6 9 17 4 12">
+
+                        </polyline>
+                        </svg>
+                    </div> 
+
+                    <div class="label-name">{{this.name}}
+                    </div>
+
+                </div>
+            {{/if}}
+
+        {{/each}}
+    </div>
+
+    <div class="add-new-label-footer">
+
+        <div class="text">create new
+        </div>
+
+        {{#if this.labelsList.isTaskHaveLabel}}
+        <div class="apply-wrap">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="feather apply-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+            <polyline points="20 6 9 17 4 12"/>
+            </svg>
+
+            </div>
+        {{else}}
+        <div class="apply-wrap hide">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="feather apply-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+            <polyline points="20 6 9 17 4 12"/>
+            </svg>
+
+            </div>
+        {{/if}}
+
+        
+    </div>
+{{/if}}
+

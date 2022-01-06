@@ -1,28 +1,49 @@
 import $ from 'jquery';
-import { get } from 'lodash';
 import { ILabel} from "../interfaces/label.interface"
 import {EventEmitter} from 'events';
+import { remove } from 'lodash';
 
 
-export class LabelsService {
-    
-    t:string  = "ttt";
-    onLabelChangeEvent = new EventEmitter();
-    labels:ILabel[] = [];
+export class LabelsService {   
+    private static _instance: LabelsService;
+
+    eventEmitter:EventEmitter;
+    labels:ILabel[];
 
     constructor() {
-        debugger;
-        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        this.getLabelsArray(); 
-
+        this.eventEmitter = new EventEmitter();
+        this.labels = [];
     }
 
-    getLabelsArray() {
-        if(!this.labels) {
-        $.getJSON("./data/labels.json", (labels:ILabel[]) => {
-            this.labels = labels;
-        });
-        }else {
-        }
+    laodData(callback){
+        setTimeout(()=>{
+            this.labels = require("../data/labels.json");
+            callback();
+        }, 250)
+    }
+
+    getLabels(){
+        return this.labels;
+    }
+
+    getLabel(labelId){
+        let fillterd = this.labels.filter((label) => {
+            return label.id === labelId
+        })
+        return fillterd[0]
+    }
+
+    createNewLabel(label){
+        this.labels.push(label)
+        this.eventEmitter.emit('label-change', this.labels);
+    }
+
+    labelListChange(){
+        this.eventEmitter.emit('label-change', this.labels);
+    }
+
+    public static get Instance(){
+        return this._instance || (this._instance = new this());
     }
 }
+
