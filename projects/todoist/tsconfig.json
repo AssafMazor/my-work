@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

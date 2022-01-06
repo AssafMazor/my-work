@@ -123,8 +123,10 @@ export class taskEditorComponent {
     //----------------------------------
 
     onAddTaskCancel(e){
-        this.container.find(".task-editor-wrap").addClass("hide")
-        this.container.find(".content").removeClass("hide")
+        $(".task-editor-wrap").addClass("hide");
+        $(".content").removeClass("hide");
+        $(".new-editor-wrap").addClass("hide")
+        this.container.find(".content").removeClass("hide");
         $(".add-task-wrap").removeClass("hide");
     }   
 

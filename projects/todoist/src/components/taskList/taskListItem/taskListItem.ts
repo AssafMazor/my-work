@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import moment from 'moment';
 import { Itask } from "../../../interfaces/task.interface";
 import { ILabel } from "../../../interfaces/label.interface";
 import '../taskListItem/taskListItem.scss';
@@ -27,12 +28,39 @@ export class TaskListItemComponents {
 
     setHtml(){
         this.getLabels();
+        let sentTime = moment(this.task.sentTime);
+           
+        this.task.dateDiff = this.getTime(sentTime);
+
         this.$main = $(taskListItemTemplate({
             task:this.task
         }));
+
         $(".main .container .task-list-body").append(this.$main)
         this.initEvents();
     }
+
+      //----------------------------------
+    // getTimeAgo
+    //----------------------------------
+
+    getTime(sentTime) {
+        let now = moment();
+        let diff = now.diff(sentTime, 'days');
+        
+        if(diff > 7){
+            return this.task.dateDiff = sentTime.format('D MMM');
+        }else {
+            if(diff > 0){
+                var mydate = sentTime;
+                var weekDayName =  moment(mydate).format('d');
+                return this.task.dateDiff = weekDayName
+            }else {
+                return this.task.dateDiff = sentTime.format('h:m');
+            }
+        }
+    }
+
 
     //----------------------------------
     // getLabels

@@ -39,8 +39,6 @@ export class addLabelComponents {
 
     setHtml(){
       this.isTasksHaveLabel()
-      
-      console.log(this.labelsList)
 
       this.parent.$main.find(".label-dialog").html(addLabelTemplate({
         labelsList:this.labelsList,
@@ -56,8 +54,11 @@ export class addLabelComponents {
 
     isTasksHaveLabel(){
       this.labelsList.forEach((label) => {       
-        label.isTaskHaveLabel = this.task.labels.includes(label.id) ? true : false
-        this.labelChoosed.push(this.task.labels.includes(label.id) && label.id) 
+        label.isTaskHaveLabel = this.task.labels.includes(label.id);
+
+        if(this.task.labels.includes(label.id)){
+          this.labelChoosed.push(label.id)
+        }
       })
     }
 
