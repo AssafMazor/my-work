@@ -1,4 +1,5 @@
 export interface ILabel {
     name:string,
-    id:number
+    id:number,
+    isAttache?:boolean
 }

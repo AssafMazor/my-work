@@ -1,15 +1,15 @@
 import $ from 'jquery';
-import '../addProjectComponent/addProjectComponent.scss';
 import { LabelsService } from "../../../services/labels.service";
+import { ILabel } from '../../../interfaces/label.interface';
 
+import '../addProjectComponent/addProjectComponent.scss';
 const addProjectTemplate = require('../addProjectComponent/addProjectComponent.hbs');
 
 export class addProjectComponent {
-    labelsService:LabelsService;
-    labelList;
+    labelsService:LabelsService  = LabelsService.Instance;
+    labelList:ILabel[];
 
     constructor(){
-      this.labelsService = LabelsService.Instance;
       this.labelList = this.labelsService.getLabels();
       this.setHtml();
     }

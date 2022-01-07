@@ -1,16 +1,18 @@
 .menu {
-  width: 305px;
   height: calc(100vh - 44px);
   padding-top: 37px;
   padding-left: 50px;
-  position: fixed;
-  left: 0;
-  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
   overflow-x: hidden;
   overflow-y: hidden;
   box-sizing: border-box;
   background-color: #fafafa;
   z-index: 2;
+  transition: width 0.2s;
+
+  &.show {
+    width: 305px;
+  }
 
   .sysLabels {
     .sysLabelItem {

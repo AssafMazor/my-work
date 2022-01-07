@@ -1,29 +1,32 @@
 import $ from 'jquery';
-import { Itask } from "../../../interfaces/task.interface";
-import { ILabel } from "../../../interfaces/label.interface";
-import '../addLabelComponents/addLabelComponents.scss';
-import { TasksService } from "../../../services/tasks.service";
-import { LabelsService } from "../../../services/labels.service";
-import { createNewLableComponents } from "../addLabelComponents/createNewLabelComponents/createNewLabelComponents";
+import { ITask } from "../../../../interfaces/task.interface";
+import { ILabel } from "../../../../interfaces/label.interface";
+import { TasksService } from "../../../../services/tasks.service";
+import { LabelsService } from "../../../../services/labels.service";
 
+export enum eTaskAction {
+  Add,
+  Edit
+}
 
 export interface ILabelParams {
   parent: any,
-  task: {},
+  task:ITask,
   labels: ILabel[],
-  caller: string
+  action: eTaskAction
 }
 
-const addLabelTemplate = require('../addLabelComponents/addLabelComponents.hbs');
+import '../labelsComponent/labelsComponent.scss';
+const addLabelTemplate = require('../labelsComponent/labelsComponent.hbs');
 
-export class addLabelComponents {
+export class LabelComponents {
     tasksService:TasksService;
     labelsService:LabelsService;
-    labelChoosed:number[] = [];
-    labelsList;
-    task;
-    caller;
-    parent;
+    selectedLabels:number[] = [];
+    labelsList:ILabel[];
+    task:ITask;
+    action:any;
+    parent:any;
 
     constructor(params:ILabelParams){
       this.tasksService = TasksService.Instance;
@@ -31,35 +34,35 @@ export class addLabelComponents {
 
       this.task = params.task;
       this.parent = params.parent;
-      this.caller = params.caller === "addTask"
+      this.action = params.action === eTaskAction.Add
       this.labelsList = params.labels
 
       this.setHtml();
     }
 
     setHtml(){
-      this.isTasksHaveLabel()
+      this.adjustLabels()
 
       this.parent.$main.find(".label-dialog").html(addLabelTemplate({
         labelsList:this.labelsList,
-        caller:this.caller
+        action:this.action
       }))
 
       this.initEvents();
     }
 
     //----------------------------------
-    // isTasksHaveLabel
+    // adjustLabels
     //----------------------------------
 
-    isTasksHaveLabel(){
-      this.labelsList.forEach((label) => {       
-        label.isTaskHaveLabel = this.task.labels.includes(label.id);
+    adjustLabels(){
+      this.labelsList.forEach((label) => {    
+          label.isAttache = this.task.labels.includes(label.id);
 
-        if(this.task.labels.includes(label.id)){
-          this.labelChoosed.push(label.id)
-        }
-      })
+          if(this.task.labels.includes(label.id)){
+            this.selectedLabels.push(label.id)
+          }
+      });
     }
 
     //----------------------------------
@@ -72,9 +75,6 @@ export class addLabelComponents {
       })
       $(".close-btn").on("click" , (e) => {
         this.onCloseBtnClick(e);
-      })
-      $(".add-new-label-footer .text").on("click" , (e) => {
-        this.onCreateNewLabelClick(e);
       })
       $(".apply-wrap").on("click" , (e) => {
         this.onApplyBtnClick(e);
@@ -97,9 +97,9 @@ export class addLabelComponents {
     
         if($(e.target).closest(".add-task-label-item").hasClass("checked")){
           $(".apply-wrap").removeClass("hide")
-          this.labelChoosed.push($(closestItem).data("id"));
+          this.selectedLabels.push($(closestItem).data("id"));
         }else {
-          this.labelChoosed = this.labelChoosed.filter((itemId) => {
+          this.selectedLabels = this.selectedLabels.filter((itemId) => {
             return itemId !== $(e.target).closest(".add-task-label-item").data("id");
           });
         } 
@@ -118,9 +118,9 @@ export class addLabelComponents {
   
       if($(e.target).closest(".add-task-new-label-item").hasClass("checked")){
         $(".add-wrap").removeClass("hide")
-        this.labelChoosed.push($(closestItem).data("id"));
+        this.selectedLabels.push($(closestItem).data("id"));
       }else {
-        this.labelChoosed = this.labelChoosed.filter((itemId) => {
+        this.selectedLabels = this.selectedLabels.filter((itemId) => {
           return itemId !== $(e.target).closest(".add-task-new-label-item").data("id");
         });
       } 
@@ -134,9 +134,9 @@ export class addLabelComponents {
     //----------------------------------
 
     onAddBtnClick(e){
-      this.tasksService.getTask(this.task.id).labels = []
-
-      this.parent.onChooseLabels(this.labelChoosed , this.labelsList);
+      this.task.labels = []
+      console.log(this.task.labels)
+      this.parent.onChooseLabels(this.selectedLabels , this.labelsList);
       this.parent.$main.find(".label-dialog").removeClass("show");
     }
 
@@ -149,25 +149,11 @@ export class addLabelComponents {
     }
 
     //----------------------------------
-    // onCreateNewLabelClick
-    //----------------------------------
-
-    onCreateNewLabelClick(e){
-      new createNewLableComponents(this.task.id);
-     
-      $(".bg-shadow-wrap").removeClass("hide");
-      $(".edit-label-dialog").removeClass("show")
-      $(".add-new-label").removeClass("show");
-      $(".create-new-label-dialog").addClass("show");
-    }
-
-    //----------------------------------
     // onApplyBtnClick
     //----------------------------------
 
     onApplyBtnClick(e){
-      alert(this.labelChoosed)
-      this.parent.onChooseLabels(this.labelChoosed , this.labelsList);
+      this.parent.onChooseLabels(this.selectedLabels , this.labelsList);
 
       this.parent.$main.find(".label-dialog").removeClass("show");
     }

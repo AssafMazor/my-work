@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import '../headerComponent/headerComponent.scss';
 
+import '../headerComponent/headerComponent.scss';
 const headerTemplate = require('../headerComponent/headerComponent.hbs');
 
 export class HeaderComponents {
@@ -12,5 +12,14 @@ export class HeaderComponents {
     setHtml(){
       $(".main .header").html(headerTemplate())
 
+      this.initEvents();
+    }
+    
+    initEvents(){
+      $(".menu-btn").on("click" , (e) => {
+        $(".main .menu").toggleClass("show")
+      })
+      // $(".home-page-btn").on("click" , (e) => {
+      // })
     }
 }

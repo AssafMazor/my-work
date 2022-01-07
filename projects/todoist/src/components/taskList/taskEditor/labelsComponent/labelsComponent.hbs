@@ -1,4 +1,4 @@
-{{#if this.caller}}
+{{#if this.action}}
     <div class="add-new-label-header">
 
     <input class="text" type="text" placeholder="Type a label">
@@ -61,7 +61,7 @@
 
     <div class="labels-list">
         {{#each labelsList}}
-            {{#if this.isTaskHaveLabel}}
+            {{#if this.isAttache}}
                 <div class="add-task-label-item checked" data-id={{this.id}}>
 
                     <div class="square checked">

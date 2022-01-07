@@ -1,20 +1,19 @@
 import $ from 'jquery';
-import '../menuComponent/menuComponent.scss';
-import { LabelsService } from "../../../services/labels.service";
-import { TasksService } from "../../../services/tasks.service";
-import { addProjectComponent } from "../../main/addProjectComponent/addProjectComponent";
-import { ILabel } from '../../../interfaces/label.interface';
+import { LabelsService } from "../../services/labels.service";
+import { TasksService } from "../../services/tasks.service";
+import { addProjectComponent } from "../main/addProjectComponent/addProjectComponent";
+import { ILabel } from '../../interfaces/label.interface';
 
+import '../menuComponent/menuComponent.scss';
 const menuTemplate = require('../menuComponent/menuComponent.hbs');
 
 export class MenuComponent {
-    labelsService:LabelsService;
-    labelsList;
-    taskService;
+    labelsService:LabelsService = LabelsService.Instance;
+    labelsList:ILabel[] = [];
+    taskService = TasksService.Instance;
+    labelTaskLength:number[] = [];
 
     constructor(){
-      this.labelsService = LabelsService.Instance;
-      this.taskService = TasksService.Instance
       this.labelsService.eventEmitter.on('label-change', (labels:ILabel[]) => {
         this.labelsList = labels
         this.setHtml()
@@ -28,7 +27,8 @@ export class MenuComponent {
 
       $(".main .menu").html(menuTemplate({
         labels:this.labelsList,
-        todayTime:new Date().getDate()
+        todayTime:new Date().getDate(),
+        labelTaskLength:this.labelTaskLength
       }))
 
       this.initEvents();
@@ -71,8 +71,8 @@ export class MenuComponent {
 
     getLabelsTaskLength(){
       this.labelsList.forEach((label) => {
-        label.labelTaskLength = [];
-        label.labelTaskLength.push(this.taskService.getLabelTaskLength(label.id))
+        this.labelTaskLength = [];
+        this.labelTaskLength.push(this.taskService.getLabelTaskLength(label.id))
       })
     }
 
@@ -81,6 +81,6 @@ export class MenuComponent {
     //----------------------------------
 
     systemLabelClick(e){
-      this.taskService.getTaskByCategory($(e.target).closest(".sysLabelItem").data("id"));
+      this.taskService.getUpdatedTaskList($(e.target).closest(".sysLabelItem").data("id"));
     }
 }

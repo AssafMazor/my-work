@@ -1,4 +1,4 @@
-export interface Itask {
+export interface ITask {
     name: string,    
     content:string,
     title:string,

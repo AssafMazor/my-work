@@ -1,18 +1,18 @@
 import $ from 'jquery';
-import { Itask } from "../../interfaces/task.interface";
-import { ILabel } from "../../interfaces/label.interface";
-import './taskListComponents.scss';
+import { ITask } from "../../interfaces/task.interface";
 import { TasksService } from "../../services/tasks.service";
 import { LabelsService } from "../../services/labels.service";
-import { taskEditorComponent } from "./taskEditorComponent/taskEditorComponent";
+import { TaskEditorComponent, eTaskMode } from "./taskEditor/taskEditorComponent";
 import { TaskListItemComponents } from "./taskListItem/taskListItem";
+
+import './taskListComponents.scss';
 
 const taskListTemplate = require('./taskListComponents.hbs');
 
 export class TaskListComponents {
     tasksService:TasksService;
     labelsService:LabelsService;
-    taskList;
+    taskList: ITask[] = [];
 
     constructor(){
       this.tasksService = TasksService.Instance;
@@ -22,6 +22,10 @@ export class TaskListComponents {
       this.onAddTaskClick();
       this.setOnTasksChangeEvent();
     }
+
+    //----------------------------------
+    // setHtml
+    //----------------------------------
 
     setHtml(){
       this.taskList = this.tasksService.getTasks();
@@ -38,31 +42,26 @@ export class TaskListComponents {
 
     onAddTaskClick(){
       $(".add-task-wrap").on("click" , (e) => {
-        let $wrap = $(".new-editor-wrap");
-        $wrap.removeClass("hide");
-        new taskEditorComponent($wrap ,  {
-        name:"",
-        title:"",
-        sentTime:1640874110852,
-        labels:[],
-        isfinished:false,
-        priority:[],
-        category:3,
-        id:this.taskList.length + 1
-        }
-        , "add-task"
-        );
+          let $wrap = $(".new-editor-wrap");
+          $wrap.removeClass("hide");
+
+          new TaskEditorComponent(
+            $wrap, 
+            this.tasksService.x(),
+            eTaskMode.Add
+          );
+
         $(".add-task-dialog").removeClass("hide");
         $(".task-list-footer .add-task-wrap").addClass("hide");
-      })
-    }
+    })
+  }
 
     //----------------------------------
     // setOnTasksChangeEvent
     //----------------------------------
 
     setOnTasksChangeEvent(){
-      this.tasksService.eventEmitter.on('task-change', (taskList:Itask[]) => {
+      this.tasksService.eventEmitter.on('task-change', (taskList:ITask[]) => {
         this.taskList = taskList;
         this.setTaskItems();
       });
@@ -74,7 +73,7 @@ export class TaskListComponents {
 
     setTaskItems(){
       $(".task-list-body").html("")
-      this.taskList.forEach((task) => {
+      this.taskList.forEach((task:ITask) => {
         new TaskListItemComponents(task)
       })
     }

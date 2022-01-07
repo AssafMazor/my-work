@@ -1,46 +1,42 @@
 import $ from 'jquery';
 import moment from 'moment';
-import { Itask } from "../../../interfaces/task.interface";
-import { ILabel } from "../../../interfaces/label.interface";
-import '../taskListItem/taskListItem.scss';
+import { ITask } from "../../../interfaces/task.interface";
 import { TasksService } from "../../../services/tasks.service";
 import { LabelsService } from "../../../services/labels.service";
-import { addLabelComponents } from "../addLabelComponents/addLabelComponents"
-import { taskEditorComponent } from "../taskEditorComponent/taskEditorComponent";
+import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorComponent";
+import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
+import { ILabel } from '../../../interfaces/label.interface';
 
+import '../taskListItem/taskListItem.scss';
 const taskListItemTemplate = require('../taskListItem/taskListItem.hbs');
 
 export class TaskListItemComponents {
-    tasksService:TasksService;
-    labelsService:LabelsService;
-    task;
-    taskList;
-    $main;
+    tasksService:TasksService = TasksService.Instance;
+    labelsService:LabelsService = LabelsService.Instance;
+    labelsNames:ILabel[] = [];
+    task:ITask;
+    $main:any;
 
-    constructor(task){
-        this.task = task
-        this.tasksService = TasksService.Instance;
-        this.labelsService = LabelsService.Instance;
-        this.taskList = this.tasksService.getTasks();
-
+    constructor(task:ITask){
+        this.task = task;
         this.setHtml();
     }
 
     setHtml(){
         this.getLabels();
         let sentTime = moment(this.task.sentTime);
-           
-        this.task.dateDiff = this.getTime(sentTime);
 
         this.$main = $(taskListItemTemplate({
-            task:this.task
+            dateDiff:this.getTime(sentTime),
+            task:this.task,
+            labelsNames:this.labelsNames
         }));
 
         $(".main .container .task-list-body").append(this.$main)
         this.initEvents();
     }
 
-      //----------------------------------
+    //----------------------------------
     // getTimeAgo
     //----------------------------------
 
@@ -49,14 +45,14 @@ export class TaskListItemComponents {
         let diff = now.diff(sentTime, 'days');
         
         if(diff > 7){
-            return this.task.dateDiff = sentTime.format('D MMM');
+            return sentTime.format('D MMM');
         }else {
             if(diff > 0){
                 var mydate = sentTime;
                 var weekDayName =  moment(mydate).format('d');
-                return this.task.dateDiff = weekDayName
+                return weekDayName
             }else {
-                return this.task.dateDiff = sentTime.format('h:m');
+                return sentTime.format('h:m');
             }
         }
     }
@@ -67,9 +63,9 @@ export class TaskListItemComponents {
     //----------------------------------
 
     getLabels(){
-        this.task.fullLabels = [];
-        this.task.labels.forEach((labelId) => {
-            this.task.fullLabels.push(this.labelsService.getLabel(labelId))
+        this.labelsNames = [];
+        this.task.labels.forEach((labelId:number) => {
+            this.labelsNames.push(this.labelsService.getLabel(labelId))
         })
     }
 
@@ -95,10 +91,10 @@ export class TaskListItemComponents {
     //----------------------------------
 
     onLabelBtnClick(e){
-        new addLabelComponents({
+        new LabelComponents({
             parent: this,
-            task: this.task.id,
-            caller: "addLabel",
+            task: this.task,
+            action: eTaskAction.Add,
             labels: this.labelsService.getLabels()
         });
         $(".add-new-label").addClass("show");
@@ -112,7 +108,7 @@ export class TaskListItemComponents {
         let $wrap = this.$main.find(".task-editor-wrap");
         $($wrap).removeClass("hide");
         
-        new taskEditorComponent($wrap, this.task, "edit-task");
+        new TaskEditorComponent($wrap, this.task, eTaskMode.Edit);
         $(".add-task-dialog").removeClass("hide");
         this.$main.find(".content").addClass("hide");
         $(".task-list-footer .add-task-wrap").addClass("hide");

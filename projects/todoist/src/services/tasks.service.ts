@@ -1,14 +1,13 @@
 import $ from 'jquery';
-import { Itask } from "../interfaces/task.interface"
+import { ITask } from "../interfaces/task.interface"
 import {EventEmitter} from 'events';
-import { fill } from 'lodash';
 
 
 export class TasksService {
     private static _instance: TasksService;
 
     eventEmitter:EventEmitter;
-    taskList:Itask[];
+    taskList:ITask[];
 
     constructor() {
         this.eventEmitter = new EventEmitter();
@@ -19,7 +18,21 @@ export class TasksService {
         setTimeout(()=>{
             this.taskList = require("../data/tasks.json");
             callback();
-        }, 250)
+        }, 1000)
+    }
+    
+    x(){
+        return  {
+            "name": "string",    
+            "content":"string",
+            "title":"string",
+            "sentTime":new Date().getTime(),
+            "labels":[],
+            "isfinished":false,
+            "priority":[],
+            "category":1,
+            "id":this.taskList.length + 1
+        }
     }
 
     getTasks() {
@@ -43,7 +56,7 @@ export class TasksService {
                 task.labels.push(id);
             }
         })
-        this.getUpdatedTaskList()
+        this.getUpdatedTaskList(1)
     }
 
     addTasknewLabels(taskId , choosenLabels){
@@ -53,17 +66,10 @@ export class TasksService {
                 task.labels.push(id);
             }
         })
-        this.getUpdatedTaskList()
+        this.getUpdatedTaskList(1)
     }
 
-    getUpdatedTaskList(){
-        var fillterd = this.taskList.filter((task) => {
-            return !task.isfinished && task.category === 1
-        })
-        this.eventEmitter.emit('task-change', fillterd);
-    }
-
-    getTaskByCategory(categoryType){
+    getUpdatedTaskList(categoryType){
         if(!categoryType){
             categoryType === 1
         }
@@ -76,11 +82,7 @@ export class TasksService {
     addNewTask(newTask){
         console.log(newTask)
         this.taskList.push(newTask)
-        this.getUpdatedTaskList()
-    }
-
-    public static get Instance(){
-        return this._instance || (this._instance = new this());
+        this.getUpdatedTaskList(1)
     }
 
     getTaskLabels(labelId){
@@ -109,7 +111,11 @@ export class TasksService {
         task.sentTime = editedTask.sentTime;
         task.title = editedTask.title;
         
-        this.getUpdatedTaskList();
+        this.getUpdatedTaskList(1);
+    }
+
+    public static get Instance(){
+        return this._instance || (this._instance = new this());
     }
 }
 

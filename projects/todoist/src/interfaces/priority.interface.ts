@@ -1,4 +1,4 @@
-export interface Ipriority {
+export interface IPriority {
     name:string,
     id:number
 }

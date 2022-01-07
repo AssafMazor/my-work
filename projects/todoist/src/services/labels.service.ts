@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import { ILabel} from "../interfaces/label.interface"
 import {EventEmitter} from 'events';
-import { remove } from 'lodash';
 
 
 export class LabelsService {   
@@ -37,11 +36,7 @@ export class LabelsService {
         this.labels.push(label)
         this.eventEmitter.emit('label-change', this.labels);
     }
-
-    labelListChange(){
-        this.eventEmitter.emit('label-change', this.labels);
-    }
-
+    
     public static get Instance(){
         return this._instance || (this._instance = new this());
     }

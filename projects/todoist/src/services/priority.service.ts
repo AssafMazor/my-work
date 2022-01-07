@@ -1,6 +1,5 @@
 import $ from 'jquery';
-import { get } from 'lodash';
-import { Ipriority } from "../interfaces/priority.interface"
+import { IPriority } from "../interfaces/priority.interface"
 import {EventEmitter} from 'events';
 
 
@@ -8,7 +7,7 @@ export class PriorityService {
     private static _instance: PriorityService;
 
     eventEmitter = new EventEmitter();
-    priorityList:Ipriority[] = [];
+    priorityList:IPriority[] = [];
 
     constructor() {
         this.getPrioritysArray();

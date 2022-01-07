@@ -1,38 +1,42 @@
 import $ from 'jquery';
-import { Itask } from "../../../interfaces/task.interface";
+import { ITask } from "../../../interfaces/task.interface";
 import { ILabel } from "../../../interfaces/label.interface";
-import '../taskEditorComponent/taskEditorComponent.scss';
 import { TasksService } from "../../../services/tasks.service";
 import { LabelsService } from "../../../services/labels.service";
-import { addLabelComponents } from "../addLabelComponents/addLabelComponents"
+import { LabelComponents , eTaskAction } from "./labelsComponent/labelsComponent"
 
-const taskEditorTemplate = require('../taskEditorComponent/taskEditorComponent.hbs');
+export enum eTaskMode {
+    Add,
+    Edit
+}
 
-export class taskEditorComponent {  
-    taskService:TasksService;
-    labelsService:LabelsService;
-    task;
+import './taskEditorComponent.scss';
+const taskEditorTemplate = require('./taskEditorComponent.hbs');
+
+export class TaskEditorComponent {  
+    taskService:TasksService = TasksService.Instance;
+    labelsService:LabelsService = LabelsService.Instance;
+    task:ITask;
     choosenLabels:number[] = [];
-    container:any;
-    $main;
-    caller;
+    $host:any;
+    $main:any;
+    isAddMode: boolean = false;
 
-    constructor(container:any, task , caller){
-        this.taskService = TasksService.Instance
-        this.labelsService = LabelsService.Instance;
-        this.task = task
-        this.container = container
-        this.caller = caller === "add-task"
+    constructor($host:any, task:ITask , taskMode:eTaskMode){
+        this.task = task;
+        this.$host = $host
+        this.isAddMode = taskMode === eTaskMode.Add;
+
         this.setHtml();
     }
 
     setHtml(){
         this.$main = $(taskEditorTemplate({
-            caller:this.caller,
+            isAddMode:this.isAddMode,
             task:this.task
         }));
-        this.container.html(this.$main);
-        this.onChooseLabels(this.task.labels , this.labelsService.getLabels())
+        this.$host.html(this.$main);
+        this.onChooseLabels(this.task.labels)
         this.initEvents();
     }
 
@@ -62,10 +66,10 @@ export class taskEditorComponent {
     //----------------------------------
 
     onLabelBtnClick(e){
-        new addLabelComponents({
+        new LabelComponents({
             parent: this,
             task: this.task,
-            caller: "addTask",
+            action: eTaskAction.Add,
             labels: this.labelsService.getLabels()
         });
         this.$main.find(".new-label-dialog").addClass("show");
@@ -76,10 +80,10 @@ export class taskEditorComponent {
     //----------------------------------
 
     onEditLabelBtnClick(e){
-        new addLabelComponents({
+        new LabelComponents({
             parent: this,
             task: this.task,
-            caller: "edit-task",
+            action: eTaskAction.Edit,
             labels: this.labelsService.getLabels()
         });
         this.$main.find(".edit-label-dialog").addClass("show");
@@ -126,7 +130,7 @@ export class taskEditorComponent {
         $(".task-editor-wrap").addClass("hide");
         $(".content").removeClass("hide");
         $(".new-editor-wrap").addClass("hide")
-        this.container.find(".content").removeClass("hide");
+        this.$host.find(".content").removeClass("hide");
         $(".add-task-wrap").removeClass("hide");
     }   
 
@@ -135,7 +139,8 @@ export class taskEditorComponent {
     //----------------------------------
 
     onAddTaskConfirmtion(e){
-        if(!$(e.target).hasClass("disable") && !$(e.target).parent().hasClass("disable")){
+        let target = $(e.target);
+        if(!target.hasClass("disable") && !target.parent().hasClass("disable")){
             this.taskService.addNewTask( {
                 "name":$(".name-task-input").val(),
                 "title":$(".description-task-input").val(),
@@ -149,7 +154,6 @@ export class taskEditorComponent {
             $(".add-task-dialog").addClass("hide");
             $(".add-task-wrap").removeClass("hide");
         }
-      
     }
 
     //----------------------------------
@@ -157,10 +161,10 @@ export class taskEditorComponent {
     //----------------------------------
 
 
-    onChooseLabels(choosenLabels , labelsList){
+    onChooseLabels(choosenLabels){
         $(".features-wrap").html("")
+        alert(choosenLabels)
         choosenLabels.forEach((id) => {
-            console.log(choosenLabels)
             $(".features-wrap").append(`
             <div class='label-wrap'>
                 <div class='label-name'>${this.labelsService.getLabel(id).name}
@@ -169,6 +173,6 @@ export class taskEditorComponent {
             `
             );
         }) 
-        this.choosenLabels = choosenLabels
+        this.choosenLabels = choosenLabels;
     }
 }
