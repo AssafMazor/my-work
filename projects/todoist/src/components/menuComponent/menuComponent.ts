@@ -8,10 +8,11 @@ import '../menuComponent/menuComponent.scss';
 const menuTemplate = require('../menuComponent/menuComponent.hbs');
 
 export class MenuComponent {
-    labelsService:LabelsService = LabelsService.Instance;
-    labelsList:ILabel[] = [];
-    taskService = TasksService.Instance;
-    labelTaskLength:number[] = [];
+    private labelsService:LabelsService = LabelsService.Instance;
+    private labelsList:ILabel[] = [];
+    private taskService = TasksService.Instance;
+    private labelTaskLength:number[] = [];
+    private $el:any;
 
     constructor(){
       this.labelsService.eventEmitter.on('label-change', (labels:ILabel[]) => {
@@ -25,11 +26,13 @@ export class MenuComponent {
       this.labelsList = this.labelsService.getLabels()
       this.getLabelsTaskLength();
 
-      $(".main .menu").html(menuTemplate({
+      this.$el = $(menuTemplate({
         labels:this.labelsList,
         todayTime:new Date().getDate(),
         labelTaskLength:this.labelTaskLength
-      }))
+      }));
+
+      $(".main .menu").html(this.$el)
 
       this.initEvents();
     }

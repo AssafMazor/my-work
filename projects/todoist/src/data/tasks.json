@@ -5,7 +5,7 @@
         "sentTime":1640874110852,
         "labels":[2],
         "isfinished":false,
-        "priority":[],
+        "priority":4,
         "category":2,
         "id":1
     },
@@ -15,7 +15,7 @@
         "sentTime":1638800527000,
         "labels":[1 , 2],
         "isfinished":false,
-        "priority":[],
+        "priority":4,
         "category":1,
         "id":2
     },
@@ -25,7 +25,7 @@
         "sentTime":1640874110852,
         "labels":[2],
         "isfinished":false,
-        "priority":[],
+        "priority":4,
         "category":2,
         "id":3
     },
@@ -35,7 +35,7 @@
         "sentTime":1640874110852,
         "labels":[2],
         "isfinished":false,
-        "priority":[],
+        "priority":4,
         "category":3,
         "id":4
     }

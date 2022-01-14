@@ -13,14 +13,18 @@ export class TaskListComponents {
     tasksService:TasksService;
     labelsService:LabelsService;
     taskList: ITask[] = [];
+    $el:any;
 
-    constructor(){
+    constructor(taskList){
+      this.taskList = taskList
       this.tasksService = TasksService.Instance;
       this.labelsService = LabelsService.Instance;
-
       this.setHtml();
-      this.onAddTaskClick();
-      this.setOnTasksChangeEvent();
+
+      this.tasksService.eventEmitter.on('task-change', (taskList:ITask[]) => {
+        this.taskList = taskList;
+        this.renderTaskItems();
+      });
     }
 
     //----------------------------------
@@ -28,53 +32,51 @@ export class TaskListComponents {
     //----------------------------------
 
     setHtml(){
-      this.taskList = this.tasksService.getTasks();
-
-      $(".main .container .task-list .inside-task-list").html(taskListTemplate({
+      this.$el = $(taskListTemplate({
         tasks:this.taskList,
-      }));
-      this.setTaskItems();
+      }))
+      $(".main .container .task-list .inside-task-list").html(this.$el);
+      this.initEvents();
+      this.renderTaskItems();
     }
 
+    //----------------------------------
+    // initEvents
+    //----------------------------------
+
+    initEvents(){
+      this.$el.find(".add-task-wrap").on("click" , (e) => {
+        this.onAddTaskClick(e);
+        
+      })
+    }
     //----------------------------------
     // onAddTaskClick
     //----------------------------------
 
-    onAddTaskClick(){
-      $(".add-task-wrap").on("click" , (e) => {
-          let $wrap = $(".new-editor-wrap");
-          $wrap.removeClass("hide");
+    onAddTaskClick(e){
+      let $wrap = $(".new-editor-wrap");
+      $wrap.removeClass("hide");
 
-          new TaskEditorComponent(
-            $wrap, 
-            this.tasksService.x(),
-            eTaskMode.Add
-          );
-
-        $(".add-task-dialog").removeClass("hide");
-        $(".task-list-footer .add-task-wrap").addClass("hide");
-    })
-  }
-
-    //----------------------------------
-    // setOnTasksChangeEvent
-    //----------------------------------
-
-    setOnTasksChangeEvent(){
-      this.tasksService.eventEmitter.on('task-change', (taskList:ITask[]) => {
-        this.taskList = taskList;
-        this.setTaskItems();
+      new TaskEditorComponent({
+        $wrap:$wrap, 
+        parent:this,
+        task:this.tasksService.returnNewTask(),
+        isAddMode:eTaskMode.Add
       });
+
+      this.$el.find(".add-task-dialog").removeClass("hide");
+      this.$el.find(".task-list-footer .add-task-wrap").addClass("hide");
     }
 
     //----------------------------------
-    // setTaskItems
+    // renderTaskItems
     //----------------------------------
 
-    setTaskItems(){
-      $(".task-list-body").html("")
+    renderTaskItems(){
+      this.$el.find(".task-list-body").html("")
       this.taskList.forEach((task:ITask) => {
-        new TaskListItemComponents(task)
+        new TaskListItemComponents(task , this)
       })
     }
 }

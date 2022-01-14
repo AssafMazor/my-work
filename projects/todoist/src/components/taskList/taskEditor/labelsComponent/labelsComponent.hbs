@@ -1,125 +1,38 @@
-{{#if this.action}}
-    <div class="add-new-label-header">
+<div class="popper-overlay">
+    <div class="label-contant">
 
-    <input class="text" type="text" placeholder="Type a label">
+        <div class="add-new-label-header">
 
-   <svg xmlns="http://www.w3.org/2000/svg" class="feather close-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-   <line x1="18" y1="6" x2="6" y2="18"/>
-   <line x1="6" y1="6" x2="18" y2="18"/>
-   </svg>
+            <input class="label-header-input-text" type="text" placeholder="Type a label">
 
-    </div>
+        </div>
 
-    <div class="labels-list">
+        <div class="labels-list">
+        </div>
 
-        {{#each labelsList}}
-            <div class="add-task-new-label-item" data-id={{this.id}}>
-                <div class="square">
+        <div class="labels-items-empty">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check hide">
-                    <polyline points="20 6 9 17 4 12">
+            <div class="inside-label-items-empty-error hide">
 
-                    </polyline>
+                <div class="text">Label not found
+                </div>
+
+                <div class="add-new-label-text">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="add-btn" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" fill-rule="nonzero" d="M12.5 6a.5.5 0 0 1 .5.5V12h5.5a.5.5 0 1 1 0 1H13v5.5a.5.5 0 1 1-1 0V13H6.5a.5.5 0 1 1 0-1H12V6.5a.5.5 0 0 1 .5-.5z"
+            >
+            </path>
                     </svg>
 
-                </div>
+                    <div class="input-label-name">
+                    </div>
 
-                <div class="label-name">{{this.name}}
-                </div>
 
+                </div>
             </div>
-
-        {{/each}}
-    </div>
-
-    <div class="add-new-label-footer">
-
-        <div class="text">create new
-        </div>
-
-        <div class="add-wrap hide">
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="feather apply-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-            <polyline points="20 6 9 17 4 12"/>
-            </svg>
 
         </div>
         
     </div>
-    
-{{else}}
-    <div class="add-new-label-header">
-
-    <input class="text" type="text" placeholder="Type a label">
-
-   <svg xmlns="http://www.w3.org/2000/svg" class="feather close-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-   <line x1="18" y1="6" x2="6" y2="18"/>
-   <line x1="6" y1="6" x2="18" y2="18"/>
-   </svg>
-
-    </div>
-
-    <div class="labels-list">
-        {{#each labelsList}}
-            {{#if this.isAttache}}
-                <div class="add-task-label-item checked" data-id={{this.id}}>
-
-                    <div class="square checked">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                        <polyline points="20 6 9 17 4 12">
-
-                        </polyline>
-                        </svg>
-                    </div> 
-
-                    <div class="label-name">{{this.name}}
-                    </div>
-
-                </div>
-            {{else}}
-                <div class="add-task-label-item" data-id={{this.id}}>
-
-                    <div class="square">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                        <polyline points="20 6 9 17 4 12">
-
-                        </polyline>
-                        </svg>
-                    </div> 
-
-                    <div class="label-name">{{this.name}}
-                    </div>
-
-                </div>
-            {{/if}}
-
-        {{/each}}
-    </div>
-
-    <div class="add-new-label-footer">
-
-        <div class="text">create new
-        </div>
-
-        {{#if this.labelsList.isTaskHaveLabel}}
-        <div class="apply-wrap">
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="feather apply-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-            <polyline points="20 6 9 17 4 12"/>
-            </svg>
-
-            </div>
-        {{else}}
-        <div class="apply-wrap hide">
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="feather apply-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-            <polyline points="20 6 9 17 4 12"/>
-            </svg>
-
-            </div>
-        {{/if}}
-
-        
-    </div>
-{{/if}}
-
+</div>

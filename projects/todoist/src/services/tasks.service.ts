@@ -21,7 +21,7 @@ export class TasksService {
         }, 1000)
     }
     
-    x(){
+    returnNewTask(){
         return  {
             "name": "string",    
             "content":"string",
@@ -29,7 +29,7 @@ export class TasksService {
             "sentTime":new Date().getTime(),
             "labels":[],
             "isfinished":false,
-            "priority":[],
+            "priority":4,
             "category":1,
             "id":this.taskList.length + 1
         }
@@ -80,7 +80,6 @@ export class TasksService {
     }
 
     addNewTask(newTask){
-        console.log(newTask)
         this.taskList.push(newTask)
         this.getUpdatedTaskList(1)
     }
@@ -111,6 +110,11 @@ export class TasksService {
         task.sentTime = editedTask.sentTime;
         task.title = editedTask.title;
         
+        this.getUpdatedTaskList(editedTask.category);
+    }
+    
+    finishTask(task){
+        task.isfinished =  !task.isfinished 
         this.getUpdatedTaskList(1);
     }
 

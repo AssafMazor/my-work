@@ -1,209 +1,127 @@
 .label-dialog {
-  width: 275px;
-  background-color: #fff;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 4px 0 #00000014;
-  position: absolute;
-  transition: 0.7s ease-in-out;
-  z-index: 4;
-  right: -200%;
-  bottom: -167px;
+  .popper-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 
-  &.show {
-    right: -168px;
-  }
+    .label-contant {
+      width: 275px;
+      background-color: #fff;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px 0 #00000014;
+      position: fixed;
+      z-index: 4;
+      z-index: 1000;
 
-  .add-new-label-header {
-    display: flex;
-    padding: 4px 10px;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-
-    .text {
-      border: 0;
-      line-height: 24px;
-      flex-grow: 1;
-      outline: none;
-      flex: 1;
-
-      &::placeholder {
-        color: #999999;
-      }
-    }
-
-    .close-btn {
-      width: 20px;
-      height: 20px;
-      color: gray;
-    }
-  }
-
-  .labels-list {
-    list-style: none;
-    padding: 0;
-    border-collapse: collapse;
-    max-height: 300px;
-    overflow-x: hidden;
-    margin: 0;
-
-    .add-task-new-label-item {
-      width: 100%;
-      height: 32px;
-      display: flex;
-      align-items: center;
-
-      &:hover {
-        background-color: #f3f3f3;
-      }
-
-      .label-name {
-        padding-left: 4px;
-        cursor: pointer;
-        font-size: 12px;
-      }
-
-      .square {
-        border: 1px solid #808080;
-        width: 16px;
+      .add-new-label-header {
         display: flex;
+        padding: 4px 10px;
         align-items: center;
-        justify-content: center;
-        border-radius: 3px;
-        height: 15px;
+        border-bottom: 1px solid #ddd;
+
+        .label-header-input-text {
+          border: 0;
+          line-height: 24px;
+          flex-grow: 1;
+          outline: none;
+          flex: 1;
+
+          &::placeholder {
+            color: #999999;
+          }
+        }
+
+        .close-btn {
+          width: 20px;
+          height: 20px;
+          color: gray;
+        }
+      }
+
+      .labels-items-empty {
         margin-left: 10px;
 
-        &.checked {
-          background-color: #808080;
-        }
+        .inside-label-items-empty-error {
+          .text {
+            color: #555;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            font-size: 12px;
+          }
 
-        .feather-check {
-          height: 15px;
-          color: #fff;
-          stroke: #fff;
-          stroke-width: 4px;
+          .add-new-label-text {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            width: 100%;
+            padding: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            color: #202020;
+
+            .add-btn {
+              margin-right: 10px;
+              margin-top: -2px;
+            }
+          }
         }
       }
-    }
 
-    .add-task-new-label-item {
-      background-color: #fff;
-      &.checked {
-        .square {
-          background-color: #808080;
-        }
-        svg {
-          display: block !important;
-        }
-        .add-new-label-square {
-          background-color: #808080;
-        }
-      }
-    }
-
-    .add-task-label-item {
-      width: 100%;
-      height: 32px;
-      display: flex;
-      align-items: center;
-
-      &:hover {
-        background-color: #f3f3f3;
-      }
-
-      .label-name {
-        padding-left: 4px;
-        cursor: pointer;
-        font-size: 12px;
-      }
-
-      .square {
-        border: 1px solid #808080;
-        width: 16px;
+      .add-new-label-footer {
+        padding: 4px 10px;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 3px;
-        height: 15px;
-        margin-left: 10px;
+        position: relative;
 
-        &.checked {
-          background-color: #808080;
+        .text {
+          font-size: 15px;
+          color: #999999;
         }
 
-        .feather-check {
-          height: 15px;
+        .apply-wrap {
+          width: 27px;
+          height: 25px;
+          border-radius: 50%;
+          background-color: #00af9c;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          right: 10px;
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+          top: -23px;
+
+          .apply-btn {
+            color: #f1f1f2;
+            width: 20px;
+          }
+        }
+
+        .add-wrap {
+          width: 27px;
+          height: 25px;
+          border-radius: 50%;
+          background-color: #00af9c;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          right: 10px;
+          cursor: pointer;
           color: #fff;
-          stroke: #fff;
-          stroke-width: 4px;
+          transition: all 0.3s ease-in-out;
+          top: -23px;
+
+          .apply-btn {
+            color: #f1f1f2;
+            width: 20px;
+          }
         }
-      }
-    }
-
-    .add-task-label-item {
-      background-color: #fff;
-      &.checked {
-        .square {
-          background-color: #808080;
-        }
-        svg {
-          display: block !important;
-        }
-        .add-new-label-square {
-          background-color: #808080;
-        }
-      }
-    }
-  }
-
-  .add-new-label-footer {
-    padding: 4px 10px;
-    display: flex;
-    position: relative;
-
-    .text {
-      font-size: 15px;
-      color: #999999;
-    }
-
-    .apply-wrap {
-      width: 27px;
-      height: 25px;
-      border-radius: 50%;
-      background-color: #00af9c;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      right: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-
-      .apply-btn {
-        color: #f1f1f2;
-        width: 20px;
-      }
-    }
-
-    .add-wrap {
-      width: 27px;
-      height: 25px;
-      border-radius: 50%;
-      background-color: #00af9c;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      right: 10px;
-      cursor: pointer;
-      color: #fff;
-      transition: all 0.3s ease-in-out;
-
-      .apply-btn {
-        color: #f1f1f2;
-        width: 20px;
       }
     }
   }

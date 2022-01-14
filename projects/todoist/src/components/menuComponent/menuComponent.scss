@@ -1,17 +1,16 @@
 .menu {
   height: calc(100vh - 44px);
-  padding-top: 37px;
-  padding-left: 50px;
+  padding-top: 30px;
+  padding-left: 35px;
   width: 0;
   overflow-x: hidden;
   overflow-y: hidden;
   box-sizing: border-box;
   background-color: #fafafa;
-  z-index: 2;
   transition: width 0.2s;
 
   &.show {
-    width: 305px;
+    width: 232px;
   }
 
   .sysLabels {
@@ -22,7 +21,7 @@
       cursor: pointer;
       padding: 5px 16px 5px 5px;
       border-radius: 5px;
-      font-size: 14px;
+      font-size: 13px;
       box-sizing: border-box;
       height: 30px;
 
@@ -76,7 +75,7 @@
     .text {
       color: black;
       padding: 8px 0px 7px 26px;
-      font-size: 12px;
+      font-size: 13px;
     }
   }
 

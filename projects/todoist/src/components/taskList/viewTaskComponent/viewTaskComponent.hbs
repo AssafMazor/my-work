@@ -1,0 +1,103 @@
+<div class="view-task-header">
+
+    <div class="project-area">
+
+        <svg width="16" height="16" viewBox="0 0 16 16" class="project-btn">
+            <g fill="currentColor">
+                <path d="M13.5 9.5V12a1.5 1.5 0 01-1.5 1.5H4A1.5 1.5 0 012.5 12V9.5h3.75a1.75 1.75 0 003.5 0h3.75z" opacity="0.1">
+
+                </path>
+                <path d="M10.491 2a2 2 0 011.923 1.45l1.509 5.28a2 2 0 01.077.55V12a2 2 0 01-2 2H4a2 2 0 01-2-2V9.28a2 2 0 01.077-.55l1.509-5.28A2 2 0 015.509 2h4.982zm0 1H5.51a1 1 0 00-.962.725l-1.509 5.28A1 1 0 003 9.28V12a1 1 0 001 1h8a1 1 0 001-1V9.28a1 1 0 00-.038-.275l-1.51-5.28a1 1 0 00-.96-.725zM6.25 9a.5.5 0 01.5.5 1.25 1.25 0 002.5 0 .5.5 0 01.5-.5h1.75a.5.5 0 110 1h-1.306a2.25 2.25 0 01-4.388 0H4.5a.5.5 0 010-1z">
+
+        </path>
+        </g>
+        </svg>
+
+        <div class="text">inbox
+        </div>
+
+        <div type="button" class="close-btn-wrap items-btn">
+            <svg viewBox="0 0 24 24" class="close-btn" width="24" height="24">
+                <path fill="currentColor" fill-rule="nonzero" d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"
+            ></path>
+            </svg>
+        </div>
+
+
+    </div>
+
+    <div class="task-item">
+
+        <div class="content">
+            <div type="button" class="view-task-delete-checkbox">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="feather view-task-delete-checkbox-check" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+
+            </div>
+
+            <div class="info-wrap">
+
+                <div class="name">{{this.task.name}}
+                </div>
+
+                <input class="discription" disabled type="text" placeholder="Discription" value={{this.task.discription}}>
+
+            </div>
+        </div>
+
+        <div class="task-editor-wrap hide">
+        </div>
+    </div>
+
+    <div class="features-wrap">
+    </div>
+
+    <div class="features-items-row">
+
+        <button type="button" class="edit-label-wrap items-btn">
+
+                        <svg data-svgs-path="sm1/label_outline.svg" class="label-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor" fill-rule="nonzero" d="M3.914 11.086l6.5-6.5A2 2 0 0 1 11.828 4H18a2 2 0 0 1 2 2v6.172a2 2 0 0 1-.586 1.414l-6.5 6.5a2 2 0 0 1-2.828 0l-6.172-6.172a2 2 0 0 1 0-2.828zm.707.707a1 1 0 0 0 0 1.414l6.172 6.172a1 1 0 0 0 1.414 0l6.5-6.5a1 1 0 0 0 .293-.707V6a1 1 0 0 0-1-1h-6.172a1 1 0 0 0-.707.293l-6.5 6.5zM14.75 10.5a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z">
+
+                    </path>
+                        </svg>
+
+        </button>
+
+        <div class="edit-label-dialog label-dialog">
+        </div>
+                    
+        <button type="button" class="priority-wrap items-btn {{this.priorityColor}}">
+            
+            <svg class="feather priority-icon {{this.priorityColor}}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+            <line x1="4" y1="22" x2="4" y2="15"/>
+            </svg>
+            
+        </button>
+    </div>
+
+</div>
+
+<div class="tab-list">
+
+    <div class="text">Sub-tasks
+    </div>
+
+</div>
+
+<div class="add-sub-task-wrap">
+
+    <div class="add-sub-task-icon">
+        <svg width="13" class="add-sub-task-btn" height="13">
+            <path d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z" fill="currentColor" fill-rule="evenodd">
+
+        </path>
+        </svg>    
+    </div>
+
+    <div class="text">Add sub-task
+    </div>
+</div>

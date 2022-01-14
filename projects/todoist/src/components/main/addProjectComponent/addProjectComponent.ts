@@ -6,8 +6,9 @@ import '../addProjectComponent/addProjectComponent.scss';
 const addProjectTemplate = require('../addProjectComponent/addProjectComponent.hbs');
 
 export class addProjectComponent {
-    labelsService:LabelsService  = LabelsService.Instance;
-    labelList:ILabel[];
+    private labelsService:LabelsService  = LabelsService.Instance;
+    private labelList:ILabel[];
+    private $el:any;
 
     constructor(){
       this.labelList = this.labelsService.getLabels();
@@ -15,9 +16,10 @@ export class addProjectComponent {
     }
 
     setHtml(){
-      $(".main .project-dialog").html(addProjectTemplate({}))
+        this.$el = $(addProjectTemplate({}));
+        $(".main .project-dialog").html(this.$el)
 
-      this.initEvents();
+        this.initEvents();
     }
 
     initEvents(){

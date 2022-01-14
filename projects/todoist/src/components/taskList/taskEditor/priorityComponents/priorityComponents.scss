@@ -1,0 +1,39 @@
+.priority-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  .popper-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .priority-list {
+      width: 277px;
+      border-radius: 5px;
+      border: 1px solid #0000001a;
+      box-shadow: 0 2px 4px 0 #00000014;
+      background-color: #fff;
+      position: absolute;
+      z-index: 40;
+
+      .priority-item {
+        display: flex;
+        padding: 4px 10px;
+        align-items: center;
+        box-sizing: border-box;
+        cursor: pointer;
+        width: 100%;
+
+        .text {
+          flex: 1;
+          margin: 0 10px;
+          line-height: 24px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -25,10 +25,14 @@
 
         &.task-goal-wrap {
           height: 32px;
-          width: 52px;
+          width: 64px;
+          font-size: 12px;
+          font-weight: 400;
 
           .goal-btn {
             padding-right: 8px;
+            padding-right: 3px;
+            margin-top: -2px;
           }
         }
 

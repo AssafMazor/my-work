@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { ILabel} from "../interfaces/label.interface"
 import {EventEmitter} from 'events';
+import { fill } from 'lodash';
 
 
 export class LabelsService {   
@@ -12,6 +13,7 @@ export class LabelsService {
     constructor() {
         this.eventEmitter = new EventEmitter();
         this.labels = [];
+
     }
 
     laodData(callback){
@@ -32,7 +34,15 @@ export class LabelsService {
         return fillterd[0]
     }
 
+    isLabelExist(labelName){
+        let fillterd = this.labels.filter((label) => {
+            return label.name === labelName
+        })
+        return fillterd
+    }
+
     createNewLabel(label){
+        console.log(label)
         this.labels.push(label)
         this.eventEmitter.emit('label-change', this.labels);
     }
