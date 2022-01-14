@@ -52,7 +52,7 @@ export class TaskEditorComponent {
             task:this.task,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority)
         }));
-
+        
         this.$host.html(this.$el);
         this.onChooseLabels(this.task.labels)
         this.initEvents();
