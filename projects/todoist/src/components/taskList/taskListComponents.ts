@@ -35,8 +35,7 @@ export class TaskListComponents {
       this.$el = $(taskListTemplate({
         tasks:this.taskList,
       }))
-      let y = this.$el.find(".task-list-body");
-      
+      debugger;
       $(".main .container .task-list .inside-task-list").html(this.$el);
 
       this.initEvents();
@@ -76,13 +75,9 @@ export class TaskListComponents {
     // renderTaskItems
     //----------------------------------
 
-    renderTaskItems(){
-      
-      this.$el.find(".task-list-body").html("");
-      
+    renderTaskItems(){    
       this.taskList.forEach((task:ITask) => {
-        debugger
-        new TaskListItemComponents(task , this.$el)
+        new TaskListItemComponents(task , this)
       })
     }
 }

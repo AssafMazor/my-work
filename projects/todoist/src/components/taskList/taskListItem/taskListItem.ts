@@ -20,10 +20,10 @@ export class TaskListItemComponents {
     private labelsNames:ILabel[] = [];
     private task:ITask;
     private $el:any;
-    private $parentEl:any;
+    private parent:any;
 
-    constructor(task:ITask , $parentEl:any){
-        this.$parentEl = $parentEl;
+    constructor(task:ITask , parent:any){
+        this.parent = parent;
         debugger
         this.task = task;
         this.setHtml();
@@ -43,8 +43,7 @@ export class TaskListItemComponents {
             labelsNames:this.labelsNames,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority)
         }));
-        debugger;
-        this.$parentEl.find(".task-list-body").append(this.$el);
+        $(".task-list-body").append(this.$el);
         this.initEvents();
     }
 
