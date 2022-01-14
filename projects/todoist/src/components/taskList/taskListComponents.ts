@@ -76,6 +76,7 @@ export class TaskListComponents {
     //----------------------------------
 
     renderTaskItems(){    
+      this.$el.find(".task-list-body").html("")
       this.taskList.forEach((task:ITask) => {
         new TaskListItemComponents(task , this)
       })

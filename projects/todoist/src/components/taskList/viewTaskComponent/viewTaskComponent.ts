@@ -5,9 +5,8 @@ import { LabelsService } from "../../../services/labels.service";
 import { TaskEditorComponent, eTaskMode } from "../taskEditor/taskEditorComponent";
 import { PriorityService } from "../../../services/priority.service";
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
-
+import { TaskListItemComponents , eTaskCaller } from "../taskListItem/taskListItem"
 import '../viewTaskComponent/viewTaskComponent.scss';
-import { updateDefaultClause } from 'typescript';
 
 const viewTaskTemplate = require('../viewTaskComponent/viewTaskComponent.hbs');
 
@@ -35,6 +34,7 @@ export class viewTaskComponents {
         priorityColor:this.priorityService.getPriorityColor(this.task.priority)
       }));
       $(".view-task-dialog").html(this.$el);
+      new TaskListItemComponents(this.task , this , eTaskCaller.View);
       this.onChooseLabels(this.task.labels);
       this.initEvents();
     }

@@ -9,6 +9,10 @@ import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/lab
 import { ILabel } from '../../../interfaces/label.interface';
 import { viewTaskComponents } from '../viewTaskComponent/viewTaskComponent';
 
+export enum eTaskCaller {
+    View,
+    Task
+}
 
 import '../taskListItem/taskListItem.scss';
 const taskListItemTemplate = require('../taskListItem/taskListItem.hbs');
@@ -21,8 +25,10 @@ export class TaskListItemComponents {
     private task:ITask;
     private $el:any;
     private parent:any;
+    private isViewMode:boolean = false;
 
-    constructor(task:ITask , parent:any){
+    constructor(task:ITask , parent:any , caller?){
+        this.isViewMode = caller === eTaskCaller.View;
         this.parent = parent;
         debugger
         this.task = task;
@@ -43,7 +49,7 @@ export class TaskListItemComponents {
             labelsNames:this.labelsNames,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority)
         }));
-        $(".task-list-body").append(this.$el);
+        this.parent.$el.find(".task-list-body").append(this.$el);
         this.initEvents();
     }
 
@@ -108,8 +114,10 @@ export class TaskListItemComponents {
     //----------------------------------
 
     onItemClick(e){
-        $(".view-task-dialog").removeClass("hide")
-        new viewTaskComponents(this.task)
+        if(!this.isViewMode){
+            $(".view-task-dialog").removeClass("hide");
+            new viewTaskComponents(this.task);
+        }
     }
     
     //----------------------------------
@@ -149,10 +157,12 @@ export class TaskListItemComponents {
             parent:this,
             task:this.task,
             isAddMode:eTaskMode.Edit
+            
         });
         $(".add-task-dialog").removeClass("hide");
         this.$el.find(".content").addClass("hide");
         $(".task-list-footer .add-task-wrap").addClass("hide");
+        this.parent.$el.find(".features-wrap").addClass("hide")
     }
 
     //----------------------------------

@@ -6,5 +6,6 @@ export interface ITask {
     isfinished:boolean,
     priority:number,
     category:number,
-    id:number
+    id:number,
+    subTasks:number[]
 }

@@ -7,7 +7,31 @@
         "isfinished":false,
         "priority":4,
         "category":2,
-        "id":1
+        "id":1,
+        "subTasks":[
+            {
+                "name":"shaul",
+                "title":"hgfh",
+                "sentTime":1638800527000,
+                "labels":[1 , 2],
+                "isfinished":false,
+                "priority":4,
+                "category":1,
+                "id":2,
+                "subTasks":[3 , 4]
+            },
+            {
+                "name":"assaf",
+                "title":"hgfh",
+                "sentTime":1640874110852,
+                "labels":[2],
+                "isfinished":false,
+                "priority":4,
+                "category":2,
+                "id":3,
+                "subTasks":[]
+            }
+        ]
     },
     {
         "name":"shaul",
@@ -17,7 +41,8 @@
         "isfinished":false,
         "priority":4,
         "category":1,
-        "id":2
+        "id":2,
+        "subTasks":[3 , 4]
     },
     {
         "name":"assaf",
@@ -27,7 +52,8 @@
         "isfinished":false,
         "priority":4,
         "category":2,
-        "id":3
+        "id":3,
+        "subTasks":[]
     },
     {
         "name":"hilla",
@@ -37,6 +63,7 @@
         "isfinished":false,
         "priority":4,
         "category":3,
-        "id":4
+        "id":4,
+        "subTasks":[]
     }
 ]

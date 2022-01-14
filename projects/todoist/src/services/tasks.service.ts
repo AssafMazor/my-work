@@ -31,7 +31,8 @@ export class TasksService {
             "isfinished":false,
             "priority":4,
             "category":1,
-            "id":this.taskList.length + 1
+            "id":this.taskList.length + 1,
+            "subTasks":[]
         }
     }
 
@@ -109,8 +110,10 @@ export class TasksService {
         task.priority = editedTask.priority;
         task.sentTime = editedTask.sentTime;
         task.title = editedTask.title;
+        task.subTasks = editedTask.subTasks;
         
         this.getUpdatedTaskList(editedTask.category);
+        console.log(this.taskList)
     }
     
     finishTask(task){

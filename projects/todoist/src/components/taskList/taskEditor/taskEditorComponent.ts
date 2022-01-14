@@ -126,7 +126,6 @@ export class TaskEditorComponent {
     //----------------------------------
 
     onTaskSave(e){
-        alert("dhoifo")
         this.taskService.editTask({
             "name":$(".edit-name-task-input").val(),
             "title":$(".edit-description-task-input").val(),
@@ -135,14 +134,15 @@ export class TaskEditorComponent {
             "isfinished":this.task.isfinished,
             "priority":this.choosenPriority,
             "category":1,
-            "id":this.task.id
+            "id":this.task.id,
+            "subTasks":[]
         },
         );
         $(".add-task").addClass("hide");
         $(".add-task-wrap").removeClass("hide");
-        console.log(this.parent.$el)
-        this.parent.$el.find(".task-editor-wrap").addClass("hide")
-        this.parent.$el.find(".content").removeClass("hide")
+        this.parent.$el.find(".task-editor-wrap").addClass("hide");
+        this.parent.$el.find(".content").removeClass("hide");
+        $(".features-wrap").removeClass("hide");
     }
 
     //----------------------------------
@@ -167,7 +167,7 @@ export class TaskEditorComponent {
         $(".new-editor-wrap").addClass("hide")
         this.$host.find(".content").removeClass("hide");
         $(".add-task-wrap").removeClass("hide");
-        this.parent.$el.find(".features-wrap").removeClass("hide")
+        $(".features-wrap").removeClass("hide")
     }   
 
     //----------------------------------
