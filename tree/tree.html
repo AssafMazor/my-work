@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,100;1,200&family=Roboto&display=swap" rel="stylesheet"    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.5.2/rxjs.umd.js"></script>
+
+    <link rel="stylesheet" href="./tree.css">
+
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+
+
+  <script>
+    data = [
+        {
+            name: "Yakov",
+            children:[
+            {
+                name: "Ruth",
+                children:[
+                    {
+                        name: "Hila",
+                        children:[]
+                    },
+                    {
+                        name: "Ariel",
+                        children:[]
+                    },
+                    {
+                        name: "Assaf",
+                        children:[
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "lilian",
+                children:[
+                    {
+                        name: "gil",
+                        children:[]
+                    },
+                    {
+                        name: "idan",
+                        children:[]
+                    }
+                ]
+            },
+            {
+                name:"niv",
+                children:[
+                    {
+                        name:"soval",
+                        children:[]
+                    },
+                    {
+                        name:"lihel",
+                        children:[]
+                    },
+                    {
+                        name:"noya",
+                        children:[]
+                    }
+
+                ]
+            }
+        ]
+        },
+        {
+            name:"avraham",
+            children:[
+                {
+                    name:"shaul",
+                    children:[
+                    {
+                        name: "Hila",
+                        children:[]
+                    },
+                    {
+                        name: "Ariel",
+                        children:[]
+                    },
+                    {
+                        name: "Assaf",
+                        children:[
+                        ]
+                    }
+                ]
+                },
+                {
+                name:"Micah",
+                children:[
+                        {
+                            name:"elad",
+                            children:[]
+                        },
+                        {
+                            name:"neta",
+                            children:[]
+                        },
+                        {
+                            name:"noa",
+                            children:[]
+                        }
+                    ]
+                },
+                {
+                name:"taly",
+                children:[
+                        {
+                            name:"noga",
+                            children:[]
+                        },
+                        {
+                            name:"shira",
+                            children:[]
+                        },
+                        {
+                            name:"omer",
+                            children:[]
+                        }
+                    ]
+                },
+                {
+                name:"roe",
+                children:[
+                        {
+                            name:"yahir",
+                            children:[]
+                        },
+                        {
+                            name:"itay",
+                            children:[]
+                        },
+                    ]
+                }
+            ]
+        }
+    ]
+
+  </script>
+  </head>
+
+  <body>
+    <div class="main-wrap">
+
+      <div class="main">
+
+        <div class="task-list">
+        </div>
+
+      </div>
+
+    </div>
+
+    <script>
+
+        function renderTree(node , $parentEl , level){
+            let $el;
+            if(node.children.length > 0){
+                $el = $(`
+                <div class="active level-${level}">
+                    <div class="title">
+                        <svg class="feather feather-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+
+                        <svg class="feather feather-right hide" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+
+                        ${node.name}-${level}
+                    </div>
+              </div>
+            `
+            );
+        }else {
+                $el = $(`
+                <div class="active level-${level}">
+                    <div class="title">
+                    ${node.name}-${level}
+                    </div>
+                </div>`)
+            }
+            
+            if(node.children.length > 0){
+                $el.on("click" , (e) => {
+                    if($(e.target).hasClass("title")){
+                        if(e.stopPropagation) {
+                        e.stopPropagation();
+                        }   
+                        debugger;
+                        $(e.target).parent().children(".active").toggleClass("hide");
+                        $(e.target).children(".feather-down").toggleClass("hide");
+                        $(e.target).children(".feather-right").toggleClass("hide");
+                    }
+                })
+            }
+
+            $parentEl.append($el)
+            node.children.forEach((child) => {
+                renderTree(child , $el , level + 1)
+            })
+        }
+
+        data.forEach((family) => {
+            renderTree(family , $(".task-list") , 0);
+        })
+
+    </script>
+  </body>
+</html>

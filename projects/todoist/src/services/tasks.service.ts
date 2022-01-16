@@ -32,6 +32,7 @@ export class TasksService {
             "priority":4,
             "category":1,
             "id":this.taskList.length + 1,
+            "level":0,
             "subTasks":[]
         }
     }

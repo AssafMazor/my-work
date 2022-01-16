@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $, { Callbacks } from 'jquery';
 import moment from 'moment';
 import { ITask } from "../../../interfaces/task.interface";
 import { LabelsService } from "../../../services/labels.service";
@@ -27,10 +27,9 @@ export class TaskListItemComponents {
     private parent:any;
     private isViewMode:boolean = false;
 
-    constructor(task:ITask , parent:any , caller?){
+    constructor(task:ITask , parent:any , caller?){ 
         this.isViewMode = caller === eTaskCaller.View;
         this.parent = parent;
-        debugger
         this.task = task;
         this.setHtml();
     }
