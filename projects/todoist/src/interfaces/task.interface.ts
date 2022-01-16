@@ -7,5 +7,5 @@ export interface ITask {
     priority:number,
     category:number,
     id:number,
-    subTasks:number[]
+    children:number[]
 }

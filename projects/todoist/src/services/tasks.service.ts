@@ -33,7 +33,7 @@ export class TasksService {
             "category":1,
             "id":this.taskList.length + 1,
             "level":0,
-            "subTasks":[]
+            "children":[]
         }
     }
 
@@ -82,8 +82,10 @@ export class TasksService {
     }
 
     addNewTask(newTask){
-        this.taskList.push(newTask)
-        this.getUpdatedTaskList(1)
+        this.taskList.push(newTask);
+        this.getUpdatedTaskList(1);
+       
+        this.eventEmitter.emit('addNewSubTask', newTask);
     }
 
     getTaskLabels(labelId){
@@ -111,10 +113,9 @@ export class TasksService {
         task.priority = editedTask.priority;
         task.sentTime = editedTask.sentTime;
         task.title = editedTask.title;
-        task.subTasks = editedTask.subTasks;
+        task.children = editedTask.subTasks;
         
         this.getUpdatedTaskList(editedTask.category);
-        console.log(this.taskList)
     }
     
     finishTask(task){

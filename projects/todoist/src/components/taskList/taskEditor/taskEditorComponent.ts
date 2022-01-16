@@ -11,12 +11,13 @@ export enum eTaskMode {
     Edit
 }
 
-export interface ILabelParams {
+export interface IEditorParams {
     $wrap: any,
     parent:any,
     task: ITask,
-    isAddMode:eTaskMode
+    isAddMode:eTaskMode,
     showAsDialog?:boolean
+    isAddSubTask:boolean
   }
   
 
@@ -35,8 +36,10 @@ export class TaskEditorComponent {
     private showAsDialog:boolean = false;
     private choosenPriority:any;
     private parent:any;
+    private isAddSubTask:boolean = true;
 
-    constructor(params:ILabelParams){
+    constructor(params:IEditorParams){
+        this.isAddSubTask = params.isAddSubTask
         this.parent = params.parent
         this.task = params.task;
         this.$host = params.$wrap
@@ -45,18 +48,26 @@ export class TaskEditorComponent {
         this.setHtml();
     }
 
+    //----------------------------------
+    // setHtml
+    //----------------------------------
+
     setHtml(){
         this.$el = $(taskEditorTemplate({
             isAddMode:this.isAddMode,
             display:this.showAsDialog ? "dialog" : "",
             task:this.task,
-            priorityColor:this.priorityService.getPriorityColor(this.task.priority)
+            priorityColor:this.priorityService.getPriorityColor(this.task.priority),
+            isAddSub:this.isAddSubTask
         }));
-        debugger;
+        console.log(this.$host)
         this.$host.html(this.$el);
         this.onChooseLabels(this.task.labels)
         this.initEvents();
     }
+    //----------------------------------
+    // initEvents
+    //----------------------------------
 
     initEvents(){
         $(".name-task-input").on("input" , (e) => {

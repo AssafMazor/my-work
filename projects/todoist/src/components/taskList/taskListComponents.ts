@@ -25,6 +25,11 @@ export class TaskListComponents {
         this.taskList = taskList;
         this.renderTaskItems();
       });
+
+      this.tasksService.eventEmitter.on('sub-task-change', (task:ITask[]) => {
+        this.taskList = taskList;
+        this.renderTree(task , $(".sub-task-list") , 0);
+      });
     }
 
     //----------------------------------
@@ -35,7 +40,7 @@ export class TaskListComponents {
       this.$el = $(taskListTemplate({
         tasks:this.taskList,
       }))
-      debugger;
+      
       $(".main .container .task-list .inside-task-list").html(this.$el);
 
       this.initEvents();
@@ -52,6 +57,7 @@ export class TaskListComponents {
         
       })
     }
+
     //----------------------------------
     // onAddTaskClick
     //----------------------------------
@@ -64,7 +70,8 @@ export class TaskListComponents {
         $wrap:$wrap, 
         parent:this,
         task:this.tasksService.returnNewTask(),
-        isAddMode:eTaskMode.Add
+        isAddMode:eTaskMode.Add,
+        isAddSubTask:false
       });
 
       this.$el.find(".add-task-dialog").removeClass("hide");
@@ -78,7 +85,20 @@ export class TaskListComponents {
     renderTaskItems(){    
       this.$el.find(".task-list-body").html("")
       this.taskList.forEach((task:ITask) => {
-        new TaskListItemComponents(task , this)
+        this.renderTree(task , this.$el.find(".task-list-body") , 0);
+      })
+    }
+
+    //----------------------------------
+    // renderTaskItems
+    //----------------------------------
+
+    renderTree(task , $parentEl , level , isViewMode?){
+        new TaskListItemComponents(task , this , $parentEl , level);
+        let $el = $(`.${task.name}`)
+      console.log(isViewMode)
+        task.children.forEach((child) => {
+          this.renderTree(child , $el , level + 1, isViewMode)
       })
     }
 }

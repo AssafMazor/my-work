@@ -25,10 +25,14 @@ export class TaskListItemComponents {
     private task:ITask;
     private $el:any;
     private parent:any;
-    private isViewMode:boolean = false;
-
-    constructor(task:ITask , parent:any , caller?){ 
-        this.isViewMode = caller === eTaskCaller.View;
+    private isViewMode:boolean;
+    private $host:any;
+    private level:number;
+    
+    constructor(task:ITask , parent:any , $host:any , level , caller?){ 
+        this.level = level;
+        this.isViewMode = caller;
+        this.$host = $host;
         this.parent = parent;
         this.task = task;
         this.setHtml();
@@ -46,9 +50,11 @@ export class TaskListItemComponents {
             dateDiff:this.getTime(sentTime),
             task:this.task,
             labelsNames:this.labelsNames,
-            priorityColor:this.priorityService.getPriorityColor(this.task.priority)
+            priorityColor:this.priorityService.getPriorityColor(this.task.priority),
+            level:this.level
         }));
-        this.parent.$el.find(".task-list-body").append(this.$el);
+        this.$host.append(this.$el);
+        
         this.initEvents();
     }
 
@@ -113,9 +119,10 @@ export class TaskListItemComponents {
     //----------------------------------
 
     onItemClick(e){
+   
         if(!this.isViewMode){
             $(".view-task-dialog").removeClass("hide");
-            new viewTaskComponents(this.task);
+            new viewTaskComponents(this.task , this.parent , this);
         }
     }
     
@@ -155,13 +162,13 @@ export class TaskListItemComponents {
             $wrap:$wrap,
             parent:this,
             task:this.task,
-            isAddMode:eTaskMode.Edit
-            
+            isAddMode:eTaskMode.Edit,
+            isAddSubTask:false
         });
         $(".add-task-dialog").removeClass("hide");
         this.$el.find(".content").addClass("hide");
         $(".task-list-footer .add-task-wrap").addClass("hide");
-        this.parent.$el.find(".features-wrap").addClass("hide")
+        this.$host.$el.find(".features-wrap").addClass("hide")
     }
 
     //----------------------------------

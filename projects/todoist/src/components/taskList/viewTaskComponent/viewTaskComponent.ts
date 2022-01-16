@@ -15,13 +15,22 @@ export class viewTaskComponents {
     private priorityService:PriorityService = PriorityService.Instance;
     private $el:any;
     private labelsService:LabelsService = LabelsService.Instance;
-    task:ITask;
-    choosenLabels: number[] = [];
+    private task:ITask;
+    private choosenLabels: number[] = [];
+    private parent:any;
+    private taskListComponent:any;
 
-    constructor(task){
-        this.task = task
+    constructor(task , taskListComponent , parent){
+        this.task = task;
+        this.parent = parent;
+        this.taskListComponent = taskListComponent
         this.setHtml();
         this.onEditTaskChange();
+        this.subTaskList();
+
+        this.tasksService.eventEmitter.on("sub-task-change" , (task:ITask) => {
+            new TaskListItemComponents(task , this , eTaskCaller.Task , true)
+        })
     }
 
     //----------------------------------
@@ -34,9 +43,52 @@ export class viewTaskComponents {
         priorityColor:this.priorityService.getPriorityColor(this.task.priority)
       }));
       $(".view-task-dialog").html(this.$el);
-      new TaskListItemComponents(this.task , this , eTaskCaller.View);
+    //   new TaskListItemComponents(this.task , this , eTaskCaller.View);
       this.onChooseLabels(this.task.labels);
       this.initEvents();
+    }
+
+    //----------------------------------
+    // initEvents
+    //----------------------------------
+
+    initEvents(){
+        this.$el.find(".edit-label-wrap").on("click" , (e) => {
+            this.onEditLabelBtnClick(e);
+        })
+        this.$el.find(".content").on("click" , (e) => {
+            this.onEditTaskClick(e);
+        })
+        this.$el.find(".add-sub-task-wrap").on("click" , (e) => {
+            this.onAddSubTaskClick(e);
+        })
+    }
+
+    //----------------------------------
+    // initEvents
+    //----------------------------------
+
+    subTaskList(){
+        this.task.children.forEach((child) => {
+            this.taskListComponent.renderTree(child , this.$el.find(".sub-task-list") , 1 , true)
+        })
+    }
+
+    //----------------------------------
+    // onEditTaskChange
+    //----------------------------------
+
+    onAddSubTaskClick(e){
+        let $wrap = this.$el.find(".new-editor-wrap");
+        $wrap.removeClass("hide");
+
+        new TaskEditorComponent({
+            $wrap:$wrap, 
+            parent:this,
+            task:this.task,
+            isAddMode:eTaskMode.Add,
+            isAddSubTask:true
+        })
     }
 
     //----------------------------------
@@ -62,19 +114,6 @@ export class viewTaskComponents {
     }
 
     //----------------------------------
-    // initEvents
-    //----------------------------------
-
-    initEvents(){
-        this.$el.find(".edit-label-wrap").on("click" , (e) => {
-            this.onEditLabelBtnClick(e);
-        })
-        this.$el.find(".content").on("click" , (e) => {
-            this.onEditTaskClick(e);
-        })
-    }
-
-    //----------------------------------
     // onEditTaskClick
     //----------------------------------
 
@@ -86,7 +125,8 @@ export class viewTaskComponents {
             $wrap:$wrap,
             parent:this,
             task:this.task,
-            isAddMode:eTaskMode.Edit
+            isAddMode:eTaskMode.Edit,
+            isAddSubTask:false
         });
 
         this.$el.find(".content").addClass("hide")

@@ -86,13 +86,21 @@
 
         <div class="task-confirmation">
 
-            <button type="button" class="add-task-btn disable">
+            {{#if isAddSubTask}}
+                <button type="button" class="add-sub-task-btn disable">
+
+                    <div class="text">Add task  
+                    </div>
+
+                </button>
+            {{else}}
+                <button type="button" class="add-task-btn disable">
 
                 <div class="text">Add task  
                 </div>
 
-            </button>
-
+                </button>
+            {{/if}}
             <button type="button" class="cancel">
 
                 <div class="text">Cancel
