@@ -18,7 +18,6 @@ export class viewTaskComponents {
     private task:ITask;
     private parent:any;
     private taskListComponent:any;
-    subTask;
 
     constructor(task , taskListComponent , parent){
         this.task = task;
@@ -29,7 +28,6 @@ export class viewTaskComponents {
         this.renderSubTaskList();
 
         this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask,subTask:ITask) => {
-            this.subTask = subTask
             this.renderSubTask(newSubTask , $(".sub-task-list") , 1)
           })
     }
@@ -81,8 +79,9 @@ export class viewTaskComponents {
     //----------------------------------
 
     renderSubTaskList(){
-        this.task.children.forEach((subtask) => {
-          this.renderSubTask(subtask , this.$el.find(".sub-task-list") , 0);
+        this.task.children.forEach((taskId) => {
+            let subtask = this.tasksService.getTask(taskId) 
+            this.renderSubTask(subtask , this.$el.find(".sub-task-list") , 0);
         })
     }
 
@@ -92,10 +91,12 @@ export class viewTaskComponents {
 
     renderSubTask(subtask , $parentEl , level){
         new TaskListItemComponents(subtask , this , $parentEl , level, true);
-        let $el = $(`.sub-task-list .item.${subtask.name}`)
-
-        subtask.children.forEach((child) => {
-          this.renderSubTask(child , $el , level + 1)
+        let $el = $(`.sub-task-list .item.${subtask.name}`);
+       
+        subtask.children.forEach((taskId) => { 
+            debugger;
+            let subtask = this.tasksService.getTask(taskId) 
+            this.renderSubTask(subtask , $el , level + 1);
         })
     }
 

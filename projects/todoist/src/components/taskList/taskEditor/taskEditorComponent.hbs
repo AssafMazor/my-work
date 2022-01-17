@@ -101,6 +101,7 @@
 
                 </button>
             {{/if}}
+
             <button type="button" class="cancel">
 
                 <div class="text">Cancel
@@ -195,13 +196,22 @@
         </div>
 
         <div class="task-confirmation">
+            
+            {{#if this.isAddSub}} 
+                <button type="button" class="btn-save-sub-task">
 
-            <button type="button" class="btn-save">
+                    <div class="text">Save  
+                    </div>
 
-                <div class="text">Save
-                </div>
+                </button>
+            {{else}}
+                <button type="button" class="btn-save">
 
-            </button>
+                    <div class="text">Save  
+                    </div>
+
+                </button>
+            {{/if}}
 
             <button type="button" class="cancel">
 

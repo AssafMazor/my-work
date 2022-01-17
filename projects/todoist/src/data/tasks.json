@@ -2,79 +2,73 @@
     {
         "name":"ruth",
         "title":"hgfh",
+        "parent": "-1",
         "sentTime":1640874110852,
         "labels":[2],
         "isfinished":false,
         "priority":4,
         "category":2,
-        "id":1,
-        "children":[
-            {
-                "name":"shaul",
-                "title":"hgfh",
-                "sentTime":1638800527000,
-                "labels":[1 , 2],
-                "isfinished":false,
-                "priority":4,
-                "category":1,
-                "id":2,
-                "children":[]
-            }
-        ]
+        "id":"1",
+        "children":[]
     },
     {
         "name":"shaul",
         "title":"hgfh",
+        "parent": "-1",
         "sentTime":1638800527000,
         "labels":[1 , 2],
         "isfinished":false,
         "priority":4,
         "category":1,
-        "id":2,
-        "children":[{
-            "name":"tutu",
-            "title":"hgfh",
-            "sentTime":1638800527000,
-            "labels":[1],
-            "isfinished":false,
-            "priority":2,
-            "category":1,
-            "id":2,
-            "children":[
-                {
-                    "name":"titi",
-                    "title":"hgfh",
-                    "sentTime":1638800527000,
-                    "labels":[1 , 2],
-                    "isfinished":false,
-                    "priority":4,
-                    "category":1,
-                    "id":2,
-                    "children":[]
-                }
-            ]
-        }]
+        "id":"2",
+        "children":["163880052700"]
+    },
+    {
+        "name":"tutu",
+        "title":"hgfh",
+        "parent": "2",
+        "sentTime":1638800527000,
+        "labels":[1],
+        "isfinished":false,
+        "priority":2,
+        "category":1,
+        "id":"163880052700",
+        "children":["1638800527002"]
+    },
+    {
+        "name":"titi",
+        "title":"hgfh",
+        "parent": "2",
+        "sentTime":1638800527000,
+        "labels":[1 , 2],
+        "isfinished":false,
+        "priority":4,
+        "category":1,
+        "id":"1638800527002",
+        "children":[]
     },
     {
         "name":"assaf",
         "title":"hgfh",
+        "parent": "-1",
         "sentTime":1640874110852,
         "labels":[2],
         "isfinished":false,
         "priority":4,
         "category":2,
-        "id":3,
+        "id":"5",
         "children":[]
     },
     {
         "name":"hilla",
         "title":"hgfh",
+        "parent": "-1",
         "sentTime":1640874110852,
         "labels":[2],
         "isfinished":false,
         "priority":4,
         "category":3,
-        "id":4,
+        "id":"6",
         "children":[]
     }
 ]

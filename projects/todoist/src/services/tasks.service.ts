@@ -22,33 +22,48 @@ export class TasksService {
     }
     
     returnNewTask(){
+        let id = this.taskList.length + 1
         return  {
             "name": "string",    
             "content":"string",
             "title":"string",
+            "parent":"-1",
             "sentTime":new Date().getTime(),
             "labels":[],
             "isfinished":false,
             "priority":4,
             "category":1,
-            "id":this.taskList.length + 1,
+            "id":id.toString(),
             "level":0,
             "children":[]
         }
     }
 
+    getAllTasks(){
+        return this.taskList
+    }
+
     getTasks() {
         var fillterd = this.taskList.filter((task) => {
-            return !task.isfinished && task.category === 1
+            return !task.isfinished && task.category === 1 && task.parent === "-1"
         })
         return fillterd;
     }
 
     getTask(taskId){
-        var fillterd = this.taskList.filter((task)=> {
+        let fillterd = this.taskList.filter((task)=> { 
             return task.id === taskId
         });
         return fillterd[0];
+    }
+
+    getSubTask(subTaskId){
+        // let fillterd = this.taskList.filter((task)=> { 
+        //     task.children.filter((child) => {
+        //         return child.id === subTaskId
+        //     })
+        // });
+        // return fillterd[0];
     }
 
     addTaskLabels(taskId , choosenLabels){
@@ -75,6 +90,7 @@ export class TasksService {
         if(!categoryType){
             categoryType === 1
         }
+        debugger;
         var fillterd = this.taskList.filter((task) => {
             return !task.isfinished && task.category === categoryType
         })
@@ -85,13 +101,14 @@ export class TasksService {
         this.taskList.push(newTask);
         this.getUpdatedTaskList(1);
        
-        this.eventEmitter.emit('addNewSubTask', newTask);
     }
 
     addSubTask(newSubTask , task){
-       task.children.push(newSubTask)
-        console.log(task)
-       this.eventEmitter.emit('addNewSubTask', newSubTask , task);
+        this.taskList.push(newSubTask);
+        task.children.push(newSubTask.id);
+        console.log(newSubTask)
+
+        this.eventEmitter.emit('addNewSubTask', newSubTask , task);
     }
 
     getTaskLabels(labelId){
@@ -119,9 +136,29 @@ export class TasksService {
         task.priority = editedTask.priority;
         task.sentTime = editedTask.sentTime;
         task.title = editedTask.title;
-        task.children = editedTask.subTasks;
+        task.children = editedTask.children;
         
         this.getUpdatedTaskList(editedTask.category);
+    }
+
+    editSubTask(editedTask , parentTask){
+        this.getSubTask(editedTask.id);
+
+        console.log(parentTask)
+        debugger;
+        let task = this.getTask(editedTask.id)
+
+        task.category = editedTask.category;
+        task.id = editedTask.id;
+        task.isfinished = editedTask.isfinished;
+        task.labels = editedTask.labels;
+        task.name = editedTask.name;
+        task.priority = editedTask.priority;
+        task.sentTime = editedTask.sentTime;
+        task.title = editedTask.title;
+        task.children = editedTask.children;
+
+        this.eventEmitter.emit('addNewSubTask', editedTask , parentTask);
     }
     
     finishTask(task){

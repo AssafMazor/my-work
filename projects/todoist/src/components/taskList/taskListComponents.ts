@@ -7,6 +7,7 @@ import { TaskListItemComponents } from "./taskListItem/taskListItem";
 
 import './taskListComponents.scss';
 import { isEmpty } from 'lodash';
+import { getAllJSDocTagsOfKind } from 'typescript';
 
 const taskListTemplate = require('./taskListComponents.hbs');
 
@@ -28,7 +29,6 @@ export class TaskListComponents {
       });
 
       this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask, subTask:ITask) => {
-        debugger;
         this.renderAllTasks(this.$el.find(".task-list-body") , 1)
       })
 
@@ -101,8 +101,9 @@ export class TaskListComponents {
         
         let $el = $(`.task-list-body .item.${task.name}`)
 
-        task.children.forEach((child) => {
-          this.renderTask(child , $el , level + 1)
+        task.children.forEach((taskId) => {
+          let subtask = this.tasksService.getTask(taskId)
+          this.renderTask(subtask , $el , level + 1)
       })
     }
 }

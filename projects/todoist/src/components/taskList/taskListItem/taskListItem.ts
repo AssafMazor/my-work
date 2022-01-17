@@ -7,7 +7,7 @@ import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorCompone
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
 import { ILabel } from '../../../interfaces/label.interface';
 import { viewTaskComponents } from '../viewTaskComponent/viewTaskComponent';
-import { isEmpty } from 'lodash';
+import { isEmpty, times } from 'lodash';
 import $ from 'jquery'
 
 export enum eTaskCaller {
@@ -46,6 +46,7 @@ export class TaskListItemComponents {
     setHtml(){
         this.getLabels();
         let sentTime = moment(this.task.sentTime);
+        
 
         this.$el = $(taskListItemTemplate({
             dateDiff:this.getTime(sentTime),
@@ -126,6 +127,7 @@ export class TaskListItemComponents {
 
     getLabels(){
         this.labelsNames = [];
+        debugger;
         this.task.labels.forEach((labelId:number) => {
             this.labelsNames.push(this.labelsService.getLabel(labelId))
         })
@@ -173,19 +175,30 @@ export class TaskListItemComponents {
         if(e.stopPropagation) {
             e.stopPropagation();
         }
-        let $wrap = this.$el.find(".task-editor-wrap");
+
+        let $wrap = $(this.$el).children(".task-editor-wrap");
         $($wrap).removeClass("hide");
-        new TaskEditorComponent({
-            $wrap:$wrap,
-            parent:this,
-            task:this.task,
-            isAddMode:eTaskMode.Edit,
-            isAddSubTask:false
-        });
+
+        if(this.isViewMode){
+            new TaskEditorComponent({
+                $wrap:$wrap,
+                parent:this,
+                task:this.task,
+                isAddMode:eTaskMode.Edit,
+                isAddSubTask:true
+            });
+        }else {
+            new TaskEditorComponent({
+                $wrap:$wrap,
+                parent:this,
+                task:this.task,
+                isAddMode:eTaskMode.Edit,
+                isAddSubTask:false
+            });
+        }
         $(".add-task-dialog").removeClass("hide");
-        this.$el.find(".content").addClass("hide");
+        $(this.$el).children(".content").addClass("hide");
         $(".task-list-footer .add-task-wrap").addClass("hide");
-        this.$host.$el.find(".features-wrap").addClass("hide")
     }
 
     //----------------------------------
