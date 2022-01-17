@@ -1,4 +1,3 @@
-import $, { Callbacks } from 'jquery';
 import moment from 'moment';
 import { ITask } from "../../../interfaces/task.interface";
 import { LabelsService } from "../../../services/labels.service";
@@ -8,6 +7,8 @@ import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorCompone
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
 import { ILabel } from '../../../interfaces/label.interface';
 import { viewTaskComponents } from '../viewTaskComponent/viewTaskComponent';
+import { isEmpty } from 'lodash';
+import $ from 'jquery'
 
 export enum eTaskCaller {
     View,
@@ -25,13 +26,13 @@ export class TaskListItemComponents {
     private task:ITask;
     private $el:any;
     private parent:any;
-    private isViewMode:boolean;
+    private isViewMode:boolean = false;
     private $host:any;
     private level:number;
     
-    constructor(task:ITask , parent:any , $host:any , level , caller?){ 
+    constructor(task:ITask , parent:any , $host:any , level:number, isViewMode?:boolean){ 
         this.level = level;
-        this.isViewMode = caller;
+        this.isViewMode = isViewMode || false;
         this.$host = $host;
         this.parent = parent;
         this.task = task;
@@ -51,7 +52,8 @@ export class TaskListItemComponents {
             task:this.task,
             labelsNames:this.labelsNames,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority),
-            level:this.level
+            level:this.level,
+            isTaskHaveChildren:this.task.children.length > 0 
         }));
         this.$host.append(this.$el);
         
@@ -79,6 +81,21 @@ export class TaskListItemComponents {
         this.$el.find(".content").on("click" , (e) => {
             this.onItemClick(e);
         })
+        this.$el.find(".toggle-hide-btn").on("click" , (e) => {
+            this.onBtnDownClick(e);
+        })
+    }
+
+    //----------------------------------
+    // getTimeAgo
+    //----------------------------------
+
+    onBtnDownClick(e){
+        if(e.stopPropagation) {
+            e.stopPropagation();
+        }
+        this.$el.find(".item").toggleClass("hide");
+        this.$el.find(".toggle-hide-btn").toggleClass("hide");
     }
  
     //----------------------------------

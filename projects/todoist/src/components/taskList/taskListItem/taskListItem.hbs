@@ -1,6 +1,17 @@
-<div class="item" data-id={{task.id}}>
+<div class="item level-{{level}} {{task.name}}" data-id={{task.id}}>
 
     <div class="content">
+
+        {{#if isTaskHaveChildren}}
+            <svg class="feather feather-down toggle-hide-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+            </svg>
+
+            <svg class="feather feather-right hide toggle-hide-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+            </svg>
+
+        {{/if}}
 
         <div type="button" class="delete-checkbox {{this.priorityColor}}">
             
@@ -12,7 +23,7 @@
         
         <div class="info-wrap">
 
-            <div class="content">{{task.name}}
+            <div class="name">{{task.name}}
             </div>
 
             <div class="item-info-tag">
@@ -60,5 +71,4 @@
 
     <div class="task-editor-wrap hide">
     </div>
-
 </div>

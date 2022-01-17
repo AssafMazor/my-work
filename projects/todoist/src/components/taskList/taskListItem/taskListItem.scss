@@ -5,17 +5,51 @@
 
   .item {
     width: 100%;
-    display: flex;
-    border-bottom: 1px solid #f0f0f0;
     padding-top: 15px;
+    box-sizing: border-box;
 
-    &:hover .items-wrap {
-      display: flex !important;
+    &.level-1 {
+      padding-left: 10px;
+    }
+
+    &.level-2 {
+      padding-left: 20px;
+    }
+
+    &.level-3 {
+      padding-left: 30px;
+    }
+
+    &.level-4 {
+      padding-left: 40px;
     }
 
     .content {
       display: flex;
       flex: 1;
+      border-bottom: 1px solid #f0f0f0;
+      height: 42px;
+      position: relative;
+
+      &:hover .items-wrap {
+        display: flex !important;
+      }
+
+      .feather-down {
+        color: grey;
+        width: 18px;
+        padding-right: 8px;
+        position: absolute;
+        left: -24px;
+      }
+
+      .feather-right {
+        color: grey;
+        width: 18px;
+        padding-right: 8px;
+        position: absolute;
+        left: -24px;
+      }
 
       .delete-checkbox {
         width: 18px;
@@ -66,7 +100,7 @@
         flex: 1;
         height: 100%;
 
-        .content {
+        .name {
           font-size: 14px;
           line-height: 21px;
           word-wrap: break-word;

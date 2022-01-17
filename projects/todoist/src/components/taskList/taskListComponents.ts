@@ -6,6 +6,7 @@ import { TaskEditorComponent, eTaskMode } from "./taskEditor/taskEditorComponent
 import { TaskListItemComponents } from "./taskListItem/taskListItem";
 
 import './taskListComponents.scss';
+import { isEmpty } from 'lodash';
 
 const taskListTemplate = require('./taskListComponents.hbs');
 
@@ -23,13 +24,14 @@ export class TaskListComponents {
 
       this.tasksService.eventEmitter.on('task-change', (taskList:ITask[]) => {
         this.taskList = taskList;
-        this.renderTaskItems();
+        this.renderAllTasks(this.$el.find(".task-list-body") , 0);
       });
 
-      this.tasksService.eventEmitter.on('sub-task-change', (task:ITask[]) => {
-        this.taskList = taskList;
-        this.renderTree(task , $(".sub-task-list") , 0);
-      });
+      this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask, subTask:ITask) => {
+        debugger;
+        this.renderAllTasks(this.$el.find(".task-list-body") , 1)
+      })
+
     }
 
     //----------------------------------
@@ -44,7 +46,7 @@ export class TaskListComponents {
       $(".main .container .task-list .inside-task-list").html(this.$el);
 
       this.initEvents();
-      this.renderTaskItems();
+      this.renderAllTasks(this.$el.find(".task-list-body") , 0);
     }
 
     //----------------------------------
@@ -79,26 +81,28 @@ export class TaskListComponents {
     }
 
     //----------------------------------
-    // renderTaskItems
+    // renderAllTasks
     //----------------------------------
 
-    renderTaskItems(){    
+    renderAllTasks($parentEl , level){    
       this.$el.find(".task-list-body").html("")
+    
       this.taskList.forEach((task:ITask) => {
-        this.renderTree(task , this.$el.find(".task-list-body") , 0);
+        this.renderTask(task , $parentEl , level);
       })
     }
 
     //----------------------------------
-    // renderTaskItems
+    // renderTask
     //----------------------------------
 
-    renderTree(task , $parentEl , level , isViewMode?){
+    renderTask(task , $parentEl , level){
         new TaskListItemComponents(task , this , $parentEl , level);
-        let $el = $(`.${task.name}`)
-      console.log(isViewMode)
+        
+        let $el = $(`.task-list-body .item.${task.name}`)
+
         task.children.forEach((child) => {
-          this.renderTree(child , $el , level + 1, isViewMode)
+          this.renderTask(child , $el , level + 1)
       })
     }
 }

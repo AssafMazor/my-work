@@ -198,13 +198,10 @@
 
   .sub-task-list {
     flex-direction: column;
-    width: 662px;
     display: flex;
 
     .item {
       width: 100%;
-      display: flex;
-      border-bottom: 1px solid #f0f0f0;
       padding-top: 15px;
 
       &:hover .items-wrap {
@@ -214,6 +211,12 @@
       .content {
         display: flex;
         flex: 1;
+        border-bottom: 1px solid #f0f0f0;
+        height: 42px;
+
+        .toggle-hide-btn {
+          display: none;
+        }
 
         .delete-checkbox {
           width: 18px;

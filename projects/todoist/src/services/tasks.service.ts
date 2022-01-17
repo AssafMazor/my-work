@@ -88,6 +88,12 @@ export class TasksService {
         this.eventEmitter.emit('addNewSubTask', newTask);
     }
 
+    addSubTask(newSubTask , task){
+       task.children.push(newSubTask)
+        console.log(task)
+       this.eventEmitter.emit('addNewSubTask', newSubTask , task);
+    }
+
     getTaskLabels(labelId){
         let fillterd = this.taskList.filter((task) => {
             return task.labels.includes(labelId)

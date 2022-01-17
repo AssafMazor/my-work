@@ -60,7 +60,6 @@ export class TaskEditorComponent {
             priorityColor:this.priorityService.getPriorityColor(this.task.priority),
             isAddSub:this.isAddSubTask
         }));
-        console.log(this.$host)
         this.$host.html(this.$el);
         this.onChooseLabels(this.task.labels)
         this.initEvents();
@@ -70,13 +69,13 @@ export class TaskEditorComponent {
     //----------------------------------
 
     initEvents(){
-        $(".name-task-input").on("input" , (e) => {
+        this.$el.find(".name-task-input").on("input" , (e) => {
             this.onTaskNameInput(e);
         })
-        $(".task-confirmation .cancel").on('click' , (e) => {
+        this.$el.find(".task-confirmation .cancel").on('click' , (e) => {
             this.onAddTaskCancel(e);
         })
-        $(".task-confirmation .add-task-btn").on("click" , (e) => {
+        this.$el.find(".task-confirmation .add-task-btn").on("click" , (e) => {
             this.onAddTaskConfirmtion(e);
         })
         this.$el.find(".edit-label-wrap").on("click" , (e) => {
@@ -85,12 +84,38 @@ export class TaskEditorComponent {
         this.$el.find(".add-label-wrap").on("click" , (e) => {
             this.onLabelBtnClick(e);
         })
-        $(".task-confirmation .btn-save").on("click" , (e) => {
+        this.$el.find(".task-confirmation .btn-save").on("click" , (e) => {
             this.onTaskSave(e);
         })
         this.$el.find(".priority-wrap").on("click" , (e) => {
             this.onPriorityBtnCLick(e);
         })
+        this.$el.find(".add-sub-task-btn").on("click" , (e) => {
+            this.onAddSubTaskBtnClick(e);
+        })
+    }
+
+    //----------------------------------
+    // onAddSubTaskBtnClick
+    //----------------------------------
+
+    onAddSubTaskBtnClick(e){
+        this.taskService.addSubTask({
+            "name":$(".name-task-input").val(),
+            "title":$(".description-task-input").val(),
+            "sentTime":new Date().getTime(),
+            "labels":this.choosenLabels,
+            "isfinished":false,
+            "priority":[],
+            "category":1,
+            "id":this.task.id + 1,
+            "children":[]
+        },
+        this.task
+        );
+        $(".add-task").addClass("hide");
+        $(".add-task-wrap").removeClass("hide");
+        $(".new-editor-wrap").addClass("hide");
     }
 
     //----------------------------------
@@ -162,9 +187,11 @@ export class TaskEditorComponent {
 
     onTaskNameInput(e){
         if($(".name-task-input").val() !== ""){
-            $(".task-confirmation .add-task-btn").removeClass("disable")
+            $(".task-confirmation .add-task-btn").removeClass("disable");
+            $(".task-confirmation .add-sub-task-btn").removeClass("disable");
         }else {
-            $(".task-confirmation .add-task-btn").addClass("disable")
+            $(".task-confirmation .add-task-btn").addClass("disable");
+            $(".task-confirmation .add-sub-task-btn").removeClass("disable");
         }
     }
 
@@ -194,7 +221,8 @@ export class TaskEditorComponent {
             "isfinished":false,
             "priority":[],
             "category":1,
-            "id":this.task.id + 1
+            "id":this.task.id + 1,
+            "children":[]
         },);
         $(".add-task").addClass("hide");
         $(".add-task-wrap").removeClass("hide");

@@ -16,9 +16,9 @@ export class viewTaskComponents {
     private $el:any;
     private labelsService:LabelsService = LabelsService.Instance;
     private task:ITask;
-    private choosenLabels: number[] = [];
     private parent:any;
     private taskListComponent:any;
+    subTask;
 
     constructor(task , taskListComponent , parent){
         this.task = task;
@@ -26,11 +26,12 @@ export class viewTaskComponents {
         this.taskListComponent = taskListComponent
         this.setHtml();
         this.onEditTaskChange();
-        this.subTaskList();
+        this.renderSubTaskList();
 
-        this.tasksService.eventEmitter.on("sub-task-change" , (task:ITask) => {
-            new TaskListItemComponents(task , this , eTaskCaller.Task , true)
-        })
+        this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask,subTask:ITask) => {
+            this.subTask = subTask
+            this.renderSubTask(newSubTask , $(".sub-task-list") , 1)
+          })
     }
 
     //----------------------------------
@@ -42,8 +43,8 @@ export class viewTaskComponents {
         task:this.task,
         priorityColor:this.priorityService.getPriorityColor(this.task.priority)
       }));
+      
       $(".view-task-dialog").html(this.$el);
-    //   new TaskListItemComponents(this.task , this , eTaskCaller.View);
       this.onChooseLabels(this.task.labels);
       this.initEvents();
     }
@@ -62,15 +63,39 @@ export class viewTaskComponents {
         this.$el.find(".add-sub-task-wrap").on("click" , (e) => {
             this.onAddSubTaskClick(e);
         })
+        this.$el.find(".close-btn").on("click" , (e) => {
+            this.onCloseBtnClick(e);
+        })
     }
 
     //----------------------------------
-    // initEvents
+    // onCloseBtnClick
     //----------------------------------
 
-    subTaskList(){
-        this.task.children.forEach((child) => {
-            this.taskListComponent.renderTree(child , this.$el.find(".sub-task-list") , 1 , true)
+    onCloseBtnClick(e){
+        $(".view-task-dialog").addClass("hide")
+    }
+
+    //----------------------------------
+    // renderSubTaskList
+    //----------------------------------
+
+    renderSubTaskList(){
+        this.task.children.forEach((subtask) => {
+          this.renderSubTask(subtask , this.$el.find(".sub-task-list") , 0);
+        })
+    }
+
+    //----------------------------------
+    // renderSubTask
+    //----------------------------------
+
+    renderSubTask(subtask , $parentEl , level){
+        new TaskListItemComponents(subtask , this , $parentEl , level, true);
+        let $el = $(`.sub-task-list .item.${subtask.name}`)
+
+        subtask.children.forEach((child) => {
+          this.renderSubTask(child , $el , level + 1)
         })
     }
 
@@ -161,7 +186,6 @@ export class viewTaskComponents {
             `
             );
         }) 
-        this.choosenLabels = choosenLabels;
         this.task.labels = choosenLabels
     }
 }
