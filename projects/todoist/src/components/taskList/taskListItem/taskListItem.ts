@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import moment from 'moment';
 import { ITask } from "../../../interfaces/task.interface";
 import { LabelsService } from "../../../services/labels.service";
@@ -7,8 +8,6 @@ import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorCompone
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
 import { ILabel } from '../../../interfaces/label.interface';
 import { viewTaskComponents } from '../viewTaskComponent/viewTaskComponent';
-import { isEmpty, times } from 'lodash';
-import $ from 'jquery'
 
 export enum eTaskCaller {
     View,
@@ -26,7 +25,7 @@ export class TaskListItemComponents {
     private task:ITask;
     private $el:any;
     private parent:any;
-    private isViewMode:boolean = false;
+    private isViewMode:boolean;
     private $host:any;
     private level:number;
     
@@ -46,8 +45,6 @@ export class TaskListItemComponents {
     setHtml(){
         this.getLabels();
         let sentTime = moment(this.task.sentTime);
-        
-
         this.$el = $(taskListItemTemplate({
             dateDiff:this.getTime(sentTime),
             task:this.task,
@@ -106,20 +103,28 @@ export class TaskListItemComponents {
     getTime(sentTime) {
         let now = moment();
         let diff = now.diff(sentTime, 'days');
-        
         if(diff > 7){
-            return sentTime.format('D MMM');
+            if(new Date(sentTime).getHours() > 0){
+                return sentTime.format('D MMM h:m');
+            }else {
+                return sentTime.format('D MMM');
+            }
         }else {
             if(diff > 0){
                 var mydate = sentTime;
-                var weekDayName =  moment(mydate).format('d');
-                return weekDayName
+                if(new Date(sentTime).getHours() > 0){
+                    return moment(mydate).format('d h:m');
+                }else {
+                    debugger;
+                    return moment(mydate).format('dddd');
+                }
             }else {
-                return sentTime.format('h:m');
+                if(!isNaN(diff)){
+                    return "today" + sentTime.format('h:m');;
+                }
             }
         }
     }
-
 
     //----------------------------------
     // getLabels
@@ -127,7 +132,7 @@ export class TaskListItemComponents {
 
     getLabels(){
         this.labelsNames = [];
-        debugger;
+
         this.task.labels.forEach((labelId:number) => {
             this.labelsNames.push(this.labelsService.getLabel(labelId))
         })
@@ -138,10 +143,9 @@ export class TaskListItemComponents {
     //----------------------------------
 
     onItemClick(e){
-   
         if(!this.isViewMode){
             $(".view-task-dialog").removeClass("hide");
-            new viewTaskComponents(this.task , this.parent , this);
+            new viewTaskComponents(this.task);
         }
     }
     
@@ -196,6 +200,8 @@ export class TaskListItemComponents {
                 isAddSubTask:false
             });
         }
+        
+        this.parent.$el.find(".features-wrap").addClass("hide")
         $(".add-task-dialog").removeClass("hide");
         $(this.$el).children(".content").addClass("hide");
         $(".task-list-footer .add-task-wrap").addClass("hide");

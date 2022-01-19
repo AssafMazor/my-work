@@ -86,18 +86,18 @@
 
         <div class="task-confirmation">
 
-            {{#if isAddSubTask}}
+            {{#if this.isAddSubTask}}
+                 <button type="button" class="add-sub-task-btn disable">
+
+                    <div class="text">Add task  
+                    </div>
+
+                </button>
+            {{else}}
                 <button type="button" class="add-task-btn disable">
 
                 <div class="text">Add task  
                 </div>
-
-                </button>
-            {{else}}
-                <button type="button" class="add-sub-task-btn disable">
-
-                    <div class="text">Add task  
-                    </div>
 
                 </button>
             {{/if}}
@@ -110,7 +110,7 @@
             </button>
 
         </div>
-    </div>
+    </div> 
 {{else}}
     <div class="edit-task">
         <div class="task-editor">
@@ -196,22 +196,12 @@
         </div>
 
         <div class="task-confirmation">
-            
-            {{#if this.isAddSub}} 
-                <button type="button" class="btn-save-sub-task">
+            <button type="button" class="btn-save">
 
-                    <div class="text">Save  
-                    </div>
+                <div class="text">Save  
+                </div>
 
-                </button>
-            {{else}}
-                <button type="button" class="btn-save">
-
-                    <div class="text">Save  
-                    </div>
-
-                </button>
-            {{/if}}
+            </button>
 
             <button type="button" class="cancel">
 

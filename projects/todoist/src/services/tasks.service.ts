@@ -57,15 +57,6 @@ export class TasksService {
         return fillterd[0];
     }
 
-    getSubTask(subTaskId){
-        // let fillterd = this.taskList.filter((task)=> { 
-        //     task.children.filter((child) => {
-        //         return child.id === subTaskId
-        //     })
-        // });
-        // return fillterd[0];
-    }
-
     addTaskLabels(taskId , choosenLabels){
         let task = this.getTask(taskId);
         choosenLabels.forEach((id) => {
@@ -73,7 +64,7 @@ export class TasksService {
                 task.labels.push(id);
             }
         })
-        this.getUpdatedTaskList(1)
+        this.eventEmitter.emit('task-change');
     }
 
     addTasknewLabels(taskId , choosenLabels){
@@ -83,32 +74,20 @@ export class TasksService {
                 task.labels.push(id);
             }
         })
-        this.getUpdatedTaskList(1)
-    }
-
-    getUpdatedTaskList(categoryType){
-        if(!categoryType){
-            categoryType === 1
-        }
-        debugger;
-        var fillterd = this.taskList.filter((task) => {
-            return !task.isfinished && task.category === categoryType
-        })
-        this.eventEmitter.emit('task-change', fillterd);
+        this.eventEmitter.emit('task-change');
     }
 
     addNewTask(newTask){
+        console.log(newTask)
         this.taskList.push(newTask);
-        this.getUpdatedTaskList(1);
-       
+        this.eventEmitter.emit('task-change');
     }
 
     addSubTask(newSubTask , task){
         this.taskList.push(newSubTask);
         task.children.push(newSubTask.id);
-        console.log(newSubTask)
 
-        this.eventEmitter.emit('addNewSubTask', newSubTask , task);
+        this.eventEmitter.emit('addNewSubTask', task, newSubTask);
     }
 
     getTaskLabels(labelId){
@@ -138,32 +117,12 @@ export class TasksService {
         task.title = editedTask.title;
         task.children = editedTask.children;
         
-        this.getUpdatedTaskList(editedTask.category);
+        this.eventEmitter.emit('task-change');
     }
 
-    editSubTask(editedTask , parentTask){
-        this.getSubTask(editedTask.id);
-
-        console.log(parentTask)
-        debugger;
-        let task = this.getTask(editedTask.id)
-
-        task.category = editedTask.category;
-        task.id = editedTask.id;
-        task.isfinished = editedTask.isfinished;
-        task.labels = editedTask.labels;
-        task.name = editedTask.name;
-        task.priority = editedTask.priority;
-        task.sentTime = editedTask.sentTime;
-        task.title = editedTask.title;
-        task.children = editedTask.children;
-
-        this.eventEmitter.emit('addNewSubTask', editedTask , parentTask);
-    }
-    
     finishTask(task){
         task.isfinished =  !task.isfinished 
-        this.getUpdatedTaskList(1);
+        this.eventEmitter.emit('task-change');
     }
 
     public static get Instance(){

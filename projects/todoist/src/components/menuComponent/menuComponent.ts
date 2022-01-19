@@ -44,9 +44,6 @@ export class MenuComponent {
       $(".labels-list .item").on("click" , (e) => {
         this.onItemClick(e);
       })
-      $(".sysLabelItem").on("click" , (e) => {
-        this.systemLabelClick(e);
-      })
     }
 
     //----------------------------------
@@ -77,13 +74,5 @@ export class MenuComponent {
         this.labelTaskLength = [];
         this.labelTaskLength.push(this.taskService.getLabelTaskLength(label.id))
       })
-    }
-
-    //----------------------------------
-    // systemLabelClick
-    //----------------------------------
-
-    systemLabelClick(e){
-      this.taskService.getUpdatedTaskList($(e.target).closest(".sysLabelItem").data("id"));
     }
 }

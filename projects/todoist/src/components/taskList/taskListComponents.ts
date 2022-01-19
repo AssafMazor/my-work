@@ -4,11 +4,9 @@ import { TasksService } from "../../services/tasks.service";
 import { LabelsService } from "../../services/labels.service";
 import { TaskEditorComponent, eTaskMode } from "./taskEditor/taskEditorComponent";
 import { TaskListItemComponents } from "./taskListItem/taskListItem";
+import { isEmpty } from 'lodash';
 
 import './taskListComponents.scss';
-import { isEmpty } from 'lodash';
-import { getAllJSDocTagsOfKind } from 'typescript';
-
 const taskListTemplate = require('./taskListComponents.hbs');
 
 export class TaskListComponents {
@@ -23,8 +21,8 @@ export class TaskListComponents {
       this.labelsService = LabelsService.Instance;
       this.setHtml();
 
-      this.tasksService.eventEmitter.on('task-change', (taskList:ITask[]) => {
-        this.taskList = taskList;
+      this.tasksService.eventEmitter.on('task-change', () => {
+        this.taskList = this.tasksService.getTasks();
         this.renderAllTasks(this.$el.find(".task-list-body") , 0);
       });
 
@@ -85,9 +83,10 @@ export class TaskListComponents {
     //----------------------------------
 
     renderAllTasks($parentEl , level){    
-      this.$el.find(".task-list-body").html("")
-    
+      this.$el.find(".task-list-body").html("");
+
       this.taskList.forEach((task:ITask) => {
+        console.log("task")
         this.renderTask(task , $parentEl , level);
       })
     }

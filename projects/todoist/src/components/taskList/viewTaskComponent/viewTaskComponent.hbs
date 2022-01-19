@@ -17,6 +17,20 @@
             <div class="text">inbox
             </div>
 
+            <div class="breadcrumbs-wrap">
+                {{#each parentName}}
+                    <svg class="feather arrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+
+                    <div class="task-name" data-id={{this.id}}>{{this.name}}
+                    </div>
+
+                {{/each}}
+
+            </div>
+
+        
             <div type="button" class="close-btn-wrap items-btn">
                 <svg viewBox="0 0 24 24" class="close-btn" width="24" height="24">
                     <path fill="currentColor" fill-rule="nonzero" d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"
@@ -24,14 +38,37 @@
                 </svg>
             </div>
 
-
         </div>
 
         <div class="task-item">
-   
         </div>
 
         <div class="features-wrap">
+        </div>
+
+        <div class="date-picker-btn">
+
+            <div class="inside-date-picker-btn">
+
+                <svg class="calender-btn" data-svgs-path="sm1/calendar_small.svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path fill="currentColor" fill-rule="nonzero" d="M12 2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8zm0 1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1.25 7a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm.75-5a.5.5 0 1 1 0 1h-7a.5.5 0 0 1 0-1h7z">
+
+            </path>
+                </svg>
+
+                <div class="date-input">{{sendTime}}
+                </div>
+
+                <div class="label-date-input">
+                </div>
+
+            </div>
+
+      
+            
+        </div>
+
+        <div class="date-picker-dialog">
         </div>
 
         <div class="features-items-row">

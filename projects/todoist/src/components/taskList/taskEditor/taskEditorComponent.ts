@@ -53,7 +53,6 @@ export class TaskEditorComponent {
     //----------------------------------
 
     setHtml(){
-        debugger;
         this.taskList = this.taskService.getAllTasks()
         this.$el = $(taskEditorTemplate({
             isAddMode:this.isAddMode,
@@ -77,9 +76,6 @@ export class TaskEditorComponent {
         this.$el.find(".task-confirmation .cancel").on('click' , (e) => {
             this.onAddTaskCancel(e);
         })
-        this.$el.find(".edit-name-task-input").on("input" , (e) => {
-            this.onEditTaskNameInput(e);
-        })
         this.$el.find(".task-confirmation .add-task-btn").on("click" , (e) => {
             this.onAddTaskConfirmtion(e);
         })
@@ -97,35 +93,7 @@ export class TaskEditorComponent {
         })
         this.$el.find(".add-sub-task-btn").on("click" , (e) => {
             this.onAddSubTaskBtnClick(e);
-        })
-        this.$el.find(".btn-save-sub-task").on("click" , (e) => {
-            this.onSaveEditedSubTaskClick(e);
-        })
-    }
-
-    //----------------------------------
-    // onAddSubTaskBtnClick
-    //----------------------------------
-
-    onSaveEditedSubTaskClick(e){
-        this.taskService.editSubTask({
-            "name":$(".edit-name-task-input").val(),
-            "title":$(".edit-description-task-input").val(),
-            "sentTime":new Date().getTime(),
-            "labels":this.choosenLabels,
-            "isfinished":this.task.isfinished,
-            "priority":this.choosenPriority,
-            "category":this.task.category,
-            "id":this.task.id,
-            "children":this.task.children
-        },
-        this.task
-        );
-        $(".add-task").addClass("hide");
-        $(".add-task-wrap").removeClass("hide");
-        this.parent.$el.find(".task-editor-wrap").addClass("hide");
-        this.parent.$el.find(".content").removeClass("hide");
-        $(".features-wrap").removeClass("hide");
+        })   
     }
 
     // ---------------------------------
@@ -248,16 +216,16 @@ export class TaskEditorComponent {
     //----------------------------------
 
     onAddTaskConfirmtion(e){
-        let id = this.taskList.length + 1 
         this.taskService.addNewTask( {
             "name":$(".name-task-input").val(),
             "title":$(".description-task-input").val(),
+            "parent":"-1",
             "sentTime":new Date().getTime(),
             "labels":this.choosenLabels,
             "isfinished":false,
             "priority":[],
             "category":this.task.category,
-            "id":id.toString(),
+            "id":new Date().getTime(),
             "children":[]
         },);
         $(".add-task").addClass("hide");
@@ -292,19 +260,5 @@ export class TaskEditorComponent {
         this.$el.find(".priority-icon").addClass(choosenPriorityName)
         
         this.choosenPriority = choosenPriorityId;
-    }
-
-    //----------------------------------
-    // onChoosePriorities
-    //----------------------------------
-
-    onEditTaskNameInput(e){
-        if($(".edit-name-task-input").val() !== ""){
-            this.$el.find(".btn-save").removeClass("disable");
-            this.$el.find(".btn-save-sub-task").removeClass("disable");
-        }else {
-            this.$el.find(".btn-save").addClass("disable");
-            this.$el.find(".btn-save-sub-task").addClass("disable");
-        }
     }
 }

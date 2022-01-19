@@ -1,13 +1,16 @@
 import $ from 'jquery';
+import moment from 'moment';
 import { ITask } from "../../../interfaces/task.interface";
 import { TasksService } from "../../../services/tasks.service";
 import { LabelsService } from "../../../services/labels.service";
 import { TaskEditorComponent, eTaskMode } from "../taskEditor/taskEditorComponent";
 import { PriorityService } from "../../../services/priority.service";
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
-import { TaskListItemComponents , eTaskCaller } from "../taskListItem/taskListItem"
-import '../viewTaskComponent/viewTaskComponent.scss';
+import { TaskListItemComponents , eTaskCaller } from "../taskListItem/taskListItem";
+import { isEmpty } from 'lodash';
+import { datePickerComponents } from "./datePickerComponents/datePickerComponents"
 
+import '../viewTaskComponent/viewTaskComponent.scss';
 const viewTaskTemplate = require('../viewTaskComponent/viewTaskComponent.hbs');
 
 export class viewTaskComponents {
@@ -16,20 +19,26 @@ export class viewTaskComponents {
     private $el:any;
     private labelsService:LabelsService = LabelsService.Instance;
     private task:ITask;
-    private parent:any;
-    private taskListComponent:any;
+    private arrParents:any[] = [];
 
-    constructor(task , taskListComponent , parent){
+    constructor(task){
         this.task = task;
-        this.parent = parent;
-        this.taskListComponent = taskListComponent
+        this.getParents(this.task); 
         this.setHtml();
-        this.onEditTaskChange();
         this.renderSubTaskList();
 
-        this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask,subTask:ITask) => {
-            this.renderSubTask(newSubTask , $(".sub-task-list") , 1)
-          })
+        this.tasksService.eventEmitter.on("addNewSubTask" , (subTask , newSubTask:ITask) => {
+            this.task = subTask
+            $(".sub-task-list").html("");
+            this.renderSubTaskList();
+        })
+
+        this.tasksService.eventEmitter.on("task-change" , () => {
+            $(".sub-task-list").html("");
+            $(".task-item").html("");
+            new TaskListItemComponents(this.task , this,this.$el.find(".task-item") , 0)
+            this.renderSubTaskList();
+        })
     }
 
     //----------------------------------
@@ -37,14 +46,16 @@ export class viewTaskComponents {
     //----------------------------------
 
     setHtml(){ 
-      this.$el = $(viewTaskTemplate({
-        task:this.task,
-        priorityColor:this.priorityService.getPriorityColor(this.task.priority)
-      }));
-      
-      $(".view-task-dialog").html(this.$el);
-      this.onChooseLabels(this.task.labels);
-      this.initEvents();
+        this.$el = $(viewTaskTemplate({
+            task:this.task,
+            priorityColor:this.priorityService.getPriorityColor(this.task.priority),
+            parentName:this.arrParents.reverse(),
+            sendTime:this.getTaskSendTime()
+        }));
+        $(".view-task-dialog").html(this.$el)
+        new TaskListItemComponents(this.task , this,this.$el.find(".task-item") , 0)
+        this.onChooseLabels(this.task.labels);
+        this.initEvents();
     }
 
     //----------------------------------
@@ -64,14 +75,66 @@ export class viewTaskComponents {
         this.$el.find(".close-btn").on("click" , (e) => {
             this.onCloseBtnClick(e);
         })
+        this.$el.find(".task-name").on("click" , (e) => {
+            this.onTaskNameClick(e);
+        })
+        $(".view-task-dialog").on("click" , (e) => {
+            this.onPoperOverlayClick(e);
+        })
+        this.$el.find(".date-picker-btn").on("click" , (e) => {
+            this.onDatePickerBtnClick(e);
+        })
     }
 
     //----------------------------------
-    // onCloseBtnClick
+    // getTaskSendTime
     //----------------------------------
 
-    onCloseBtnClick(e){
-        $(".view-task-dialog").addClass("hide")
+    getTaskSendTime(){
+        let sentTime = moment(this.task.sentTime);
+        let now = moment();
+        let diff = now.diff(sentTime, 'days');
+
+       if(diff > 7){
+            if(new Date(this.task.sentTime).getHours() > 0){
+                return sentTime.format('D MMM h:m');
+            }else {
+                return sentTime.format('D MMM');
+            }
+        }else {
+            if(diff > 0){
+                var mydate = sentTime;
+                if(new Date(this.task.sentTime).getHours() > 0){
+                    return moment(mydate).format('d h:m');
+                }else {
+                    debugger;
+                    return moment(mydate).format('dddd');
+                }
+            }else {
+                if(!isNaN(diff)){
+                    return "today" + sentTime.format('h:m');;
+                }
+            }
+        }
+    }
+
+    //----------------------------------
+    // renderSubTaskList
+    //----------------------------------
+
+    onDatePickerBtnClick(e){
+        this.$el.find(".date-picker-dialog").removeClass("hide");
+        new datePickerComponents(this.task , this);
+    }
+
+    //----------------------------------
+    // renderSubTaskList
+    //----------------------------------
+
+    onPoperOverlayClick(e){
+        if(isEmpty($(e.target).closest(".inside"))){
+            $(".view-task-dialog").addClass("hide");
+        }
     }
 
     //----------------------------------
@@ -101,6 +164,40 @@ export class viewTaskComponents {
     }
 
     //----------------------------------
+    // getParents
+    //----------------------------------
+
+    getParents(node){
+        if(node.parent  !== "-1"){
+            this.arrParents.push({
+                name: node.name,
+                id:node.id
+            });
+            node = this.tasksService.getTask(node.parent);
+            this.getParents(node);
+        }
+    }
+
+
+    //----------------------------------
+    // onTaskNameClick
+    //----------------------------------
+
+    onTaskNameClick(e){
+        let task = this.tasksService.getTask($(e.target).data("id").toString())
+        $(".view-task-dialog").removeClass("hide");
+        new viewTaskComponents(task);
+    }
+
+    //----------------------------------
+    // onCloseBtnClick
+    //----------------------------------
+
+    onCloseBtnClick(e){
+        $(".view-task-dialog").addClass("hide")
+    }
+
+    //----------------------------------
     // onEditTaskChange
     //----------------------------------
 
@@ -115,17 +212,6 @@ export class viewTaskComponents {
             isAddMode:eTaskMode.Add,
             isAddSubTask:true
         })
-    }
-
-    //----------------------------------
-    // onEditTaskChange
-    //----------------------------------
-
-    onEditTaskChange(){
-        this.tasksService.eventEmitter.on('onEditTaskChange', (task:ITask) => {
-            this.task = task;
-            this.updateEditedTask();
-        });
     }
 
     //----------------------------------

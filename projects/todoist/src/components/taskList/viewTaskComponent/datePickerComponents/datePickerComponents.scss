@@ -1,0 +1,221 @@
+.date-picker-dialog {
+  top: 0;
+  left: 0;
+  z-index: 10;
+  position: fixed;
+
+  .inside-date-picker {
+    width: 250px;
+    position: fixed;
+    max-height: 600px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 8px 0 #00000014, 0 0 1px 0 #0000004d;
+    z-index: 100;
+    left: 754px;
+    height: 179px;
+    top: 198px;
+
+    .date-picker-header {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 8px 10px 8px 13px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #dddddd;
+
+      .date-input {
+        width: 100%;
+        flex: 1;
+        outline: none;
+        border: none;
+        background: none;
+      }
+    }
+
+    .date-list {
+      width: 100%;
+      border-bottom: 1px solid #dddddd;
+      height: 105px;
+
+      .item {
+        display: flex;
+        align-items: center;
+        padding: 4px 10px;
+        width: 100%;
+
+        &:hover {
+          background-color: #f3f3f3;
+        }
+
+        .today-icon {
+          color: #058527;
+        }
+
+        .tomorrow-icon {
+          color: #ad6200;
+        }
+
+        .icon {
+          margin-right: 10px;
+        }
+
+        .text {
+          font-weight: 500;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          margin-right: 4px;
+          flex: 1;
+          font-size: 13px;
+        }
+
+        .date {
+          color: gray;
+          font-size: 13px;
+        }
+      }
+    }
+
+    .add-time-warp {
+      display: flex;
+      align-items: center;
+      padding: 8px 10px;
+      box-sizing: border-box;
+      color: #3d3d3d;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .edit-footer {
+      display: flex;
+      padding: 8px 10px;
+      align-items: center;
+
+      .time-item {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        width: 74px;
+        justify-content: center;
+        height: 24px;
+        cursor: pointer;
+
+        .label-time {
+          font-weight: 700;
+          font-size: 12px;
+          padding-right: 5px;
+          color: black;
+        }
+
+        .close-wrap {
+          padding: 0 4px;
+          color: #3d3d3d;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-left: 1px solid #ddd;
+          height: 100%;
+        }
+      }
+
+      .save-btn {
+        flex: 1;
+        justify-content: flex-end;
+        display: flex;
+        font-size: 13px;
+        color: black;
+      }
+    }
+
+    .add-time-dialog {
+      z-index: 2;
+      width: 225px;
+      border-radius: 3px;
+      background-color: #fff;
+      box-shadow: 0 1px 8px 0 #00000014, 0 0 1px 0 #0000004d;
+      position: absolute;
+      inset: auto auto 0px 0px;
+      height: 107px;
+      top: 29px;
+      left: -67px;
+
+      .time-features-wrap {
+        padding: 8px 10px;
+        height: 53px;
+
+        .time-wrap {
+          display: flex;
+          height: 28px;
+
+          .text {
+            font-size: 13px;
+            color: #202020;
+            flex: 1;
+          }
+
+          .error-icon {
+            color: red;
+            padding-right: 7px;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+          }
+
+          .input-time {
+            width: 100px;
+            line-height: 22px;
+            padding: 0 4px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            outline: none;
+            box-sizing: border-box;
+            height: 24px;
+          }
+        }
+
+        .time-zone-wrap {
+          display: flex;
+          width: 100%;
+
+          .text {
+            font-size: 13px;
+            color: #202020;
+          }
+
+          .right-arrow {
+            color: #202020;
+            margin-top: -3px;
+          }
+        }
+      }
+
+      .footer {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 10px;
+        border-top: 1px solid #ddd;
+        align-items: center;
+        box-sizing: border-box;
+
+        .text {
+          font-size: 13px;
+          cursor: pointer;
+
+          .add-btn {
+            font-weight: 700;
+          }
+
+          &.disable {
+            pointer-events: none;
+            opacity: 0.3;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+}
