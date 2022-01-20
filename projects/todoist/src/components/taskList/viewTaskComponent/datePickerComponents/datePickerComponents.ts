@@ -3,18 +3,24 @@ import { ITask } from "../../../../interfaces/task.interface";
 import { TasksService } from "../../../../services/tasks.service";
 import moment from 'moment';
 import { isEmpty } from 'lodash';
+import flatpickr from 'flatpickr';
+import { commonService } from '../../../../services/common.service';
 
 import '../datePickerComponents/datePickerComponents.scss';
 const datePickerTemplate = require('../datePickerComponents/datePickerComponents.hbs');
 
 export class datePickerComponents {
-    private tasksService:TasksService = TasksService.Instance;;
+    private tasksService:TasksService = TasksService.Instance;
+    private commonService:commonService = commonService.Instance
     private $el:any;
     private task:ITask;
     private parent:any;
+    private date:any;
+    private isEditMode:boolean;
 
-    constructor(task:ITask , parent:any){
+    constructor(task:ITask , parent:any , isEditMode:boolean){
         this.parent = parent;
+        this.isEditMode = isEditMode
         this.task = task;
         this.setHtml();
 
@@ -25,18 +31,27 @@ export class datePickerComponents {
     //----------------------------------
 
     setHtml(){ 
-        let sentTime = moment(this.task.sentTime);
-        let date = moment(new Date().getDay())
         let now = moment();  
-
+        let sentTime = moment(this.task.sentTime);
         this.$el = $(datePickerTemplate({
-            sendTime:sentTime.format('D MMM'),
+            sendTime:this.parent.getTaskSendTime(sentTime),
             today:now.format("ddd"),
-            tomorrow:date.format("ddd")
+            tomorrow:moment().add(1,'d').format('ddd'),
+            isEditMode:this.isEditMode
         }));
 
         this.parent.$el.find(".date-picker-dialog").html(this.$el);
 
+        flatpickr(".date-picker-calender",{
+            inline: true,
+            dateFormat: "j M",
+
+            onChange: (selectedDates, dateStr) => {
+                this.date = dateStr
+                this.onSelectDateClick(selectedDates);  
+            },
+        })
+        this.commonService.getPotions(this.parent.$el)
         this.initEvents();
     } 
 
@@ -72,6 +87,75 @@ export class datePickerComponents {
         this.$el.find(".save-btn").on("click" , (e) => {
             this.onSaveBtnClick(e);
         })
+        this.$el.find(".label-time").on("click" , (e) => {
+            this.onEditTaskTimeClick(e);
+        })
+        this.$el.find(".close-btn").on("click" ,(e) => {
+            this.onCloseEditFooterClick(e);
+        })
+    }
+
+    //----------------------------------
+    // labelsListPosition
+    //----------------------------------
+
+    datePickerPosition(){
+        let top:number;
+        let left:number;
+        let bottom:number;
+        
+        let offset = this.parent.$el.find(".date-wrap").offset();
+        let labelBtnHeigth = this.parent.$el.find(".date-wrap").height();
+        let pageHeigth =  window.innerHeight;
+        let labelsListHeigth = this.parent.$el.find(".inside-date-picker").height();
+        
+        if(pageHeigth - (offset.top + labelsListHeigth) > 0){
+          top =  offset.top + labelBtnHeigth;
+          left = offset.left - 100;
+          $(".inside-date-picker").css('top' , top)
+        }else {
+          bottom =  pageHeigth - offset.top;
+          left =  offset.left - 100;
+          $(".inside-date-picker").css('bottom' , bottom)
+        }
+        this.parent.$el.find(".inside-date-picker").css('left' , left)
+    }
+  
+
+    //----------------------------------
+    // onSelectDateClick
+    //----------------------------------
+
+    onSelectDateClick(selectedDates){
+        let date = moment(new Date(selectedDates).getTime());  
+        let dateDiff = date.format('D MMM');
+        this.parent.$el.find(".date-input").html(this.date);
+        this.parent.$el.find(".date-picker-dialog").addClass("hide");
+
+        if(this.isEditMode){
+            this.parent.taskTime = dateDiff + this.parent.$el.find(".label-date-input").html()
+        }else {
+            this.onSendTimeChange(dateDiff + this.parent.$el.find(".label-date-input").html());
+        }
+
+        this.$el.find(".date-input").val(this.parent.getTaskSendTime());
+    }
+
+    //----------------------------------
+    // onEditTaskTimeClick
+    //----------------------------------
+
+    onEditTaskTimeClick(e){
+        this.$el.find(".add-time-dialog").removeClass("hide");
+    }
+
+    //----------------------------------
+    // onCloseEditFooterClick
+    //----------------------------------
+
+    onCloseEditFooterClick(e){
+        this.$el.find(".edit-footer").addClass("hide");
+        this.$el.find(".add-time-warp").removeClass("hide");
     }
     
     //----------------------------------
@@ -80,24 +164,31 @@ export class datePickerComponents {
 
     onSaveBtnClick(e){
         let now = moment(this.task.sentTime);  
-        let dateDiff = now.format('D MMM')
-        console.log(moment(this.$el.find(".input-time").val()))
+        let dateDiff = now.format('D MMM');
 
         $(".date-picker-dialog").addClass("hide");
+        if(this.parent.$el.find(".date-input").html() === "Schedule"){
+            this.parent.$el.find(".date-input").html("Today");
+        }
         this.parent.$el.find(".label-date-input").html(this.$el.find(".input-time").val());
-        debugger;
-        this.onSendTimeChange(dateDiff + this.$el.find(".input-time").val());
+
+        if(this.isEditMode){
+            this.parent.taskTime = dateDiff + this.parent.$el.find(".label-date-input").html()
+        }else {
+            this.onSendTimeChange(dateDiff + this.parent.$el.find(".label-date-input").html());
+        }
     }
 
     //----------------------------------
-    // onTimeInput
+    // addTimeBtnClick
     //----------------------------------
 
     addTimeBtnClick(e){
-        this.$el.find(".date-input").val(this.$el.find(".date-input").val() + this.$el.find(".input-time").val());
+        this.$el.find(".date-input").val(`${this.$el.find(".date-input").val()} ${this.$el.find(".input-time").val()}`);
         this.$el.find(".add-time-dialog").addClass("hide");
         this.$el.find(".edit-footer").removeClass("hide");
         this.$el.find(".add-time-warp").addClass("hide");
+        this.$el.find(".label-time").html(this.$el.find(".input-time").val())
     }
 
     //----------------------------------
@@ -118,6 +209,9 @@ export class datePickerComponents {
     //----------------------------------
 
     onPopperOverlayClick(e){
+        if(e.stopPropagation) {
+            e.stopPropagation();
+        }
         if(isEmpty($(e.target).closest(".inside-date-picker"))){
             $(".date-picker-dialog").addClass("hide");
         }
@@ -149,10 +243,13 @@ export class datePickerComponents {
         this.$el.find(".date-input").val(today);
         this.parent.$el.find(".date-input").html("Today");
         this.parent.$el.find(".date-picker-dialog").addClass("hide");
-        this.$el.find(".item").removeClass("hide")
-        $(e.target).closest(".item").addClass("hide")
+        
+        if(this.isEditMode){
+            this.parent.taskTime = new Date().getTime()
+        }else {
+            this.onSendTimeChange(new Date().getTime());
+        }
 
-        this.onSendTimeChange(new Date().getTime());
     }
     
     //----------------------------------
@@ -160,13 +257,16 @@ export class datePickerComponents {
     //----------------------------------
 
     onTomorrowItemClick(e){
-        let date = moment(new Date().getDay())
-        let dateDiff = date.format("d MMM")
+        let dateDiff = moment().add(1 ,"d").format("D MMM")
         this.$el.find(".date-input").val(dateDiff);
         this.parent.$el.find(".date-input").html(dateDiff);
         this.parent.$el.find(".date-picker-dialog").addClass("hide");
 
-        this.onSendTimeChange(dateDiff);
+        if(this.isEditMode){
+            this.parent.taskTime = dateDiff
+        }else {
+            this.onSendTimeChange(dateDiff);
+        }
     }
 
     //----------------------------------
@@ -177,8 +277,14 @@ export class datePickerComponents {
         this.$el.find(".date-input").val("");
         this.parent.$el.find(".date-input").html("Schedule");
         this.parent.$el.find(".date-picker-dialog").addClass("hide");
+        this.parent.$el.find(".label-date-input").html("")
         
-        this.onSendTimeChange("");
+        if(this.isEditMode){
+            this.parent.taskTime = ""
+        }else {
+            this.onSendTimeChange("");
+        }
+
     }
 
     //----------------------------------

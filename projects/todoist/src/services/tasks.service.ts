@@ -27,7 +27,8 @@ export class TasksService {
             "name": "string",    
             "content":"string",
             "title":"string",
-            "parent":"-1",
+            "isToday":false,
+            "parentId":"-1",
             "sentTime":new Date().getTime(),
             "labels":[],
             "isfinished":false,
@@ -45,7 +46,7 @@ export class TasksService {
 
     getTasks() {
         var fillterd = this.taskList.filter((task) => {
-            return !task.isfinished && task.category === 1 && task.parent === "-1"
+            return !task.isfinished && task.category === 1 && task.parentId === "-1"
         })
         return fillterd;
     }
@@ -86,6 +87,7 @@ export class TasksService {
     addSubTask(newSubTask , task){
         this.taskList.push(newSubTask);
         task.children.push(newSubTask.id);
+        debugger;
 
         this.eventEmitter.emit('addNewSubTask', task, newSubTask);
     }
@@ -121,9 +123,17 @@ export class TasksService {
     }
 
     finishTask(task){
-        task.isfinished =  !task.isfinished 
+        task.isfinished = !task.isfinished 
         this.eventEmitter.emit('task-change');
     }
+
+    // getTodayTasks(){
+    //     debugger;
+    //     let fillterd = this.taskList.filter((task) => {
+    //         return task.isToday
+    //     })
+    //     this.eventEmitter.emit('category-change' , fillterd);
+    // }
 
     public static get Instance(){
         return this._instance || (this._instance = new this());

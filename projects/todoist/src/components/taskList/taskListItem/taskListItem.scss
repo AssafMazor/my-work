@@ -111,13 +111,17 @@
         width: 100%;
         align-items: center;
 
-        .calendar-icon {
-          color: #d0453b;
-        }
+        .date-wrap {
+          display: flex;
 
-        .time {
-          color: #d0453b;
-          font-size: 12px;
+          .date-icon {
+            color: #d0453b;
+          }
+
+          .date-input {
+            color: #d0453b;
+            font-size: 12px;
+          }
         }
 
         .label-icon {

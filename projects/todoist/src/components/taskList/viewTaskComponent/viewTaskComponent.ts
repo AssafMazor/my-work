@@ -112,8 +112,9 @@ export class viewTaskComponents {
                 }
             }else {
                 if(!isNaN(diff)){
-                    return "today" + sentTime.format('h:m');;
+                    return `today ${sentTime.format('h:m')}` 
                 }
+                return "Schedule"
             }
         }
     }
@@ -124,7 +125,7 @@ export class viewTaskComponents {
 
     onDatePickerBtnClick(e){
         this.$el.find(".date-picker-dialog").removeClass("hide");
-        new datePickerComponents(this.task , this);
+        new datePickerComponents(this.task , this , false);
     }
 
     //----------------------------------
@@ -142,6 +143,7 @@ export class viewTaskComponents {
     //----------------------------------
 
     renderSubTaskList(){
+        debugger;
         this.task.children.forEach((taskId) => {
             let subtask = this.tasksService.getTask(taskId) 
             this.renderSubTask(subtask , this.$el.find(".sub-task-list") , 0);
@@ -168,13 +170,14 @@ export class viewTaskComponents {
     //----------------------------------
 
     getParents(node){
-        if(node.parent  !== "-1"){
+        let parent = this.tasksService.getTask(node.parentId);
+
+        if(parent){
             this.arrParents.push({
-                name: node.name,
-                id:node.id
+                name: parent.name,
+                id:parent.id
             });
-            node = this.tasksService.getTask(node.parent);
-            this.getParents(node);
+            this.getParents(parent);
         }
     }
 

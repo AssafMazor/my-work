@@ -8,7 +8,7 @@ import '../headerComponent/headerComponent.scss';
 const headerTemplate = require('../headerComponent/headerComponent.hbs');
 
 export class HeaderComponents {
-    private tasksService:TasksService = TasksService.Instance;;
+    private tasksService:TasksService = TasksService.Instance;
     private $el:any;
 
     constructor(){

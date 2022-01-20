@@ -5,6 +5,8 @@ import { LabelsService } from "../../../services/labels.service";
 import { LabelComponents , eTaskAction } from "./labelsComponent/labelsComponent"
 import { priorityComponents } from "./priorityComponents/priorityComponents";
 import { PriorityService } from "../../../services/priority.service";
+import moment from 'moment';
+import { datePickerComponents } from "../viewTaskComponent/datePickerComponents/datePickerComponents"
 
 export enum eTaskMode {
     Add,
@@ -36,7 +38,7 @@ export class TaskEditorComponent {
     private choosenPriority:any;
     private parent:any;
     private isAddSubTask:boolean = true;
-    private taskList:ITask[] = [];
+    private taskTime:any;
 
     constructor(params:IEditorParams){
         this.isAddSubTask = params.isAddSubTask
@@ -53,13 +55,13 @@ export class TaskEditorComponent {
     //----------------------------------
 
     setHtml(){
-        this.taskList = this.taskService.getAllTasks()
         this.$el = $(taskEditorTemplate({
             isAddMode:this.isAddMode,
             display:this.showAsDialog ? "dialog" : "",
             task:this.task,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority),
-            isAddSub:this.isAddSubTask
+            isAddSub:this.isAddSubTask,
+            sentTime:this.getTaskSendTime()
         }));
         this.$host.html(this.$el);
         this.onChooseLabels(this.task.labels)
@@ -94,6 +96,51 @@ export class TaskEditorComponent {
         this.$el.find(".add-sub-task-btn").on("click" , (e) => {
             this.onAddSubTaskBtnClick(e);
         })   
+        this.$el.find(".date-wrap").on("click" , (e) => {
+            this.onDatePickerBtnClick(e);
+        })
+    }
+
+    //----------------------------------
+    // getTaskSendTime
+    //----------------------------------
+
+    getTaskSendTime(){
+        let sentTime = moment(this.task.sentTime);
+        let now = moment();
+        let diff = now.diff(sentTime, 'days');
+
+       if(diff > 7){
+            if(new Date(this.task.sentTime).getHours() > 0){
+                return sentTime.format('D MMM h:m');
+            }else {
+                return sentTime.format('D MMM');
+            }
+        }else {
+            if(diff > 0){
+                var mydate = sentTime;
+                if(new Date(this.task.sentTime).getHours() > 0){
+                    return moment(mydate).format('d h:m');
+                }else {
+                    debugger;
+                    return moment(mydate).format('dddd');
+                }
+            }else {
+                if(!isNaN(diff)){
+                    return `today ${sentTime.format('h:m')}` 
+                }
+                return "Schedule"
+            }
+        }
+    }
+    
+    //----------------------------------
+    // renderSubTaskList
+    //----------------------------------
+
+    onDatePickerBtnClick(e){
+        this.$el.find(".date-picker-dialog").removeClass("hide");
+        new datePickerComponents(this.task , this , true);
     }
 
     // ---------------------------------
@@ -101,17 +148,17 @@ export class TaskEditorComponent {
     // ----------------------------------
 
     onAddSubTaskBtnClick(e){
-        let id = this.taskList.length + 1 
         this.taskService.addSubTask({
             "name":$(".name-task-input").val(),
             "title":$(".description-task-input").val(),
-            "parent":this.task.id,
+            "parentId":this.task.id,
+            "isToday":false,
             "sentTime":new Date().getTime(),
             "labels":this.choosenLabels,
             "isfinished":false,
             "priority":[],
-            "category":1,
-            "id": id.toString(),
+            "category":this.task.category,
+            "id": new Date().getTime(),
             "children":[]
         },
         this.task
@@ -165,10 +212,15 @@ export class TaskEditorComponent {
     //----------------------------------
 
     onTaskSave(e){
+        if(e.stopPropagation) {
+            e.stopPropagation();
+        }
         this.taskService.editTask({
             "name":$(".edit-name-task-input").val(),
             "title":$(".edit-description-task-input").val(),
-            "sentTime":new Date().getTime(),
+            "parentId":this.task.parentId,
+            "sentTime":this.taskTime,
+            "isToday":this.task.isToday,
             "labels":this.choosenLabels,
             "isfinished":this.task.isfinished,
             "priority":this.choosenPriority,
@@ -219,7 +271,8 @@ export class TaskEditorComponent {
         this.taskService.addNewTask( {
             "name":$(".name-task-input").val(),
             "title":$(".description-task-input").val(),
-            "parent":"-1",
+            "parentId":"-1",
+            "isToday":false,
             "sentTime":new Date().getTime(),
             "labels":this.choosenLabels,
             "isfinished":false,

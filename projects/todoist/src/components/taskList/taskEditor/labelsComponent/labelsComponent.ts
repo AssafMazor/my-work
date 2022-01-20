@@ -4,6 +4,7 @@ import { ITask } from "../../../../interfaces/task.interface";
 import { ILabel } from "../../../../interfaces/label.interface";
 import { LabelsService } from "../../../../services/labels.service";
 import { LabelsListComponents } from "./labelsListItemComponents/labelsListItemComponents";
+import { commonService } from '../../../../services/common.service';
 
 export enum eTaskAction {
   Add,
@@ -22,6 +23,7 @@ const addLabelTemplate = require('../labelsComponent/labelsComponent.hbs');
 
 export class LabelComponents {
     private labelsService:LabelsService  = LabelsService.Instance;
+    private commonService:commonService = commonService.Instance
     private selectedLabels:number[] = [];
     private labelsList:ILabel[];
     private originallabelsList:ILabel[];
@@ -53,34 +55,9 @@ export class LabelComponents {
         action:this.action
       }));
       this.parent.$el.find(".label-dialog").html(this.$el)
-      this.labelsListPosition();
+      this.commonService.getPotions(this.parent.$el);
       this.setLabelsItem();
       this.initEvents();
-    }
-
-    //----------------------------------
-    // labelsListPosition
-    //----------------------------------
-
-    labelsListPosition(){
-      let top:number;
-      let left:number;
-      let bottom:number;
-      let offset = this.parent.$el.find(".label-dialog").offset();
-      let labelBtnHeigth = this.parent.$el.find(".label-dialog").height();
-      let pageHeigth =  window.innerHeight;
-      let labelsListHeigth = this.parent.$el.find(".label-contant").height();
-      
-      if(pageHeigth - (offset.top + labelsListHeigth) > 0){
-        top =  offset.top + labelBtnHeigth;
-        left = offset.left - 100;
-        this.parent.$el.find(".label-contant").css('top' , top)
-      }else {
-        bottom =  pageHeigth - offset.top;
-        left =  offset.left - 100;
-        this.parent.$el.find(".label-contant").css('bottom' , bottom)
-      }
-      this.parent.$el.find(".label-contant").css('left' , left)
     }
 
     //----------------------------------

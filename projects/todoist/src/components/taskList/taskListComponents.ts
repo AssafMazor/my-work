@@ -4,7 +4,6 @@ import { TasksService } from "../../services/tasks.service";
 import { LabelsService } from "../../services/labels.service";
 import { TaskEditorComponent, eTaskMode } from "./taskEditor/taskEditorComponent";
 import { TaskListItemComponents } from "./taskListItem/taskListItem";
-import { isEmpty } from 'lodash';
 
 import './taskListComponents.scss';
 const taskListTemplate = require('./taskListComponents.hbs');
@@ -22,7 +21,7 @@ export class TaskListComponents {
       this.setHtml();
 
       this.tasksService.eventEmitter.on('task-change', () => {
-        this.taskList = this.tasksService.getTasks();
+        this.taskList = this.tasksService.getTasks()
         this.renderAllTasks(this.$el.find(".task-list-body") , 0);
       });
 
@@ -83,10 +82,10 @@ export class TaskListComponents {
     //----------------------------------
 
     renderAllTasks($parentEl , level){    
+      debugger;
       this.$el.find(".task-list-body").html("");
 
       this.taskList.forEach((task:ITask) => {
-        console.log("task")
         this.renderTask(task , $parentEl , level);
       })
     }
@@ -96,13 +95,15 @@ export class TaskListComponents {
     //----------------------------------
 
     renderTask(task , $parentEl , level){
+      debugger;
         new TaskListItemComponents(task , this , $parentEl , level);
         
         let $el = $(`.task-list-body .item.${task.name}`)
 
         task.children.forEach((taskId) => {
+          debugger;
           let subtask = this.tasksService.getTask(taskId)
           this.renderTask(subtask , $el , level + 1)
-      })
+      });
     }
 }

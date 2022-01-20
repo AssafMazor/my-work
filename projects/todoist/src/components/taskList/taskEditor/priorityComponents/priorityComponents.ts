@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { ITask } from "../../../../interfaces/task.interface";
 import { LabelsService } from "../../../../services/labels.service";
 import { TasksService } from "../../../../services/tasks.service";
+import { commonService } from '../../../../services/common.service';
 
 export interface IPriorityParams {
     parent: any,
@@ -13,8 +14,7 @@ import '../priorityComponents/priorityComponents.scss';
 const priorityTemplate = require('../priorityComponents/priorityComponents.hbs');
 
 export class priorityComponents {
-    private labelsService:LabelsService = LabelsService.Instance;
-    private tasksService:TasksService = TasksService.Instance;
+    private commonService:commonService = commonService.Instance
     private $el:any;
     private parent:any
     private task:ITask
@@ -35,33 +35,8 @@ export class priorityComponents {
 
         this.parent.$el.find(".priority-dialog").html(this.$el);
 
-        this.prioritiesListPosition();
+        this.commonService.getPotions(this.parent.$el);
         this.initEvents();
-    }
-
-    //----------------------------------
-    // priorityListPosition
-    //----------------------------------
-
-    prioritiesListPosition(){
-        let top:number;
-        let left:number;
-        let bottom:number;
-        let offset = this.parent.$el.find(".priority-icon").offset();
-        let prioritiesBtnHeigth = this.parent.$el.find(".priority-icon").height();
-        let pageHeigth =  window.innerHeight;
-        let prioritiesListHeigth = this.parent.$el.find(".priority-list").height();
-        
-        if(pageHeigth - (offset.top + prioritiesListHeigth) > 0){
-          top = offset.top + prioritiesBtnHeigth;
-          left = offset.left - 100;
-          this.parent.$el.find(".priority-list").css('top' , top)
-        }else {
-          bottom = pageHeigth - offset.top;
-          left = offset.left - 100;
-          this.parent.$el.find(".priority-list").css('bottom' , bottom)
-        }
-        this.parent.$el.find(".priority-list").css('left' , left)
     }
     
     //----------------------------------

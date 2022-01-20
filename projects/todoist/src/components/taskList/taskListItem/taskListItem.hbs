@@ -28,12 +28,23 @@
 
             <div class="item-info-tag">
 
-                <svg width="12" height="12" viewBox="0 0 12 12" class="calendar-icon">
-                    <path fill="currentColor" fill-rule="nonzero" d="M9.5 1A1.5 1.5 0 0 1 11 2.5v7A1.5 1.5 0 0 1 9.5 11h-7A1.5 1.5 0 0 1 1 9.5v-7A1.5 1.5 0 0 1 2.5 1h7zm0 1h-7a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5zM8 7.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zM8.5 4a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1h5z"
-                    ></path>
-                </svg>
+                <div type="button" class="date-wrap set-potions-btn features-btn">
 
-                <div class="time">{{this.dateDiff}}
+                        <svg class="date-icon" data-svgs-path="sm1/calendar_small.svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                        <path fill="currentColor" fill-rule="nonzero" d="M12 2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8zm0 1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1.25 7a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm.75-5a.5.5 0 1 1 0 1h-7a.5.5 0 0 1 0-1h7z">
+
+                        </path>
+                        </svg>
+
+                        <div class="text date-input">{{dateDiff}}
+                        </div>
+        
+                        <div class="text label-date-input">
+                        </div>
+
+                </div>
+
+                <div class="date-picker-dialog hide">
                 </div>
 
                 <svg xmlns="http://www.w3.org/2000/svg" class="label-icon" width="12" height="12" viewBox="0 0 12 12">

@@ -8,6 +8,7 @@ import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorCompone
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
 import { ILabel } from '../../../interfaces/label.interface';
 import { viewTaskComponents } from '../viewTaskComponent/viewTaskComponent';
+import { datePickerComponents } from '../viewTaskComponent/datePickerComponents/datePickerComponents';
 
 export enum eTaskCaller {
     View,
@@ -36,6 +37,7 @@ export class TaskListItemComponents {
         this.parent = parent;
         this.task = task;
         this.setHtml();
+        this.isTaskForToday();
     }
 
     //----------------------------------
@@ -45,13 +47,14 @@ export class TaskListItemComponents {
     setHtml(){
         this.getLabels();
         let sentTime = moment(this.task.sentTime);
+        
         this.$el = $(taskListItemTemplate({
-            dateDiff:this.getTime(sentTime),
+            dateDiff:this.getTaskSendTime(sentTime),
             task:this.task,
             labelsNames:this.labelsNames,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority),
             level:this.level,
-            isTaskHaveChildren:this.task.children.length > 0 
+            isTaskHaveChildren:this.task.children.length > 0
         }));
         this.$host.append(this.$el);
         
@@ -61,7 +64,6 @@ export class TaskListItemComponents {
     //----------------------------------
     // initEvents
     //----------------------------------
-
 
     initEvents(){
         this.$el.find(".items-wrap .label-btn").on("click" , (e) => {
@@ -82,6 +84,32 @@ export class TaskListItemComponents {
         this.$el.find(".toggle-hide-btn").on("click" , (e) => {
             this.onBtnDownClick(e);
         })
+        this.$el.find(".date-wrap").on("click" , (e) => {
+            this.onTimeBtnClick(e);
+        })
+    }
+
+    //----------------------------------
+    // isTaskForToday
+    //----------------------------------
+
+    isTaskForToday(){
+        if(new Date(this.task.sentTime).getDate() === new Date().getDate()){
+            debugger;
+            this.task.isToday = true;
+        };
+    }
+
+    //----------------------------------
+    // getTimeAgo
+    //----------------------------------
+
+    onTimeBtnClick(e){
+        if(e.stopPropagation) {
+            e.stopPropagation();
+        }
+        this.$el.find(".date-picker-dialog").removeClass("hide");
+        new datePickerComponents(this.task , this , false);
     }
 
     //----------------------------------
@@ -100,7 +128,7 @@ export class TaskListItemComponents {
     // getTimeAgo
     //----------------------------------
 
-    getTime(sentTime) {
+    getTaskSendTime(sentTime){
         let now = moment();
         let diff = now.diff(sentTime, 'days');
         if(diff > 7){
@@ -115,12 +143,13 @@ export class TaskListItemComponents {
                 if(new Date(sentTime).getHours() > 0){
                     return moment(mydate).format('d h:m');
                 }else {
-                    debugger;
                     return moment(mydate).format('dddd');
                 }
             }else {
                 if(!isNaN(diff)){
-                    return "today" + sentTime.format('h:m');;
+                    return `today  ${sentTime.format('h:m')}`
+                }else {
+                    return "Schedule"
                 }
             }
         }

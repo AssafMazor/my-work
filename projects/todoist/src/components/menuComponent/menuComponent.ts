@@ -44,6 +44,12 @@ export class MenuComponent {
       $(".labels-list .item").on("click" , (e) => {
         this.onItemClick(e);
       })
+      this.$el.find(".today-wrap.sysLabelItem").on("click" , (e) => {
+        this.onTodayItemClick(e);
+      })
+    }
+
+    onTodayItemClick(e){
     }
 
     //----------------------------------
