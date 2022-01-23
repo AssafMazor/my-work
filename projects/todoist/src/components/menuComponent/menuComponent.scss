@@ -24,8 +24,9 @@
       font-size: 13px;
       box-sizing: border-box;
       height: 30px;
+      text-decoration: none;
 
-      &.inbox-wrap {
+      &.selected {
         background-color: #ececec;
       }
 

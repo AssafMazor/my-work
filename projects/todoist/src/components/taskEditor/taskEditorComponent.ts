@@ -1,10 +1,10 @@
 import $ from 'jquery';
-import { ITask } from "../../../interfaces/task.interface";
-import { TasksService } from "../../../services/tasks.service";
-import { LabelsService } from "../../../services/labels.service";
+import { ITask } from "../../interfaces/task.interface";
+import { TasksService } from "../../services/tasks.service";
+import { LabelsService } from "../../services/labels.service";
 import { LabelComponents , eTaskAction } from "./labelsComponent/labelsComponent"
 import { priorityComponents } from "./priorityComponents/priorityComponents";
-import { PriorityService } from "../../../services/priority.service";
+import { PriorityService } from "../../services/priority.service";
 import moment from 'moment';
 import { datePickerComponents } from "../viewTaskComponent/datePickerComponents/datePickerComponents"
 
@@ -156,9 +156,9 @@ export class TaskEditorComponent {
             "sentTime":new Date().getTime(),
             "labels":this.choosenLabels,
             "isfinished":false,
-            "priority":[],
+            "priority":4,
             "category":this.task.category,
-            "id": new Date().getTime(),
+            "id": new Date().getTime().toString(),
             "children":[]
         },
         this.task
@@ -215,11 +215,12 @@ export class TaskEditorComponent {
         if(e.stopPropagation) {
             e.stopPropagation();
         }
+        debugger;
         this.taskService.editTask({
             "name":$(".edit-name-task-input").val(),
             "title":$(".edit-description-task-input").val(),
             "parentId":this.task.parentId,
-            "sentTime":this.taskTime,
+            "sentTime":this.task.sentTime,
             "isToday":this.task.isToday,
             "labels":this.choosenLabels,
             "isfinished":this.task.isfinished,

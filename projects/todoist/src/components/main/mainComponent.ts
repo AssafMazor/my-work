@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import { HeaderComponents } from "../headerComponent/headerComponent"
-import { TaskListComponents } from "../taskList/taskListComponents"
 import { MenuComponent } from "../menuComponent/menuComponent"
 import { TasksService } from"../../services/tasks.service";
 import { LabelsService } from"../../services/labels.service";
@@ -27,7 +26,6 @@ export class MainComponents {
     createComponents(){
       new HeaderComponents();
       new MenuComponent();
-      new TaskListComponents(this.tasksService.getTasks());
     }
 
     setHtml(){

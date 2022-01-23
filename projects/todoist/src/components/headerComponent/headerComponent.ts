@@ -1,8 +1,6 @@
 import $ from 'jquery';
-import { TaskEditorComponent, eTaskMode } from "../taskList/taskEditor/taskEditorComponent";
-// import { ITask } from "../../interfaces/task.interface";
+import { TaskEditorComponent, eTaskMode } from "../taskEditor/taskEditorComponent";
 import { TasksService } from "../../services/tasks.service";
-// import { LabelsService } from "../../services/labels.service";
 
 import '../headerComponent/headerComponent.scss';
 const headerTemplate = require('../headerComponent/headerComponent.hbs');

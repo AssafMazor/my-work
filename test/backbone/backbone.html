@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigo</title>
+
+  </head>
+  <body>
+    <div>
+      <a href="/about" data-navigo>About</a>
+      <a href="/products" data-navigo>Products</a>
+      <a href="/login" data-navigo>Login</a>
+    </div>
+    <hr />
+    <div id="content"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/navigo/8.11.1/navigo.min.js"></script>
+    <script>
+      window.addEventListener("load", () => {
+        const router = new Navigo("/");
+        const render = (content) =>
+          (document.querySelector("#content").innerHTML = content);
+
+        router.hooks({
+          leave(match) {
+            console.log("leaving ", match);
+          },
+        });
+
+        router
+          .on("/about", (match) => {
+             debugger;
+            render("About");
+          })
+          .on("/products", (match) => {
+            render("Products");
+          })
+          .on("/login", (match) => {
+            render("Login");
+          })
+          .on(() => {
+            render("Home");
+          });
+
+        router.navigate("/login", { silent: true });
+      });
+    </script>
+    <div id="content"></div>
+  </body>
+</html>

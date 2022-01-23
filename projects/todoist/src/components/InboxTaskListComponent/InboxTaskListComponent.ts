@@ -2,22 +2,20 @@ import $ from 'jquery';
 import { ITask } from "../../interfaces/task.interface";
 import { TasksService } from "../../services/tasks.service";
 import { LabelsService } from "../../services/labels.service";
-import { TaskEditorComponent, eTaskMode } from "./taskEditor/taskEditorComponent";
-import { TaskListItemComponents } from "./taskListItem/taskListItem";
+import { TaskEditorComponent, eTaskMode } from "../taskEditor/taskEditorComponent";
+import { TaskListItemComponents } from "../taskListItem/taskListItem";
 
-import './taskListComponents.scss';
-const taskListTemplate = require('./taskListComponents.hbs');
+import '../InboxTaskListComponent/InboxTaskListComponent.scss';
+const taskListTemplate = require('../InboxTaskListComponent/InboxTaskListComponent.hbs');
 
-export class TaskListComponents {
-    tasksService:TasksService;
-    labelsService:LabelsService;
+export class inboxTaskListComponent {
+    tasksService:TasksService = TasksService.Instance;
+    labelsService:LabelsService  = LabelsService.Instance;;
     taskList: ITask[] = [];
     $el:any;
 
     constructor(taskList){
       this.taskList = taskList
-      this.tasksService = TasksService.Instance;
-      this.labelsService = LabelsService.Instance;
       this.setHtml();
 
       this.tasksService.eventEmitter.on('task-change', () => {
@@ -43,7 +41,7 @@ export class TaskListComponents {
       $(".main .container .task-list .inside-task-list").html(this.$el);
 
       this.initEvents();
-      this.renderAllTasks(this.$el.find(".task-list-body") , 0);
+      this.renderAllTasks(this.$el.find(".inbox-task-list-body") , 0);
     }
 
     //----------------------------------
@@ -82,8 +80,7 @@ export class TaskListComponents {
     //----------------------------------
 
     renderAllTasks($parentEl , level){    
-      debugger;
-      this.$el.find(".task-list-body").html("");
+      this.$el.find(".inbox-task-list-body").html("");
 
       this.taskList.forEach((task:ITask) => {
         this.renderTask(task , $parentEl , level);
@@ -95,13 +92,17 @@ export class TaskListComponents {
     //----------------------------------
 
     renderTask(task , $parentEl , level){
-      debugger;
-        new TaskListItemComponents(task , this , $parentEl , level);
+        new TaskListItemComponents({
+          task:task, 
+          parent:this, 
+          $host:$parentEl, 
+          level:level,
+          isToday:false
+        });
         
-        let $el = $(`.task-list-body .item.${task.name}`)
-
+        let $el = $(`.inbox-task-list-body .item.${task.name}`)
+        
         task.children.forEach((taskId) => {
-          debugger;
           let subtask = this.tasksService.getTask(taskId)
           this.renderTask(subtask , $el , level + 1)
       });

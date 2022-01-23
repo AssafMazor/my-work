@@ -22,6 +22,10 @@ export class MenuComponent {
       this.setHtml()
     }
     
+    //----------------------------------
+    // setHtml
+    //----------------------------------
+
     setHtml(){
       this.labelsList = this.labelsService.getLabels()
       this.getLabelsTaskLength();
@@ -37,19 +41,29 @@ export class MenuComponent {
       this.initEvents();
     }
 
+    //----------------------------------
+    // initEvents
+    //----------------------------------
+
     initEvents(){
-      $(".add-labels").on("click" , (e) => {
+      this.$el.find(".add-labels").on("click" , (e) => {
         this.onAddLabelClick(e);
       })
-      $(".labels-list .item").on("click" , (e) => {
+      this.$el.find(".labels-list .item").on("click" , (e) => {
         this.onItemClick(e);
       })
-      this.$el.find(".today-wrap.sysLabelItem").on("click" , (e) => {
-        this.onTodayItemClick(e);
+      this.$el.find(".sysLabelItem").on("click" , (e) => {
+        this.onSystemLabelItemClick(e);
       })
     }
 
-    onTodayItemClick(e){
+    //----------------------------------
+    // onSystemLabelItemClick
+    //----------------------------------
+
+    onSystemLabelItemClick(e){
+      this.$el.find(".sysLabelItem").removeClass("selected");
+      $(e.target).closest(".sysLabelItem").addClass("selected");
     }
 
     //----------------------------------

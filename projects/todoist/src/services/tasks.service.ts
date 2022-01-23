@@ -1,7 +1,5 @@
-import $ from 'jquery';
 import { ITask } from "../interfaces/task.interface"
 import {EventEmitter} from 'events';
-
 
 export class TasksService {
     private static _instance: TasksService;
@@ -11,10 +9,10 @@ export class TasksService {
 
     constructor() {
         this.eventEmitter = new EventEmitter();
-        this.taskList = [];
+        this.taskList = require("../data/tasks.json");
     }
     
-    laodData(callback){
+    laodData(callback?){
         setTimeout(()=>{
             this.taskList = require("../data/tasks.json");
             callback();
@@ -22,7 +20,6 @@ export class TasksService {
     }
     
     returnNewTask(){
-        let id = this.taskList.length + 1
         return  {
             "name": "string",    
             "content":"string",
@@ -34,7 +31,7 @@ export class TasksService {
             "isfinished":false,
             "priority":4,
             "category":1,
-            "id":id.toString(),
+            "id":new Date().getTime().toString(),
             "level":0,
             "children":[]
         }
@@ -45,9 +42,10 @@ export class TasksService {
     }
 
     getTasks() {
+        debugger;
         var fillterd = this.taskList.filter((task) => {
             return !task.isfinished && task.category === 1 && task.parentId === "-1"
-        })
+        });
         return fillterd;
     }
 
@@ -57,6 +55,17 @@ export class TasksService {
         });
         return fillterd[0];
     }
+    
+    // getTodayTasks(){
+    //     let today:ITask[] = [];
+
+    //     this.taskList.filter((task)=> { 
+    //         if(new Date(task.sentTime).getDate() === new Date().getDate()){
+    //             today.push(task);
+    //         };
+    //     });
+    //     return today;
+    // }
 
     addTaskLabels(taskId , choosenLabels){
         let task = this.getTask(taskId);
@@ -79,7 +88,6 @@ export class TasksService {
     }
 
     addNewTask(newTask){
-        console.log(newTask)
         this.taskList.push(newTask);
         this.eventEmitter.emit('task-change');
     }
@@ -87,7 +95,6 @@ export class TasksService {
     addSubTask(newSubTask , task){
         this.taskList.push(newSubTask);
         task.children.push(newSubTask.id);
-        debugger;
 
         this.eventEmitter.emit('addNewSubTask', task, newSubTask);
     }
@@ -126,14 +133,6 @@ export class TasksService {
         task.isfinished = !task.isfinished 
         this.eventEmitter.emit('task-change');
     }
-
-    // getTodayTasks(){
-    //     debugger;
-    //     let fillterd = this.taskList.filter((task) => {
-    //         return task.isToday
-    //     })
-    //     this.eventEmitter.emit('category-change' , fillterd);
-    // }
 
     public static get Instance(){
         return this._instance || (this._instance = new this());

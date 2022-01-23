@@ -2,7 +2,10 @@
     <div class="task-list-header">
         <div class="inside">
 
-            <div class="title">Inbox
+            <div class="title">Today
+            </div>
+
+            <div class="day-title">{{today}} {{todayDay}}
             </div>
 
             <div class="comments-wrap">
@@ -17,7 +20,6 @@
                 </div>
 
             </div>
-        
         
             <div class="view-options-menu">
         
@@ -52,12 +54,40 @@
 
         </div>
     </div>
+
+    {{#if isOverdueTasksNotExist}}
+        <div class="overdue-section hide">
+            <div class="task-list-name overdue">Overdue
+            </div>
     
-    <div class="task-list-body">
+            <div class="yesterday-task-list-body task-list-body">
+            </div>
+        </div>
+    {{else}}
+       <div class="overdue-section">
+            <div class="task-list-name overdue">Overdue
+            </div>
+    
+            <div class="yesterday-task-list-body task-list-body">
+            </div>
+        </div>
+    {{/if}}
+
+    <div class="today-section">
+        {{#if isOverdueTasksNotExist}}
+            <div class="task-list-name hide">{{today}}-Today
+            </div>
+        {{else}}
+            <div class="task-list-name">{{today}}-Today
+            </div>
+        {{/if}}
+
+        <div class="today-task-list-body task-list-body">
+        </div>
+
     </div>
 
-    <div class="view-task-dialog hide">
-    </div>
+
     
     <div class="new-editor-wrap hide">
     </div>

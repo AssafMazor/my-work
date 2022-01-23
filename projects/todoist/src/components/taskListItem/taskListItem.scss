@@ -27,6 +27,8 @@
     position: relative;
     margin-left: 19px;
     cursor: pointer;
+    color: #202020;
+    text-decoration: none;
 
     &:hover .items-wrap {
       display: flex !important;

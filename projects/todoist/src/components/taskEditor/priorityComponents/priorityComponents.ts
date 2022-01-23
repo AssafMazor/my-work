@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import { isEmpty } from 'lodash';
-import { ITask } from "../../../../interfaces/task.interface";
-import { LabelsService } from "../../../../services/labels.service";
-import { TasksService } from "../../../../services/tasks.service";
-import { commonService } from '../../../../services/common.service';
+import { ITask } from "../../../interfaces/task.interface";
+import { LabelsService } from "../../../services/labels.service";
+import { TasksService } from "../../../services/tasks.service";
+import { commonService } from '../../../services/common.service';
 
 export interface IPriorityParams {
     parent: any,

@@ -1,18 +1,26 @@
 import $ from 'jquery'
 import moment from 'moment';
-import { ITask } from "../../../interfaces/task.interface";
-import { LabelsService } from "../../../services/labels.service";
-import { TasksService } from "../../../services/tasks.service";
-import { PriorityService } from "../../../services/priority.service";
+import { ITask } from "../../interfaces/task.interface";
+import { LabelsService } from "../../services/labels.service";
+import { TasksService } from "../../services/tasks.service";
+import { PriorityService } from "../../services/priority.service";
 import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorComponent";
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
-import { ILabel } from '../../../interfaces/label.interface';
-import { viewTaskComponents } from '../viewTaskComponent/viewTaskComponent';
+import { ILabel } from '../../interfaces/label.interface';
 import { datePickerComponents } from '../viewTaskComponent/datePickerComponents/datePickerComponents';
 
 export enum eTaskCaller {
     View,
     Task
+}
+
+export interface ITaskParams {
+    task:ITask,
+    parent:any,
+    $host:any,
+    level:number,
+    isToday:boolean,
+    isViewMode?:boolean
 }
 
 import '../taskListItem/taskListItem.scss';
@@ -29,15 +37,18 @@ export class TaskListItemComponents {
     private isViewMode:boolean;
     private $host:any;
     private level:number;
-    
-    constructor(task:ITask , parent:any , $host:any , level:number, isViewMode?:boolean){ 
-        this.level = level;
-        this.isViewMode = isViewMode || false;
-        this.$host = $host;
+    private isTaskHaveChildren:boolean;
+    private isToday:boolean;
+
+    constructor(params:ITaskParams){ 
+        this.level = params.level;
+        this.isToday = params.isToday;
+        this.isTaskHaveChildren = params.task.children.length > 0;
+        this.isViewMode = params.isViewMode || false;
+        this.$host = params.$host;
         this.parent = parent;
-        this.task = task;
+        this.task = params.task;
         this.setHtml();
-        this.isTaskForToday();
     }
 
     //----------------------------------
@@ -45,6 +56,9 @@ export class TaskListItemComponents {
     //----------------------------------
 
     setHtml(){
+        if(this.isToday){
+            this.isTaskHaveChildren = false
+        }
         this.getLabels();
         let sentTime = moment(this.task.sentTime);
         
@@ -54,7 +68,7 @@ export class TaskListItemComponents {
             labelsNames:this.labelsNames,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority),
             level:this.level,
-            isTaskHaveChildren:this.task.children.length > 0
+            isTaskHaveChildren:this.isTaskHaveChildren
         }));
         this.$host.append(this.$el);
         
@@ -78,9 +92,6 @@ export class TaskListItemComponents {
         this.$el.find(".delete-checkbox").on("click" , (e) => {
             this.onDeleteBtnClick(e);
         })
-        this.$el.find(".content").on("click" , (e) => {
-            this.onItemClick(e);
-        })
         this.$el.find(".toggle-hide-btn").on("click" , (e) => {
             this.onBtnDownClick(e);
         })
@@ -90,24 +101,12 @@ export class TaskListItemComponents {
     }
 
     //----------------------------------
-    // isTaskForToday
-    //----------------------------------
-
-    isTaskForToday(){
-        if(new Date(this.task.sentTime).getDate() === new Date().getDate()){
-            debugger;
-            this.task.isToday = true;
-        };
-    }
-
-    //----------------------------------
     // getTimeAgo
     //----------------------------------
 
     onTimeBtnClick(e){
-        if(e.stopPropagation) {
-            e.stopPropagation();
-        }
+        e.preventDefault();
+
         this.$el.find(".date-picker-dialog").removeClass("hide");
         new datePickerComponents(this.task , this , false);
     }
@@ -117,9 +116,8 @@ export class TaskListItemComponents {
     //----------------------------------
 
     onBtnDownClick(e){
-        if(e.stopPropagation) {
-            e.stopPropagation();
-        }
+        e.preventDefault();
+
         this.$el.find(".item").toggleClass("hide");
         this.$el.find(".toggle-hide-btn").toggleClass("hide");
     }
@@ -171,17 +169,6 @@ export class TaskListItemComponents {
     // onLabelBtnClick
     //----------------------------------
 
-    onItemClick(e){
-        if(!this.isViewMode){
-            $(".view-task-dialog").removeClass("hide");
-            new viewTaskComponents(this.task);
-        }
-    }
-    
-    //----------------------------------
-    // onLabelBtnClick
-    //----------------------------------
-
     onDeleteBtnClick(e){
         this.tasksService.finishTask(this.task);
     }
@@ -205,9 +192,8 @@ export class TaskListItemComponents {
     //----------------------------------
 
     onEditBtnClick(e){
-        if(e.stopPropagation) {
-            e.stopPropagation();
-        }
+        e.preventDefault();
+
 
         let $wrap = $(this.$el).children(".task-editor-wrap");
         $($wrap).removeClass("hide");

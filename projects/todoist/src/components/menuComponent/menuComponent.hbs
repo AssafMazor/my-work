@@ -1,6 +1,6 @@
 <div class="sysLabels">
 
-    <div class="inbox-wrap sysLabelItem" data-id="1">
+    <a href="#/inbox" class="inbox-wrap sysLabelItem" data-id="1">
 
         <svg width="24" class="inbox sys-icon" height="24" viewBox="0 0 24 24">
             <g fill="currentColor" fill-rule="nonzero">
@@ -18,9 +18,9 @@
         <div class="task-num">5
         </div>
 
-    </div>
+    </a>
 
-    <div class="today-wrap sysLabelItem" data-id="2">
+    <a href="#today" class="today-wrap selected sysLabelItem" data-id="2">
 
         <svg width="24" class="Today sys-icon" height="24" viewBox="0 0 24 24">
             <g fill="currentColor" fill-rule="evenodd">
@@ -40,10 +40,9 @@
 
         <div class="task-num">5
         </div>
+    </a>
 
-    </div>
-
-    <div class="upcoming-wrap sysLabelItem" data-id="3">
+    <a href="#/upcoming" class="upcoming-wrap sysLabelItem" data-id="3">
 
         <svg width="24" class="Upcoming sys-icon" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <g fill="currentColor" fill-rule="nonzero">
@@ -62,7 +61,18 @@
         <div class="task-num">
         </div>
 
-    </div>
+    </a> 
+
+    {{!-- <ul>
+        <li> <a href = "#/today"> today </a> </li>
+        <li> <a href = "#/today/task/2"> today task-2 </a> </li>
+        <li> <a href = "#/inbox">inbox </a> </li>
+        <li> <a href = "#/inbox/task/3"> inbox task-3 </a> </li>
+        <li> <a href = "#/filters-labels">test1 </a> </li>
+        <li> <a href = "#/filters/5">fillter-5 </a> </li>
+        <li> <a href = "#/labels/5">label-5 </a> </li>
+
+    </ul> --}}
 
 </div>
 

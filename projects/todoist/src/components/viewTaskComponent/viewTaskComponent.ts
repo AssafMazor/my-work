@@ -1,10 +1,10 @@
 import $ from 'jquery';
 import moment from 'moment';
-import { ITask } from "../../../interfaces/task.interface";
-import { TasksService } from "../../../services/tasks.service";
-import { LabelsService } from "../../../services/labels.service";
+import { ITask } from "../../interfaces/task.interface";
+import { TasksService } from "../../services/tasks.service";
+import { LabelsService } from "../../services/labels.service";
 import { TaskEditorComponent, eTaskMode } from "../taskEditor/taskEditorComponent";
-import { PriorityService } from "../../../services/priority.service";
+import { PriorityService } from "../../services/priority.service";
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
 import { TaskListItemComponents , eTaskCaller } from "../taskListItem/taskListItem";
 import { isEmpty } from 'lodash';
@@ -21,8 +21,8 @@ export class viewTaskComponents {
     private task:ITask;
     private arrParents:any[] = [];
 
-    constructor(task){
-        this.task = task;
+    constructor(taskId){
+        this.task = this.tasksService.getTask(taskId);
         this.getParents(this.task); 
         this.setHtml();
         this.renderSubTaskList();
@@ -36,7 +36,13 @@ export class viewTaskComponents {
         this.tasksService.eventEmitter.on("task-change" , () => {
             $(".sub-task-list").html("");
             $(".task-item").html("");
-            new TaskListItemComponents(this.task , this,this.$el.find(".task-item") , 0)
+            new TaskListItemComponents({
+                task:this.task, 
+                parent:this,
+                $host:this.$el.find(".task-item"),
+                level:0,
+                isToday:false
+            })
             this.renderSubTaskList();
         })
     }
@@ -52,8 +58,14 @@ export class viewTaskComponents {
             parentName:this.arrParents.reverse(),
             sendTime:this.getTaskSendTime()
         }));
-        $(".view-task-dialog").html(this.$el)
-        new TaskListItemComponents(this.task , this,this.$el.find(".task-item") , 0)
+        $(".main .view-task-dialog").html(this.$el)
+        new TaskListItemComponents({
+            task:this.task, 
+            parent:this,
+            $host:this.$el.find(".task-item"),
+            level:0,
+            isToday:false
+        })
         this.onChooseLabels(this.task.labels);
         this.initEvents();
     }
@@ -74,9 +86,6 @@ export class viewTaskComponents {
         })
         this.$el.find(".close-btn").on("click" , (e) => {
             this.onCloseBtnClick(e);
-        })
-        this.$el.find(".task-name").on("click" , (e) => {
-            this.onTaskNameClick(e);
         })
         $(".view-task-dialog").on("click" , (e) => {
             this.onPoperOverlayClick(e);
@@ -155,7 +164,13 @@ export class viewTaskComponents {
     //----------------------------------
 
     renderSubTask(subtask , $parentEl , level){
-        new TaskListItemComponents(subtask , this , $parentEl , level, true);
+        new TaskListItemComponents({
+            task:subtask, 
+            parent:this,
+            $host: $parentEl,
+            level:level,
+            isToday:false
+        })
         let $el = $(`.sub-task-list .item.${subtask.name}`);
        
         subtask.children.forEach((taskId) => { 
@@ -181,23 +196,13 @@ export class viewTaskComponents {
         }
     }
 
-
-    //----------------------------------
-    // onTaskNameClick
-    //----------------------------------
-
-    onTaskNameClick(e){
-        let task = this.tasksService.getTask($(e.target).data("id").toString())
-        $(".view-task-dialog").removeClass("hide");
-        new viewTaskComponents(task);
-    }
-
     //----------------------------------
     // onCloseBtnClick
     //----------------------------------
 
     onCloseBtnClick(e){
-        $(".view-task-dialog").addClass("hide")
+        $(".view-task-dialog").addClass("hide");
+        window.history.back();
     }
 
     //----------------------------------
@@ -216,18 +221,7 @@ export class viewTaskComponents {
             isAddSubTask:true
         })
     }
-
-    //----------------------------------
-    // updateEditedTask
-    //----------------------------------
-
-    updateEditedTask(){
-        this.$el.find(".name").text(this.task.name);
-        this.onChooseLabels(this.task.labels);
-        this.$el.find(".features-wrap").removeClass("hide")
-        this.$el.find(".view-task-delete-checkbox").addClass(this.priorityService.getPriorityColor(this.task.priority))
-    }
-
+    
     //----------------------------------
     // onEditTaskClick
     //----------------------------------

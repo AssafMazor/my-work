@@ -38,6 +38,7 @@
     "webpack-dev-server": "^4.7.1"
   },
   "dependencies": {
+    "backbone": "^1.4.0",
     "flatpickr": "^4.6.9",
     "handlebars": "^4.7.7",
     "handlebars-loader": "^1.7.1",

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { ILabel } from "../../../../../interfaces/label.interface";
+import { ILabel } from "../../../../interfaces/label.interface";
 
 import './labelsListItemComponents.scss';
 const labelsListTemplate = require('../labelsListItemComponents/labelsListItemComponents.hbs');

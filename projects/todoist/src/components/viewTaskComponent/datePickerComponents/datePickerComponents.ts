@@ -1,10 +1,10 @@
 import $ from 'jquery';
-import { ITask } from "../../../../interfaces/task.interface";
-import { TasksService } from "../../../../services/tasks.service";
+import { ITask } from "../../../interfaces/task.interface";
+import { TasksService } from "../../../services/tasks.service";
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import flatpickr from 'flatpickr';
-import { commonService } from '../../../../services/common.service';
+import { commonService } from '../../../services/common.service';
 
 import '../datePickerComponents/datePickerComponents.scss';
 const datePickerTemplate = require('../datePickerComponents/datePickerComponents.hbs');
@@ -146,6 +146,8 @@ export class datePickerComponents {
     //----------------------------------
 
     onEditTaskTimeClick(e){
+        e.preventDefault();
+
         this.$el.find(".add-time-dialog").removeClass("hide");
     }
 
@@ -163,6 +165,8 @@ export class datePickerComponents {
     //----------------------------------
 
     onSaveBtnClick(e){
+        e.preventDefault();
+
         let now = moment(this.task.sentTime);  
         let dateDiff = now.format('D MMM');
 
@@ -238,6 +242,8 @@ export class datePickerComponents {
     //----------------------------------
 
     onTodayItemClick(e){
+        e.preventDefault();
+
         let now = moment();  
         let today = now.format('D MMM')
         this.$el.find(".date-input").val(today);
@@ -257,6 +263,8 @@ export class datePickerComponents {
     //----------------------------------
 
     onTomorrowItemClick(e){
+        e.preventDefault();
+
         let dateDiff = moment().add(1 ,"d").format("D MMM")
         this.$el.find(".date-input").val(dateDiff);
         this.parent.$el.find(".date-input").html(dateDiff);
@@ -274,6 +282,8 @@ export class datePickerComponents {
     //----------------------------------
 
     onNoDateItemClick(e){
+        e.preventDefault();
+
         this.$el.find(".date-input").val("");
         this.parent.$el.find(".date-input").html("Schedule");
         this.parent.$el.find(".date-picker-dialog").addClass("hide");

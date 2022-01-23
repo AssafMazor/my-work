@@ -1,10 +1,10 @@
 import $ from 'jquery';
 import { isEmpty } from 'lodash';
-import { ITask } from "../../../../interfaces/task.interface";
-import { ILabel } from "../../../../interfaces/label.interface";
-import { LabelsService } from "../../../../services/labels.service";
+import { ITask } from "../../../interfaces/task.interface";
+import { ILabel } from "../../../interfaces/label.interface";
+import { LabelsService } from "../../../services/labels.service";
 import { LabelsListComponents } from "./labelsListItemComponents/labelsListItemComponents";
-import { commonService } from '../../../../services/common.service';
+import { commonService } from '../../../services/common.service';
 
 export enum eTaskAction {
   Add,

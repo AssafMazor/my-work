@@ -9,5 +9,5 @@ export interface ITask {
     priority:number,
     category:number,
     id:string,
-    children:number[],
+    children:string[],
 }
