@@ -2,11 +2,18 @@
     <div class="task-list-header">
         <div class="inside">
 
-            <div class="today-title">Today
-            </div>
+            <div class="view-date-picker-wrap">
 
-            <div class="day-title">{{todayDay}} {{today}}
-            </div>
+                <div class="upcoming-title">{{today}}
+                </div>
+
+                <div class="down-arrow-btn-wrap">
+                    <svg class="feather down-arrow-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </div>
+                    
+            </div>       
 
             <div class="comments-wrap">
             
@@ -56,17 +63,7 @@
     </div>
 
 
-    <div class="overdue-section {{#if isOverdueTasksNotExist}}hide{{/if}}">
-        <div class="task-list-name overdue">Overdue
-        </div>
-
-        <div class="yesterday-task-list-body task-list-body">
-        </div>
-    </div>
-
     <div class="today-section">
-        <div class="task-list-name {{#if isOverdueTasksNotExist}}hide{{/if}}">{{today}}-Today
-        </div>
 
         <div class="today-task-list-body task-list-body">
         </div>
@@ -74,22 +71,5 @@
     </div>
    
     <div class="new-editor-wrap hide">
-    </div>
-
-    <div class="task-list-footer">
-
-        <div class="add-task-wrap">
-            <div class="add-task-icon">
-                <svg width="13" class="add-task-btn" height="13">
-                    <path d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z" fill="currentColor" fill-rule="evenodd">
-        
-                </path>
-                </svg>    
-            </div>
-
-            <div class="text">Add task
-            </div>
-        </div>
-
     </div>
 </div>

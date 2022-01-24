@@ -2,6 +2,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import { ITask } from "../../interfaces/task.interface";
 import { TasksService } from "../../services/tasks.service";
+import { commonService } from '../../services/common.service';
 import { LabelsService } from "../../services/labels.service";
 import { TaskEditorComponent, eTaskMode } from "../taskEditor/taskEditorComponent";
 import { PriorityService } from "../../services/priority.service";
@@ -15,6 +16,7 @@ const viewTaskTemplate = require('../viewTaskComponent/viewTaskComponent.hbs');
 
 export class viewTaskComponents {
     private tasksService:TasksService = TasksService.Instance;;
+    private commonService:commonService = commonService.Instance;;
     private priorityService:PriorityService = PriorityService.Instance;
     private $el:any;
     private labelsService:LabelsService = LabelsService.Instance;
@@ -52,11 +54,13 @@ export class viewTaskComponents {
     //----------------------------------
 
     setHtml(){ 
+        let sentTime = moment(this.task.sentTime);
+
         this.$el = $(viewTaskTemplate({
             task:this.task,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority),
             parentName:this.arrParents.reverse(),
-            sendTime:this.getTaskSendTime()
+            sendTime:this.commonService.getDate(sentTime)
         }));
         $(".main .view-task-dialog").html(this.$el)
         new TaskListItemComponents({
@@ -96,39 +100,6 @@ export class viewTaskComponents {
     }
 
     //----------------------------------
-    // getTaskSendTime
-    //----------------------------------
-
-    getTaskSendTime(){
-        let sentTime = moment(this.task.sentTime);
-        let now = moment();
-        let diff = now.diff(sentTime, 'days');
-
-       if(diff > 7){
-            if(new Date(this.task.sentTime).getHours() > 0){
-                return sentTime.format('D MMM h:m');
-            }else {
-                return sentTime.format('D MMM');
-            }
-        }else {
-            if(diff > 0){
-                var mydate = sentTime;
-                if(new Date(this.task.sentTime).getHours() > 0){
-                    return moment(mydate).format('d h:m');
-                }else {
-                    debugger;
-                    return moment(mydate).format('dddd');
-                }
-            }else {
-                if(!isNaN(diff)){
-                    return `today ${sentTime.format('h:m')}` 
-                }
-                return "Schedule"
-            }
-        }
-    }
-
-    //----------------------------------
     // renderSubTaskList
     //----------------------------------
 
@@ -152,8 +123,7 @@ export class viewTaskComponents {
     //----------------------------------
 
     renderSubTaskList(){
-        debugger;
-        this.task.children.forEach((taskId) => {
+        this.task.children.forEach((taskId:string) => {
             let subtask = this.tasksService.getTask(taskId) 
             this.renderSubTask(subtask , this.$el.find(".sub-task-list") , 0);
         })
@@ -163,7 +133,7 @@ export class viewTaskComponents {
     // renderSubTask
     //----------------------------------
 
-    renderSubTask(subtask , $parentEl , level){
+    renderSubTask(subtask:ITask , $parentEl:any , level:number){
         new TaskListItemComponents({
             task:subtask, 
             parent:this,
@@ -173,7 +143,7 @@ export class viewTaskComponents {
         })
         let $el = $(`.sub-task-list .item.${subtask.name}`);
        
-        subtask.children.forEach((taskId) => { 
+        subtask.children.forEach((taskId:string) => { 
             debugger;
             let subtask = this.tasksService.getTask(taskId) 
             this.renderSubTask(subtask , $el , level + 1);
@@ -184,7 +154,7 @@ export class viewTaskComponents {
     // getParents
     //----------------------------------
 
-    getParents(node){
+    getParents(node:ITask){
         let parent = this.tasksService.getTask(node.parentId);
 
         if(parent){
@@ -259,9 +229,9 @@ export class viewTaskComponents {
     // onChooseLabels
     //----------------------------------
 
-    onChooseLabels(choosenLabels){
+    onChooseLabels(choosenLabels:number[]){
         this.$el.find(".features-wrap").html("")
-        choosenLabels.forEach((id) => {
+        choosenLabels.forEach((id:number) => {
             this.$el.find(".features-wrap").append(`
             <div class='label-wrap'>
                 <div class='label-name'>${this.labelsService.getLabel(id).name}

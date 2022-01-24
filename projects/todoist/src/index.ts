@@ -29,7 +29,7 @@ var Router = Backbone.Router.extend ({
     uiManagerService.showToday(tasksService.getAllTasks())
   },
   upcoming: function() {
-      console.log("upcoming");
+    uiManagerService.showUpcoming(tasksService.getAllTasks())
   },
   filtersLabels: function() {
       console.log("filtersLabels");

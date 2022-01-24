@@ -149,8 +149,8 @@ export class TaskEditorComponent {
 
     onAddSubTaskBtnClick(e){
         this.taskService.addSubTask({
-            "name":$(".name-task-input").val(),
-            "title":$(".description-task-input").val(),
+            "name":($(".name-task-input").val() || '').toString(),
+            "title":($(".description-task-input").val() || '').toString(),
             "parentId":this.task.id,
             "isToday":false,
             "sentTime":new Date().getTime(),
@@ -215,10 +215,9 @@ export class TaskEditorComponent {
         if(e.stopPropagation) {
             e.stopPropagation();
         }
-        debugger;
         this.taskService.editTask({
-            "name":$(".edit-name-task-input").val(),
-            "title":$(".edit-description-task-input").val(),
+            "name":($(".edit-name-task-input").val() || '').toString(),
+            "title":($(".edit-description-task-input").val() || "").toString(),
             "parentId":this.task.parentId,
             "sentTime":this.task.sentTime,
             "isToday":this.task.isToday,
@@ -270,16 +269,16 @@ export class TaskEditorComponent {
 
     onAddTaskConfirmtion(e){
         this.taskService.addNewTask( {
-            "name":$(".name-task-input").val(),
-            "title":$(".description-task-input").val(),
+            "name": ($(".name-task-input").val() || '').toString(),
+            "title":($(".description-task-input").val() || "").toString(),
             "parentId":"-1",
             "isToday":false,
             "sentTime":new Date().getTime(),
             "labels":this.choosenLabels,
-            "isfinished":false,
-            "priority":[],
+            "isfinished":this.task.isfinished,
+            "priority":this.task.priority,
             "category":this.task.category,
-            "id":new Date().getTime(),
+            "id":new Date().getTime().toString(),
             "children":[]
         },);
         $(".add-task").addClass("hide");
@@ -291,9 +290,9 @@ export class TaskEditorComponent {
     // onChooseLabels
     //----------------------------------
 
-    onChooseLabels(choosenLabels){
+    onChooseLabels(choosenLabels:number[]){
         $(".features-wrap").html("")
-        choosenLabels.forEach((id) => {
+        choosenLabels.forEach((id:number) => {
             $(".features-wrap").append(`
             <div class='label-wrap'>
                 <div class='label-name'>${this.labelsService.getLabel(id).name}
@@ -309,7 +308,7 @@ export class TaskEditorComponent {
     // onChoosePriorities
     //----------------------------------
 
-    onChoosePriorities(choosenPriorityId , choosenPriorityName){
+    onChoosePriorities(choosenPriorityId:number , choosenPriorityName:string){
         this.$el.find(".priority-icon").addClass(choosenPriorityName)
         this.$el.find(".priority-icon").addClass(choosenPriorityName)
         

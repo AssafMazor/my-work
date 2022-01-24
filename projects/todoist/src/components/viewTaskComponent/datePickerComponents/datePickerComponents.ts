@@ -32,9 +32,8 @@ export class datePickerComponents {
 
     setHtml(){ 
         let now = moment();  
-        let sentTime = moment(this.task.sentTime);
         this.$el = $(datePickerTemplate({
-            sendTime:this.parent.getTaskSendTime(sentTime),
+            sendTime:this.commonService.getDate(moment(this.task.sentTime)),
             today:now.format("ddd"),
             tomorrow:moment().add(1,'d').format('ddd'),
             isEditMode:this.isEditMode
@@ -46,7 +45,7 @@ export class datePickerComponents {
             inline: true,
             dateFormat: "j M",
 
-            onChange: (selectedDates, dateStr) => {
+            onChange: (selectedDates:any, dateStr:string) => {
                 this.date = dateStr
                 this.onSelectDateClick(selectedDates);  
             },
@@ -94,39 +93,12 @@ export class datePickerComponents {
             this.onCloseEditFooterClick(e);
         })
     }
-
-    //----------------------------------
-    // labelsListPosition
-    //----------------------------------
-
-    datePickerPosition(){
-        let top:number;
-        let left:number;
-        let bottom:number;
-        
-        let offset = this.parent.$el.find(".date-wrap").offset();
-        let labelBtnHeigth = this.parent.$el.find(".date-wrap").height();
-        let pageHeigth =  window.innerHeight;
-        let labelsListHeigth = this.parent.$el.find(".inside-date-picker").height();
-        
-        if(pageHeigth - (offset.top + labelsListHeigth) > 0){
-          top =  offset.top + labelBtnHeigth;
-          left = offset.left - 100;
-          $(".inside-date-picker").css('top' , top)
-        }else {
-          bottom =  pageHeigth - offset.top;
-          left =  offset.left - 100;
-          $(".inside-date-picker").css('bottom' , bottom)
-        }
-        this.parent.$el.find(".inside-date-picker").css('left' , left)
-    }
   
-
     //----------------------------------
     // onSelectDateClick
     //----------------------------------
 
-    onSelectDateClick(selectedDates){
+    onSelectDateClick(selectedDates:any){
         let date = moment(new Date(selectedDates).getTime());  
         let dateDiff = date.format('D MMM');
         this.parent.$el.find(".date-input").html(this.date);
@@ -138,7 +110,7 @@ export class datePickerComponents {
             this.onSendTimeChange(dateDiff + this.parent.$el.find(".label-date-input").html());
         }
 
-        this.$el.find(".date-input").val(this.parent.getTaskSendTime());
+        this.$el.find(".date-input").val(this.commonService.getDate(moment(this.task.sentTime)));
     }
 
     //----------------------------------
@@ -301,17 +273,19 @@ export class datePickerComponents {
     // onSendTimeChange
     //----------------------------------
 
-    onSendTimeChange(time){
+    onSendTimeChange(time:any){
         this.tasksService.editTask({
-            "name":this.task.name,
-            "title":this.task.title,
-            "sentTime":time,
-            "labels":this.task.labels,
-            "isfinished":this.task.isfinished,
-            "priority":this.task.priority,
-            "category":this.task.category,
-            "id":this.task.id,
-            "children":this.task.children
+        "name": this.task.name,
+        "title": this.task.title,
+        "parentId": this.task.parentId,
+        "isToday": this.task.isToday,
+        "sentTime": time,
+        "labels": this.task.labels,
+        "isfinished": this.task.isfinished,
+        "priority": this.task.priority,
+        "category": this.task.category,
+        "id": this.task.id,
+        "children": this.task.children,
         })
     }
 }

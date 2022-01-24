@@ -2,6 +2,7 @@ import $ from 'jquery'
 import moment from 'moment';
 import { ITask } from "../../interfaces/task.interface";
 import { LabelsService } from "../../services/labels.service";
+import { commonService } from '../../services/common.service';
 import { TasksService } from "../../services/tasks.service";
 import { PriorityService } from "../../services/priority.service";
 import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorComponent";
@@ -30,6 +31,7 @@ export class TaskListItemComponents {
     private labelsService:LabelsService = LabelsService.Instance;
     private tasksService:TasksService = TasksService.Instance;
     private priorityService:PriorityService = PriorityService.Instance;
+    private commonService:commonService = commonService.Instance;
     private labelsNames:ILabel[] = [];
     private task:ITask;
     private $el:any;
@@ -63,7 +65,7 @@ export class TaskListItemComponents {
         let sentTime = moment(this.task.sentTime);
         
         this.$el = $(taskListItemTemplate({
-            dateDiff:this.getTaskSendTime(sentTime),
+            dateDiff:this.commonService.getDate(sentTime),
             task:this.task,
             labelsNames:this.labelsNames,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority),
@@ -101,7 +103,7 @@ export class TaskListItemComponents {
     }
 
     //----------------------------------
-    // getTimeAgo
+    // onTimeBtnClick
     //----------------------------------
 
     onTimeBtnClick(e){
@@ -120,37 +122,6 @@ export class TaskListItemComponents {
 
         this.$el.find(".item").toggleClass("hide");
         this.$el.find(".toggle-hide-btn").toggleClass("hide");
-    }
- 
-    //----------------------------------
-    // getTimeAgo
-    //----------------------------------
-
-    getTaskSendTime(sentTime){
-        let now = moment();
-        let diff = now.diff(sentTime, 'days');
-        if(diff > 7){
-            if(new Date(sentTime).getHours() > 0){
-                return sentTime.format('D MMM h:m');
-            }else {
-                return sentTime.format('D MMM');
-            }
-        }else {
-            if(diff > 0){
-                var mydate = sentTime;
-                if(new Date(sentTime).getHours() > 0){
-                    return moment(mydate).format('d h:m');
-                }else {
-                    return moment(mydate).format('dddd');
-                }
-            }else {
-                if(!isNaN(diff)){
-                    return `today  ${sentTime.format('h:m')}`
-                }else {
-                    return "Schedule"
-                }
-            }
-        }
     }
 
     //----------------------------------
@@ -238,7 +209,7 @@ export class TaskListItemComponents {
 
     onChooseLabels(){
         this.$el.find(".label-tag-wrap").html("")
-        this.task.labels.forEach((id) => {
+        this.task.labels.forEach((id:number) => {
             this.$el.find(".label-tag-wrap").append(`
             <div class='label'>${this.labelsService.getLabel(id).name}
             </div>

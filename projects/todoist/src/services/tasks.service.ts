@@ -1,5 +1,6 @@
 import { ITask } from "../interfaces/task.interface"
 import {EventEmitter} from 'events';
+import moment from "moment";
 
 export class TasksService {
     private static _instance: TasksService;
@@ -19,10 +20,9 @@ export class TasksService {
         }, 1000)
     }
     
-    returnNewTask(){
+    returnNewTask():ITask{
         return  {
             "name": "string",    
-            "content":"string",
             "title":"string",
             "isToday":false,
             "parentId":"-1",
@@ -32,42 +32,39 @@ export class TasksService {
             "priority":4,
             "category":1,
             "id":new Date().getTime().toString(),
-            "level":0,
             "children":[]
         }
     }
 
-    getAllTasks(){
+    getAllTasks():ITask[]{
         return this.taskList
     }
 
-    getTasks() {
-        debugger;
+    getTasks():ITask[]{
         var fillterd = this.taskList.filter((task) => {
             return !task.isfinished && task.category === 1 && task.parentId === "-1"
         });
         return fillterd;
     }
 
-    getTask(taskId){
+    getTask(taskId:string):ITask{
         let fillterd = this.taskList.filter((task)=> { 
             return task.id === taskId
         });
         return fillterd[0];
     }
+
+    getTasksByDate(day:number):ITask[]{
+        let start = moment(day).startOf('day').valueOf();
+        let end = moment(day).endOf('day').valueOf();
     
-    // getTodayTasks(){
-    //     let today:ITask[] = [];
-
-    //     this.taskList.filter((task)=> { 
-    //         if(new Date(task.sentTime).getDate() === new Date().getDate()){
-    //             today.push(task);
-    //         };
-    //     });
-    //     return today;
-    // }
-
-    addTaskLabels(taskId , choosenLabels){
+        let fillterd = this.taskList.filter((task) => {
+            return task.sentTime >= start && task.sentTime < end;
+        })
+        return fillterd;
+    }
+    
+    addTaskLabels(taskId:string , choosenLabels:number[]){
         let task = this.getTask(taskId);
         choosenLabels.forEach((id) => {
             if(!task.labels.includes(id)){
@@ -77,7 +74,7 @@ export class TasksService {
         this.eventEmitter.emit('task-change');
     }
 
-    addTasknewLabels(taskId , choosenLabels){
+    addTasknewLabels(taskId:string , choosenLabels:number[]){
         let task = this.getTask(taskId);
         choosenLabels.forEach((id) => {
             if(!task.labels.includes(id)){
@@ -87,33 +84,33 @@ export class TasksService {
         this.eventEmitter.emit('task-change');
     }
 
-    addNewTask(newTask){
+    addNewTask(newTask:ITask){
         this.taskList.push(newTask);
         this.eventEmitter.emit('task-change');
     }
 
-    addSubTask(newSubTask , task){
+    addSubTask(newSubTask:ITask , task:ITask){
         this.taskList.push(newSubTask);
         task.children.push(newSubTask.id);
 
         this.eventEmitter.emit('addNewSubTask', task, newSubTask);
     }
 
-    getTaskLabels(labelId){
+    getTaskLabels(labelId:number){
         let fillterd = this.taskList.filter((task) => {
             return task.labels.includes(labelId)
         })
         this.eventEmitter.emit('task-change', fillterd);
     }
 
-    getLabelTaskLength(labelId){
+    getLabelTaskLength(labelId:number):number{
         var fillterd = this.taskList.filter((task) => {
             return task.labels.includes(labelId);
         })
         return fillterd.length
     }
 
-    editTask(editedTask){
+    editTask(editedTask:ITask){
         let task = this.getTask(editedTask.id)
 
         task.category = editedTask.category;
@@ -129,7 +126,7 @@ export class TasksService {
         this.eventEmitter.emit('task-change');
     }
 
-    finishTask(task){
+    finishTask(task:ITask){
         task.isfinished = !task.isfinished 
         this.eventEmitter.emit('task-change');
     }

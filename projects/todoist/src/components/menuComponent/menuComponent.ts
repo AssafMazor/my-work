@@ -90,7 +90,7 @@ export class MenuComponent {
     //----------------------------------
 
     getLabelsTaskLength(){
-      this.labelsList.forEach((label) => {
+      this.labelsList.forEach((label:ILabel) => {
         this.labelTaskLength = [];
         this.labelTaskLength.push(this.taskService.getLabelTaskLength(label.id))
       })

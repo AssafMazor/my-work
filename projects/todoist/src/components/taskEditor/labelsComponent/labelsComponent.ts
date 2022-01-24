@@ -87,7 +87,7 @@ export class LabelComponents {
     //----------------------------------
 
     adjustLabels(){
-      this.labelsList.forEach((label) => {    
+      this.labelsList.forEach((label:ILabel) => {    
           label.isAttache = this.task.labels.includes(label.id);
 
           if(this.task.labels.includes(label.id)){
@@ -147,7 +147,7 @@ export class LabelComponents {
     onLabelInput(e){
       let labelVal =  this.$el.find(".label-header-input-text").val();
 
-      this.labelsList = this.originallabelsList.filter((label) => {
+      this.labelsList = this.originallabelsList.filter((label:ILabel) => {
         return label.name.includes(labelVal);
       });
 
@@ -179,11 +179,11 @@ export class LabelComponents {
     // toggleClick
     //----------------------------------
 
-    toggleClick(id , $el){
+    toggleClick(id:number , $el:any){
       if($el.find(".square").hasClass("checked")){
         this.selectedLabels.push(id);
       }else {
-        this.selectedLabels = this.selectedLabels.filter((itemId) => {
+        this.selectedLabels = this.selectedLabels.filter((itemId:number) => {
           return itemId !== $el.data("id");
         });
       } 

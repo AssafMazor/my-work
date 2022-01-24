@@ -14,7 +14,7 @@ export class inboxTaskListComponent {
     taskList: ITask[] = [];
     $el:any;
 
-    constructor(taskList){
+    constructor(taskList:ITask[]){
       this.taskList = taskList
       this.setHtml();
 
@@ -23,7 +23,7 @@ export class inboxTaskListComponent {
         this.renderAllTasks(this.$el.find(".task-list-body") , 0);
       });
 
-      this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask, subTask:ITask) => {
+      this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask:ITask, subTask:ITask) => {
         this.renderAllTasks(this.$el.find(".task-list-body") , 1)
       })
 
@@ -79,7 +79,7 @@ export class inboxTaskListComponent {
     // renderAllTasks
     //----------------------------------
 
-    renderAllTasks($parentEl , level){    
+    renderAllTasks($parentEl:any , level:number){    
       this.$el.find(".inbox-task-list-body").html("");
 
       this.taskList.forEach((task:ITask) => {
@@ -91,7 +91,7 @@ export class inboxTaskListComponent {
     // renderTask
     //----------------------------------
 
-    renderTask(task , $parentEl , level){
+    renderTask(task:ITask , $parentEl:any , level:number){
         new TaskListItemComponents({
           task:task, 
           parent:this, 
@@ -102,7 +102,7 @@ export class inboxTaskListComponent {
         
         let $el = $(`.inbox-task-list-body .item.${task.name}`)
         
-        task.children.forEach((taskId) => {
+        task.children.forEach((taskId:string) => {
           let subtask = this.tasksService.getTask(taskId)
           this.renderTask(subtask , $el , level + 1)
       });

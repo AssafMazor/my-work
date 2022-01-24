@@ -5,11 +5,12 @@ import { LabelsService } from "../../services/labels.service";
 import { TaskEditorComponent, eTaskMode } from "../taskEditor/taskEditorComponent";
 import { TaskListItemComponents } from "../taskListItem/taskListItem";
 import moment from 'moment';
+import { DayComponent } from './dayComponent/dayComponent';
 
-import '../todayTaskListComponent/todayTaskListComponent.scss';
-const taskListTemplate = require('../todayTaskListComponent/todayTaskListComponent.hbs');
+import '../upcomingComponent/upcomingComponent.scss';
+const upcomingTemplate = require('../upcomingComponent/upcomingComponent.hbs');
 
-export class TodayTaskListComponent {
+export class upcomingComponent {
     tasksService:TasksService = TasksService.Instance;
     labelsService:LabelsService  = LabelsService.Instance;;
     taskList: ITask[] = [];
@@ -22,8 +23,7 @@ export class TodayTaskListComponent {
       this.setHtml();
 
       this.tasksService.eventEmitter.on('task-change', () => {
-        this.taskList = this.tasksService.getAllTasks();
-        this.isTasksOverDue();
+        this.taskList = this.tasksService.getAllTasks()
         this.renderTodayTasks();
       });
 
@@ -39,18 +39,15 @@ export class TodayTaskListComponent {
     setHtml(){
       let now = moment()
 
-      this.$el = $(taskListTemplate({
+      this.$el = $(upcomingTemplate({
         tasks:this.taskList,
-        today:now.format('D MMM'),
-        todayDay:now.format('ddd'),
-        isOverdueTasksNotExist:this.overdueTasks
+        today:now.format('MMMM y'),
       }))
       
       $(".main .container .task-list .inside-task-list").html(this.$el);
 
       this.initEvents();
       this.renderTodayTasks();
-      this.renderOverDueTasks();
     }
 
     //----------------------------------
@@ -90,57 +87,9 @@ export class TodayTaskListComponent {
 
     renderTodayTasks(){
       this.$el.find(".today-task-list-body").html("");
-      this.taskList.forEach((task:ITask) => {
-        if(new Date(task.sentTime).getDate() === new Date().getDate()){
-            new TaskListItemComponents({
-              task:task, 
-              parent:this, 
-              $host:this.$el.find(".today-task-list-body"),
-              level:0,
-              isToday:true
-            });
-        }
-      })
-    }
-
-    //----------------------------------
-    // renderOverDueTasks
-    //----------------------------------
-
-    renderOverDueTasks(){
-      this.$el.find(".yesterday-task-list-body").html("");
-
-      this.taskList.forEach((task:ITask) => {
-        if(new Date(task.sentTime).getDate() === (new Date().getDate() - 1)){
-            new TaskListItemComponents({
-              task:task, 
-              parent:this, 
-              $host:this.$el.find(".yesterday-task-list-body"),
-              level:0,
-              isToday:true
-            });
-            this.overdueTasks = true
-        }else {
-          this.overdueTasks = false
-        }
-      })
-    }
-
-    //----------------------------------
-    // isTasksOverDue
-    //----------------------------------
-
-    isTasksOverDue(){
-      this.taskList.forEach((task:ITask) => {
-        if(new Date(task.sentTime).getDate() === (new Date().getDate() - 1)){
-            this.overdueTasks = true
-            this.$el.find(".overdue-section").removeClass("hide");
-            this.$el.find(".task-list-name").removeClass("hide");
-        }else {
-          this.overdueTasks = false;
-          this.$el.find(".overdue-section").addClass("hide");
-          this.$el.find(".task-list-name").addClass("hide");
+     
+      for(let i=0; i<8;i++){
+        new DayComponent(i);
       }
-    })
-  }
+    }
 }
