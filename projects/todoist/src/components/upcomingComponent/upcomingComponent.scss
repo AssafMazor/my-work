@@ -9,6 +9,8 @@
 
   .inside-task-list {
     .task-list-header {
+      width: 800px;
+
       .view-date-picker-wrap {
         display: flex;
         flex: 1;
@@ -45,11 +47,12 @@
 
     .yesterday-task-list-body {
       height: 51px;
+      width: 800px;
     }
 
     .today-task-list-body {
       flex-direction: column;
-      width: 662px;
+      width: 800px;
       display: flex;
     }
   }

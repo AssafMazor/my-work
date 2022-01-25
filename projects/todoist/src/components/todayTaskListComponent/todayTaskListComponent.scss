@@ -13,7 +13,7 @@
       justify-content: center;
 
       .inside {
-        width: 662px;
+        width: 800px;
         display: flex;
         align-items: center;
         padding-top: 32px;
@@ -96,14 +96,13 @@
 
     .yesterday-task-list-body {
       height: 51px;
+      width: 800px;
     }
 
-    .today-task-list-body {
-      .yesterday-task-list-body {
-        flex-direction: column;
-        width: 662px;
-        display: flex;
-      }
+    .yesterday-task-list-body {
+      flex-direction: column;
+      width: 800px;
+      display: flex;
     }
   }
 }

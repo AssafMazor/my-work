@@ -1,6 +1,7 @@
 import { ITask } from "../interfaces/task.interface"
 import {EventEmitter} from 'events';
 import moment from "moment";
+import { take } from "lodash";
 
 export class TasksService {
     private static _instance: TasksService;
@@ -50,6 +51,13 @@ export class TasksService {
     getTask(taskId:string):ITask{
         let fillterd = this.taskList.filter((task)=> { 
             return task.id === taskId && !task.isfinished
+        });
+        return fillterd[0];
+    }
+    
+    getCompletedTask(taskId:string):ITask{
+        let fillterd = this.taskList.filter((task)=> { 
+            return task.id === taskId
         });
         return fillterd[0];
     }
@@ -134,16 +142,17 @@ export class TasksService {
     }
 
     finishTask(task:ITask){
-        task.isfinished = true ;
-
+        task.isfinished = true;
+        debugger;
         this.eventEmitter.emit('task-change');
     }
 
     showCompletedTasks(){
         let fillterd = this.taskList.filter((task) => {
-            return task.isfinished && task.parentId === "-1"
-        })
-        this.eventEmitter.emit('');
+            return task.isfinished
+        });
+
+        this.eventEmitter.emit('toggle-completed-tasks' , fillterd);
     }
 
     public static get Instance(){

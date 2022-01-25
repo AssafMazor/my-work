@@ -50,7 +50,7 @@
         
             </div>
 
-            <div class="settings-menu">
+            <div class="settings-menu hide">
 
                 <div class="add-section item">
 
@@ -78,12 +78,25 @@
 
                 </div>
 
+                 <div class="hide-completed-tasks hide item">
+
+                    <svg class="hide-completed-tasks-icon icon" width="24" height="24"
+                    ><path fill="currentColor" fill-rule="nonzero" d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 1a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm3.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z">
+
+                    </path>
+                    </svg>
+                        
+                    <div class="text">Hide completed tasks
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
     </div>
     
-    <div class="inbox-task-list-body task-list-body">
+    <div class="inbox-task-list-body">
     </div>
     
     <div class="new-editor-wrap hide">
@@ -105,4 +118,33 @@
         </div>
 
     </div>
+
+    <div type="button" class="completed-tasks-title hide">Completed tasks
+    </div>
+
+    <div class="completed-task-list">
+    </div>
+
+    <div type="button" class="section-add-line">Add section
+    </div>
+
+    <div class="add-section-wrap hide">
+
+        <input type="text" placeholder="Name this section" class="add-section-input">
+
+        <div class="footer">
+
+            <div class="add-section-btn disable">Add section
+            </div>
+
+            <div class="add-section-cancel-btn">Cancel
+            </div>
+        
+        </div>
+
+    </div>
+
+    <div class="section-list">
+    </div>
+
 </div>
