@@ -15,6 +15,7 @@ export class TodayTaskListComponent {
     taskList: ITask[] = [];
     $el:any;
     overdueTasks:boolean;
+    overDueTaskList:ITask[] = [];
 
     constructor(taskList){
       this.taskList = taskList
@@ -25,10 +26,12 @@ export class TodayTaskListComponent {
         this.taskList = this.tasksService.getAllTasks();
         this.isTasksOverDue();
         this.renderTodayTasks();
+        this.renderOverDueTasks();
       });
 
       this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask, subTask:ITask) => {
-        this.renderTodayTasks()
+        this.renderTodayTasks();
+        this.renderOverDueTasks();
       })
     }
 
@@ -43,14 +46,14 @@ export class TodayTaskListComponent {
         tasks:this.taskList,
         today:now.format('D MMM'),
         todayDay:now.format('ddd'),
-        isOverdueTasksNotExist:this.overdueTasks
+        isOverdueTasksExist:this.tasksService.getOverDueTasks().length > 0
       }))
       
       $(".main .container .task-list .inside-task-list").html(this.$el);
-
       this.initEvents();
       this.renderTodayTasks();
       this.renderOverDueTasks();
+      this.isTasksOverDue();
     }
 
     //----------------------------------
@@ -119,9 +122,7 @@ export class TodayTaskListComponent {
               level:0,
               isToday:true
             });
-            this.overdueTasks = true
-        }else {
-          this.overdueTasks = false
+            this.overDueTaskList.push(task)
         }
       })
     }
@@ -131,16 +132,12 @@ export class TodayTaskListComponent {
     //----------------------------------
 
     isTasksOverDue(){
-      this.taskList.forEach((task:ITask) => {
-        if(new Date(task.sentTime).getDate() === (new Date().getDate() - 1)){
-            this.overdueTasks = true
-            this.$el.find(".overdue-section").removeClass("hide");
-            this.$el.find(".task-list-name").removeClass("hide");
-        }else {
-          this.overdueTasks = false;
-          this.$el.find(".overdue-section").addClass("hide");
-          this.$el.find(".task-list-name").addClass("hide");
+      if(this.tasksService.getOverDueTasks().length > 0){
+          this.$el.find(".overdue-section").removeClass("hide");
+          this.$el.find(".task-list-name").removeClass("hide");
+      }else {
+        this.$el.find(".overdue-section").addClass("hide");
+        this.$el.find(".task-list-name").addClass("hide");
       }
-    })
-  }
+    }
 }

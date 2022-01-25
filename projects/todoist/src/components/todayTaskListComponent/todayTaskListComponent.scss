@@ -91,55 +91,18 @@
     }
 
     .overdue-section {
-      margin-bottom: 60px;
+      margin-bottom: 70px;
     }
 
     .yesterday-task-list-body {
       height: 51px;
     }
 
-    .task-list-body {
-      flex-direction: column;
-      width: 662px;
-      display: flex;
-    }
-
-    .task-list-footer {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      width: 662px;
-
-      .add-task-wrap {
+    .today-task-list-body {
+      .yesterday-task-list-body {
+        flex-direction: column;
+        width: 662px;
         display: flex;
-        align-items: center;
-        padding-top: 6px;
-        cursor: pointer;
-        justify-content: flex-start;
-
-        &:hover .add-task-icon {
-          color: #fff;
-          background-color: #3d3d3d;
-        }
-
-        .add-task-icon {
-          border-radius: 50%;
-          height: 19px;
-          width: 19px;
-          margin-right: 5px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          .add-task-btn {
-            margin-top: -2px;
-          }
-        }
-
-        .text {
-          color: gray;
-          font-size: 14px;
-        }
       }
     }
   }

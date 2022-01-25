@@ -115,6 +115,7 @@ export class viewTaskComponents {
     onPoperOverlayClick(e){
         if(isEmpty($(e.target).closest(".inside"))){
             $(".view-task-dialog").addClass("hide");
+            window.history.back();
         }
     }
 

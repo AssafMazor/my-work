@@ -53,6 +53,9 @@ export class inboxTaskListComponent {
         this.onAddTaskClick(e);
         
       })
+      this.$el.find(".item.show-completed-tasks").on("click" , (e) => {
+        this.onItemShowCompletedTasksClick(e);
+      })
     }
 
     //----------------------------------
@@ -73,6 +76,14 @@ export class inboxTaskListComponent {
 
       this.$el.find(".add-task-dialog").removeClass("hide");
       this.$el.find(".task-list-footer .add-task-wrap").addClass("hide");
+    }
+
+    //----------------------------------
+    // onItemShowCompletedTasksClick
+    //----------------------------------
+
+    onItemShowCompletedTasksClick(e){
+      this.tasksService.showCompletedTasks();
     }
 
     //----------------------------------

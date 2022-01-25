@@ -91,8 +91,8 @@ export class TaskListItemComponents {
         this.$el.find(".item .task-editor .task-confirmation").on("click" , (e) => {
             this.onEditTaskConfirmation(e);
         })
-        this.$el.find(".delete-checkbox").on("click" , (e) => {
-            this.onDeleteBtnClick(e);
+        this.$el.find(".finish-checkbox").on("click" , (e) => {
+            this.onFinishBtnClick(e);
         })
         this.$el.find(".toggle-hide-btn").on("click" , (e) => {
             this.onBtnDownClick(e);
@@ -137,10 +137,12 @@ export class TaskListItemComponents {
     }
 
     //----------------------------------
-    // onLabelBtnClick
+    // onDeleteBtnClick
     //----------------------------------
 
-    onDeleteBtnClick(e){
+    onFinishBtnClick(e){
+        e.preventDefault();
+
         this.tasksService.finishTask(this.task);
     }
 
@@ -164,7 +166,6 @@ export class TaskListItemComponents {
 
     onEditBtnClick(e){
         e.preventDefault();
-
 
         let $wrap = $(this.$el).children(".task-editor-wrap");
         $($wrap).removeClass("hide");

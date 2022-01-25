@@ -8,19 +8,6 @@
             <div class="day-title">{{todayDay}} {{today}}
             </div>
 
-            <div class="comments-wrap">
-            
-                <svg xmlns="http://www.w3.org/2000/svg" class="comments-btn" width="24" height="24" data-svgs-path="sm1/comments.svg">
-                    <path fill="currentColor" fill-rule="nonzero" d="M11.707 20.793A1 1 0 0 1 10 20.086V18H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4.5l-2.793 2.793zM11 20.086L14.086 17H19a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h6v3.086z">
-            
-                </path>
-                </svg>
-            
-                <div class="comments-count">1
-                </div>
-
-            </div>
-        
             <div class="view-options-menu">
         
                 <svg xmlns="http://www.w3.org/2000/svg" class="options-btn" width="24" height="24" viewBox="0 0 24 24">
@@ -32,43 +19,24 @@
                 <div class="view">view 
                 </div>
         
-            </div>
-        
-            <div class="settings-wrap">
-        
-                <svg xmlns="http://www.w3.org/2000/svg" class="settings-btn" width="24" height="24">
-                    <g fill="none" stroke="currentColor" stroke-linecap="round" transform="translate(3 10)">
-                    <circle cx="2" cy="2" r="2">
-        
-                    </circle>
-                    <circle cx="9" cy="2" r="2">
-        
-                    </circle>
-                    <circle cx="16" cy="2" r="2">
-        
-                    </circle>
-                </g>
-                </svg>
-        
-            </div>
+            </div>       
 
         </div>
     </div>
 
-
-    <div class="overdue-section {{#if isOverdueTasksNotExist}}hide{{/if}}">
+    <div class="overdue-section {{#if isOverdueTasksExist}}hide{{/if}}">
         <div class="task-list-name overdue">Overdue
         </div>
 
-        <div class="yesterday-task-list-body task-list-body">
+        <div class="yesterday-task-list-body">
         </div>
     </div>
 
     <div class="today-section">
-        <div class="task-list-name {{#if isOverdueTasksNotExist}}hide{{/if}}">{{today}}-Today
+        <div class="task-list-name {{#if isOverdueTasksExist}}hide{{/if}}">{{today}}-Today
         </div>
 
-        <div class="today-task-list-body task-list-body">
+        <div class="today-task-list-body">
         </div>
 
     </div>

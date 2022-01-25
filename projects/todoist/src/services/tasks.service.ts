@@ -49,7 +49,7 @@ export class TasksService {
 
     getTask(taskId:string):ITask{
         let fillterd = this.taskList.filter((task)=> { 
-            return task.id === taskId
+            return task.id === taskId && !task.isfinished
         });
         return fillterd[0];
     }
@@ -60,6 +60,13 @@ export class TasksService {
     
         let fillterd = this.taskList.filter((task) => {
             return task.sentTime >= start && task.sentTime < end;
+        })
+        return fillterd;
+    }
+
+    getOverDueTasks():ITask[]{
+        let fillterd = this.taskList.filter((task) => {
+            return new Date(task.sentTime).getDate() === new Date().getDate() - 1
         })
         return fillterd;
     }
@@ -127,8 +134,16 @@ export class TasksService {
     }
 
     finishTask(task:ITask){
-        task.isfinished = !task.isfinished 
+        task.isfinished = true ;
+
         this.eventEmitter.emit('task-change');
+    }
+
+    showCompletedTasks(){
+        let fillterd = this.taskList.filter((task) => {
+            return task.isfinished && task.parentId === "-1"
+        })
+        this.eventEmitter.emit('');
     }
 
     public static get Instance(){

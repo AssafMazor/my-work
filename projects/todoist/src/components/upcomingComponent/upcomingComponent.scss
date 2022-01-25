@@ -9,80 +9,21 @@
 
   .inside-task-list {
     .task-list-header {
-      display: flex;
-      justify-content: center;
-
-      .inside {
-        width: 662px;
+      .view-date-picker-wrap {
         display: flex;
-        align-items: center;
-        padding-top: 32px;
-        justify-content: center;
+        flex: 1;
 
-        .view-date-picker-wrap {
-          flex: 1;
-          display: flex;
-          cursor: pointer;
-
-          .upcoming-title {
-            font-size: 20px;
-            font-weight: 600;
-          }
-
-          .down-arrow-btn-wrap {
-            display: flex;
-            justify-content: flex-start;
-
-            .down-arrow-btn {
-              color: grey;
-              width: 15px;
-              margin-left: 4px;
-            }
-          }
+        .upcoming-title {
+          font-size: 20px;
+          font-weight: 600;
         }
 
-        .comments-wrap {
-          display: flex;
-          align-items: center;
-          padding-right: 9px;
+        .down-arrow-btn-wrap {
+          color: gray;
 
-          .comments-btn {
-            color: gray;
-          }
-
-          .comments-count {
-            font-size: 12px;
-            margin-left: 3px;
-            margin-right: 6px;
-            word-break: normal;
-            color: gray;
-          }
-        }
-
-        .view-options-menu {
-          display: flex;
-          align-items: center;
-          padding-right: 9px;
-
-          .options-btn {
-            color: gray;
-          }
-
-          .view {
-            font-size: 12px;
-            margin-left: 3px;
-            margin-right: 6px;
-            word-break: normal;
-            color: gray;
-          }
-        }
-
-        .settings-wrap {
-          display: flex;
-          align-items: center;
-
-          .settings-btn {
-            color: gray;
+          .down-arrow-btn {
+            width: 16px;
+            padding-left: 2px;
           }
         }
       }
@@ -106,49 +47,10 @@
       height: 51px;
     }
 
-    .task-list-body {
+    .today-task-list-body {
       flex-direction: column;
       width: 662px;
       display: flex;
-    }
-
-    .task-list-footer {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      width: 662px;
-
-      .add-task-wrap {
-        display: flex;
-        align-items: center;
-        padding-top: 6px;
-        cursor: pointer;
-        justify-content: flex-start;
-
-        &:hover .add-task-icon {
-          color: #fff;
-          background-color: #3d3d3d;
-        }
-
-        .add-task-icon {
-          border-radius: 50%;
-          height: 19px;
-          width: 19px;
-          margin-right: 5px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          .add-task-btn {
-            margin-top: -2px;
-          }
-        }
-
-        .text {
-          color: gray;
-          font-size: 14px;
-        }
-      }
     }
   }
 }
