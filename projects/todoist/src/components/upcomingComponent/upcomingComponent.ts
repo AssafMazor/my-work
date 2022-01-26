@@ -10,7 +10,7 @@ import { DayComponent } from './dayComponent/dayComponent';
 import '../upcomingComponent/upcomingComponent.scss';
 const upcomingTemplate = require('../upcomingComponent/upcomingComponent.hbs');
 
-export class upcomingComponent {
+export class UpcomingComponent {
     tasksService:TasksService = TasksService.Instance;
     labelsService:LabelsService  = LabelsService.Instance;;
     taskList: ITask[] = [];
@@ -74,7 +74,8 @@ export class upcomingComponent {
         parent:this,
         task:this.tasksService.returnNewTask(),
         isAddMode:eTaskMode.Add,
-        isAddSubTask:false
+        isAddSubTask:false,
+        parentSectionId:"-1"
       });
 
       this.$el.find(".add-task-dialog").removeClass("hide");

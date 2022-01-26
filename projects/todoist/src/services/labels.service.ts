@@ -13,7 +13,7 @@ export class LabelsService {
     constructor() {
         this.eventEmitter = new EventEmitter();
         this.labels = [];
-
+        this.labels = require("../data/labels.json");
     }
 
     laodData(callback){
@@ -23,25 +23,25 @@ export class LabelsService {
         }, 250)
     }
 
-    getLabels(){
+    getLabels():ILabel[]{
         return this.labels;
     }
 
-    getLabel(labelId){
+    getLabel(labelId:number):ILabel{
         let fillterd = this.labels.filter((label) => {
             return label.id === labelId
         })
         return fillterd[0]
     }
 
-    isLabelExist(labelName){
+    isLabelExist(labelName:string):ILabel[]{
         let fillterd = this.labels.filter((label) => {
             return label.name === labelName
         })
         return fillterd
     }
 
-    createNewLabel(label){
+    createNewLabel(label:ILabel){
         console.log(label)
         this.labels.push(label)
         this.eventEmitter.emit('label-change', this.labels);

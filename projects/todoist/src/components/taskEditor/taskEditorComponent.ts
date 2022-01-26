@@ -3,10 +3,10 @@ import { ITask } from "../../interfaces/task.interface";
 import { TasksService } from "../../services/tasks.service";
 import { LabelsService } from "../../services/labels.service";
 import { LabelComponents , eTaskAction } from "./labelsComponent/labelsComponent"
-import { priorityComponents } from "./priorityComponents/priorityComponents";
+import { PriorityComponents } from "./priorityComponents/priorityComponents";
 import { PriorityService } from "../../services/priority.service";
 import moment from 'moment';
-import { datePickerComponents } from "../viewTaskComponent/datePickerComponents/datePickerComponents"
+import { DatePickerComponents } from "../viewTaskComponent/datePickerComponents/datePickerComponents"
 
 export enum eTaskMode {
     Add,
@@ -19,7 +19,8 @@ export interface IEditorParams {
     task: ITask,
     isAddMode:eTaskMode,
     showAsDialog?:boolean
-    isAddSubTask:boolean
+    isAddSubTask:boolean,
+    parentSectionId:string
   }
   
 import './taskEditorComponent.scss';
@@ -38,11 +39,12 @@ export class TaskEditorComponent {
     private choosenPriority:any;
     private parent:any;
     private isAddSubTask:boolean = true;
-    private taskTime:any;
+    private parentSectionId:string;
 
     constructor(params:IEditorParams){
         this.isAddSubTask = params.isAddSubTask
         this.parent = params.parent
+        this.parentSectionId = params.parentSectionId
         this.task = params.task;
         this.$host = params.$wrap
         this.isAddMode = params.isAddMode === eTaskMode.Add;
@@ -140,7 +142,7 @@ export class TaskEditorComponent {
 
     onDatePickerBtnClick(e){
         this.$el.find(".date-picker-dialog").removeClass("hide");
-        new datePickerComponents(this.task , this , true);
+        new DatePickerComponents(this.task , this , true);
     }
 
     // ---------------------------------
@@ -159,7 +161,8 @@ export class TaskEditorComponent {
             "priority":4,
             "category":this.task.category,
             "id": new Date().getTime().toString(),
-            "children":[]
+            "children":[],
+            "sectionId":"-1"
         },
         this.task
         );
@@ -173,7 +176,7 @@ export class TaskEditorComponent {
     //----------------------------------
 
     onPriorityBtnCLick(e){
-        new priorityComponents({
+        new PriorityComponents({
             parent: this,
             task: this.task,
         });
@@ -226,7 +229,8 @@ export class TaskEditorComponent {
             "priority":this.choosenPriority,
             "category":this.task.category,
             "id":this.task.id,
-            "children":this.task.children
+            "children":this.task.children,
+            "sectionId":this.parentSectionId
         }
         );
         $(".add-task").addClass("hide");
@@ -268,7 +272,7 @@ export class TaskEditorComponent {
     //----------------------------------
 
     onAddTaskConfirmtion(e){
-        this.taskService.addNewTask( {
+        this.taskService.addNewTask({
             "name": ($(".name-task-input").val() || '').toString(),
             "title":($(".description-task-input").val() || "").toString(),
             "parentId":"-1",
@@ -279,7 +283,8 @@ export class TaskEditorComponent {
             "priority":this.task.priority,
             "category":this.task.category,
             "id":new Date().getTime().toString(),
-            "children":[]
+            "children":[],
+            "sectionId":this.parentSectionId
         },);
         $(".add-task").addClass("hide");
         $(".add-task-wrap").removeClass("hide");

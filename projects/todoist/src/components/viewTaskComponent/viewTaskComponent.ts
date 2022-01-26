@@ -8,13 +8,13 @@ import { TaskEditorComponent, eTaskMode } from "../taskEditor/taskEditorComponen
 import { PriorityService } from "../../services/priority.service";
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
 import { TaskListItemComponents , eTaskCaller } from "../taskListItem/taskListItem";
-import { isEmpty } from 'lodash';
-import { datePickerComponents } from "./datePickerComponents/datePickerComponents"
+import { isEmpty, iteratee } from 'lodash';
+import { DatePickerComponents } from "./datePickerComponents/datePickerComponents"
 
 import '../viewTaskComponent/viewTaskComponent.scss';
 const viewTaskTemplate = require('../viewTaskComponent/viewTaskComponent.hbs');
 
-export class viewTaskComponents {
+export class ViewTaskComponents {
     private tasksService:TasksService = TasksService.Instance;;
     private commonService:commonService = commonService.Instance;;
     private priorityService:PriorityService = PriorityService.Instance;
@@ -24,7 +24,7 @@ export class viewTaskComponents {
     private arrParents:any[] = [];
 
     constructor(taskId){
-        this.task = this.tasksService.getTask(taskId);
+        this.task = <any>this.tasksService.getTask(taskId)
         this.getParents(this.task); 
         this.setHtml();
         this.renderSubTaskList();
@@ -105,7 +105,7 @@ export class viewTaskComponents {
 
     onDatePickerBtnClick(e){
         this.$el.find(".date-picker-dialog").removeClass("hide");
-        new datePickerComponents(this.task , this , false);
+        new DatePickerComponents(this.task , this , false);
     }
 
     //----------------------------------
@@ -125,8 +125,11 @@ export class viewTaskComponents {
 
     renderSubTaskList(){
         this.task.children.forEach((taskId:string) => {
-            let subtask = this.tasksService.getTask(taskId) 
-            this.renderSubTask(subtask , this.$el.find(".sub-task-list") , 0);
+            let subtask = this.tasksService.getTask(taskId);
+
+            if(subtask){
+                this.renderSubTask(subtask , this.$el.find(".sub-task-list") , 0);
+            }
         })
     }
 
@@ -145,9 +148,11 @@ export class viewTaskComponents {
         let $el = $(`.sub-task-list .item.${subtask.name}`);
        
         subtask.children.forEach((taskId:string) => { 
-            debugger;
-            let subtask = this.tasksService.getTask(taskId) 
-            this.renderSubTask(subtask , $el , level + 1);
+            let subtask = this.tasksService.getTask(taskId);
+
+            if(subtask){
+                this.renderSubTask(subtask , $el , level + 1);
+            }
         })
     }
 
@@ -189,7 +194,8 @@ export class viewTaskComponents {
             parent:this,
             task:this.task,
             isAddMode:eTaskMode.Add,
-            isAddSubTask:true
+            isAddSubTask:true,
+            parentSectionId:"-1"
         })
     }
     
@@ -206,7 +212,8 @@ export class viewTaskComponents {
             parent:this,
             task:this.task,
             isAddMode:eTaskMode.Edit,
-            isAddSubTask:false
+            isAddSubTask:false,
+            parentSectionId:"-1"
         });
 
         this.$el.find(".content").addClass("hide")

@@ -1,7 +1,7 @@
 import { ITask } from "../interfaces/task.interface"
 import {EventEmitter} from 'events';
 import moment from "moment";
-import { take } from "lodash";
+import { isEmpty } from "lodash";
 
 export class TasksService {
     private static _instance: TasksService;
@@ -23,8 +23,8 @@ export class TasksService {
     
     returnNewTask():ITask{
         return  {
-            "name": "string",    
-            "title":"string",
+            "name": "",    
+            "title":"",
             "isToday":false,
             "parentId":"-1",
             "sentTime":new Date().getTime(),
@@ -33,7 +33,8 @@ export class TasksService {
             "priority":4,
             "category":1,
             "id":new Date().getTime().toString(),
-            "children":[]
+            "children":[],
+            "sectionId":"-1"
         }
     }
 
@@ -42,17 +43,21 @@ export class TasksService {
     }
 
     getTasks():ITask[]{
-        var fillterd = this.taskList.filter((task) => {
-            return !task.isfinished && task.category === 1 && task.parentId === "-1"
+        return this.getTasksBySection("-1");
+    }
+
+    getTasksBySection(sectionId:string):ITask[]{
+        let fillterd = this.taskList.filter((task) => {
+            return task.sectionId === sectionId && task.parentId === "-1"
         });
         return fillterd;
     }
 
-    getTask(taskId:string):ITask{
+    getTask(taskId:string):ITask | null{
         let fillterd = this.taskList.filter((task)=> { 
-            return task.id === taskId && !task.isfinished
+            return task.id === taskId;
         });
-        return fillterd[0];
+        return !isEmpty(fillterd) ? fillterd[0] : null;
     }
     
     getCompletedTask(taskId:string):ITask{
@@ -60,6 +65,13 @@ export class TasksService {
             return task.id === taskId
         });
         return fillterd[0];
+    }
+
+    getCompletedTasksList(sectionId:string):ITask[]{
+        let fillterd = this.taskList.filter((task)=> { 
+            return task.isfinished && task.sectionId === sectionId
+        });
+        return fillterd
     }
 
     getTasksByDate(day:number):ITask[]{
@@ -81,21 +93,25 @@ export class TasksService {
     
     addTaskLabels(taskId:string , choosenLabels:number[]){
         let task = this.getTask(taskId);
-        choosenLabels.forEach((id) => {
-            if(!task.labels.includes(id)){
-                task.labels.push(id);
-            }
-        })
+        if(task){
+            choosenLabels.forEach((id) => {
+                if(!(task!).labels.includes(id)){
+                    task!.labels.push(id);
+                }
+            })
+        }
         this.eventEmitter.emit('task-change');
     }
 
     addTasknewLabels(taskId:string , choosenLabels:number[]){
         let task = this.getTask(taskId);
-        choosenLabels.forEach((id) => {
-            if(!task.labels.includes(id)){
-                task.labels.push(id);
-            }
-        })
+        if(task){
+            choosenLabels.forEach((id) => {
+                if(!(task!).labels.includes(id)){
+                    task!.labels.push(id);
+                }
+            })
+        }
         this.eventEmitter.emit('task-change');
     }
 
@@ -126,33 +142,32 @@ export class TasksService {
     }
 
     editTask(editedTask:ITask){
-        let task = this.getTask(editedTask.id)
+        let task = this.getTask(editedTask.id);
 
-        task.category = editedTask.category;
-        task.id = editedTask.id;
-        task.isfinished = editedTask.isfinished;
-        task.labels = editedTask.labels;
-        task.name = editedTask.name;
-        task.priority = editedTask.priority;
-        task.sentTime = editedTask.sentTime;
-        task.title = editedTask.title;
-        task.children = editedTask.children;
-        
+        if(task){
+            task.category = editedTask.category;
+            task.id = editedTask.id;
+            task.isfinished = editedTask.isfinished;
+            task.labels = editedTask.labels;
+            task.name = editedTask.name;
+            task.priority = editedTask.priority;
+            task.sentTime = editedTask.sentTime;
+            task.title = editedTask.title;
+            task.children = editedTask.children;    
+        }
         this.eventEmitter.emit('task-change');
     }
 
     finishTask(task:ITask){
         task.isfinished = true;
-        debugger;
         this.eventEmitter.emit('task-change');
     }
 
-    showCompletedTasks(){
+    getCompletedTasks(){
         let fillterd = this.taskList.filter((task) => {
             return task.isfinished
         });
-
-        this.eventEmitter.emit('toggle-completed-tasks' , fillterd);
+        return fillterd
     }
 
     public static get Instance(){

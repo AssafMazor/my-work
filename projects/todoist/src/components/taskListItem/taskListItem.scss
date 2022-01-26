@@ -30,6 +30,25 @@
     color: #202020;
     text-decoration: none;
 
+    &.finished {
+      .finish-checkbox {
+        background-color: #808080;
+        outline: none;
+
+        .finish-checkbox-check {
+          color: white;
+          display: block;
+        }
+      }
+
+      .info-wrap {
+        .name {
+          text-decoration: line-through;
+          color: gray;
+        }
+      }
+    }
+
     &:hover .items-wrap {
       display: flex !important;
     }

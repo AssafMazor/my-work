@@ -1,8 +1,8 @@
 import $ from "jquery";
 import { TodayTaskListComponent } from "../components/todayTaskListComponent/todayTaskListComponent";
-import { inboxTaskListComponent } from "../components/InboxTaskListComponent/InboxTaskListComponent";
-import { viewTaskComponents } from "../components/viewTaskComponent/viewTaskComponent";
-import { upcomingComponent } from "../components/upcomingComponent/upcomingComponent";
+import { InboxTaskListComponent } from "../components/InboxTaskListComponent/InboxTaskListComponent";
+import { ViewTaskComponents } from "../components/viewTaskComponent/viewTaskComponent";
+import { UpcomingComponent } from "../components/upcomingComponent/upcomingComponent";
 
 export class UiManagerService {
 
@@ -17,7 +17,7 @@ export class UiManagerService {
     //----------------------------------
 
     showInbox(inboxTasks){
-        new inboxTaskListComponent(inboxTasks);
+        new InboxTaskListComponent(inboxTasks);
     }
 
     //----------------------------------
@@ -34,7 +34,7 @@ export class UiManagerService {
 
     showViewTask(taskId){
         $(".view-task-dialog").removeClass("hide")
-        new viewTaskComponents(taskId);
+        new ViewTaskComponents(taskId);
     }
 
     //----------------------------------
@@ -42,7 +42,7 @@ export class UiManagerService {
     //----------------------------------
 
     showUpcoming(upComingTasks){
-        new upcomingComponent(upComingTasks);
+        new UpcomingComponent(upComingTasks);
     }
 
     public static get Instance(){

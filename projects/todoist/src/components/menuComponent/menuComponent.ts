@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { LabelsService } from "../../services/labels.service";
 import { TasksService } from "../../services/tasks.service";
-import { addProjectComponent } from "../main/addProjectComponent/addProjectComponent";
+import { AddProjectComponent } from "../main/addProjectComponent/addProjectComponent";
 import { ILabel } from '../../interfaces/label.interface';
 
 import '../menuComponent/menuComponent.scss';
@@ -71,7 +71,7 @@ export class MenuComponent {
     //----------------------------------
 
     onAddLabelClick(e){
-      new addProjectComponent();
+      new AddProjectComponent();
       $(".bg-shadow-wrap").removeClass("hide");
       $(".project-dialog").addClass("show");
     }

@@ -39,7 +39,8 @@ export class HeaderComponents {
             task:this.tasksService.returnNewTask(),
             isAddMode:eTaskMode.Add,
             showAsDialog:true,
-            isAddSubTask:false
+            isAddSubTask:false,
+            parentSectionId:"-1"
           });
 
         $(".add-task-dialog").removeClass("hide");

@@ -1,18 +1,25 @@
-<div class="section-item">
+<div class="section-item" data-id="{{section.id}}">
 
-    <div class="section-item-header">
+    <div class="section-item-header {{#if isNotSection}}hide{{/if}}">
 
         <div class="toggle-btn-wrap">
 
-            <svg class="toggle-btn" width="24" height="24">
-            <path fill="none" stroke="currentColor" d="M16 10l-4 4-4-4">
-                
-            </path>
+            <svg class="feather feather-down toggle-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9">
+
+            </polyline>
+            </svg>
+
+            <svg class="feather hide feather-right toggle-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
 
         </div>
 
-        <div class="name">g
+        <div class="name">{{section.name}}
+        </div>
+
+        <div class="section-list-length {{#if isSectionListLengthUnderZero}}hide{{/if}}">{{sectionListLength}}
         </div>
 
         <svg class="settings-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
@@ -33,7 +40,10 @@
 
     <div class="section-task-list">
     </div>
-   
+    
+    <div class="new-editor-wrap hide">
+    </div>
+
     <div class="task-list-footer">
 
         <div class="add-task-wrap">
@@ -51,4 +61,25 @@
 
     </div>
 
+    <div class="completed-task-list">
+    </div>
+
+    <div type="button" class="section-add-line">Add section
+    </div>
+
+    <div class="add-section-wrap hide">
+
+        <input type="text" placeholder="Name this section" class="add-section-input">
+
+        <div class="footer">
+
+            <div class="add-section-btn disable">Add section
+            </div>
+
+            <div class="add-section-cancel-btn">Cancel
+            </div>
+        
+        </div>
+
+    </div>
 </div>

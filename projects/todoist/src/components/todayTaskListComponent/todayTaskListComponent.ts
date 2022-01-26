@@ -80,7 +80,8 @@ export class TodayTaskListComponent {
         parent:this,
         task:this.tasksService.returnNewTask(),
         isAddMode:eTaskMode.Add,
-        isAddSubTask:false
+        isAddSubTask:false,
+        parentSectionId:"-1"
       });
 
       this.$el.find(".add-task-dialog").removeClass("hide");

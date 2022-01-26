@@ -9,7 +9,7 @@ import { commonService } from '../../../services/common.service';
 import '../datePickerComponents/datePickerComponents.scss';
 const datePickerTemplate = require('../datePickerComponents/datePickerComponents.hbs');
 
-export class datePickerComponents {
+export class DatePickerComponents {
     private tasksService:TasksService = TasksService.Instance;
     private commonService:commonService = commonService.Instance
     private $el:any;
@@ -286,6 +286,7 @@ export class datePickerComponents {
         "category": this.task.category,
         "id": this.task.id,
         "children": this.task.children,
+        "sectionId":this.task.sectionId
         })
     }
 }

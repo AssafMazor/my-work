@@ -5,7 +5,7 @@ import { ILabel } from '../../../interfaces/label.interface';
 import '../addProjectComponent/addProjectComponent.scss';
 const addProjectTemplate = require('../addProjectComponent/addProjectComponent.hbs');
 
-export class addProjectComponent {
+export class AddProjectComponent {
     private labelsService:LabelsService  = LabelsService.Instance;
     private labelList:ILabel[];
     private $el:any;
@@ -61,7 +61,7 @@ export class addProjectComponent {
     onAddProjectClick(e){
         if(!$(".project-confirm .add-project").hasClass("disable")){
             this.labelsService.createNewLabel({
-                "name":$(".label-name-input").val(),
+                "name":($(".label-name-input").val() || '').toString(),
                 "id":this.labelList.length + 1
             })
             $(".project-dialog").removeClass("show");

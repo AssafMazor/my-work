@@ -13,7 +13,7 @@ export interface IPriorityParams {
 import '../priorityComponents/priorityComponents.scss';
 const priorityTemplate = require('../priorityComponents/priorityComponents.hbs');
 
-export class priorityComponents {
+export class PriorityComponents {
     private commonService:commonService = commonService.Instance
     private $el:any;
     private parent:any

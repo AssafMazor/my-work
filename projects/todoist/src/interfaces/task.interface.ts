@@ -10,4 +10,5 @@ export interface ITask {
     category:number,
     id:string,
     children:string[],
+    sectionId:string
 }

@@ -8,7 +8,7 @@ import { PriorityService } from "../../services/priority.service";
 import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorComponent";
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
 import { ILabel } from '../../interfaces/label.interface';
-import { datePickerComponents } from '../viewTaskComponent/datePickerComponents/datePickerComponents';
+import { DatePickerComponents } from '../viewTaskComponent/datePickerComponents/datePickerComponents';
 
 export enum eTaskCaller {
     View,
@@ -63,7 +63,7 @@ export class TaskListItemComponents {
         }
         this.getLabels();
         let sentTime = moment(this.task.sentTime);
-        
+
         this.$el = $(taskListItemTemplate({
             dateDiff:this.commonService.getDate(sentTime),
             task:this.task,
@@ -110,7 +110,7 @@ export class TaskListItemComponents {
         e.preventDefault();
 
         this.$el.find(".date-picker-dialog").removeClass("hide");
-        new datePickerComponents(this.task , this , false);
+        new DatePickerComponents(this.task , this , false);
     }
 
     //----------------------------------
@@ -176,7 +176,8 @@ export class TaskListItemComponents {
                 parent:this,
                 task:this.task,
                 isAddMode:eTaskMode.Edit,
-                isAddSubTask:true
+                isAddSubTask:true,
+                parentSectionId:"-1"
             });
         }else {
             new TaskEditorComponent({
@@ -184,14 +185,16 @@ export class TaskListItemComponents {
                 parent:this,
                 task:this.task,
                 isAddMode:eTaskMode.Edit,
-                isAddSubTask:false
+                isAddSubTask:false,
+                parentSectionId:"-1"
             });
         }
-        
-        this.parent.$el.find(".features-wrap").addClass("hide")
-        $(".add-task-dialog").removeClass("hide");
-        $(this.$el).children(".content").addClass("hide");
-        $(".task-list-footer .add-task-wrap").addClass("hide");
+
+        this.$el.find(".add-task-dialog").removeClass("hide");
+        alert('f')
+        this.$el.find(".content").addClass("hide");
+        alert('f')
+        this.$el.find(".task-list-footer .add-task-wrap").addClass("hide");
     }
 
     //----------------------------------
