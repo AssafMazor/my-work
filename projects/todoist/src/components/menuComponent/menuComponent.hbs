@@ -62,18 +62,23 @@
         </div>
 
     </a> 
+ 
+    <a href="#/filters-labels" class="filters-labels-wrap sysLabelItem" data-id="4">
 
-    {{!-- <ul>
-        <li> <a href = "#/today"> today </a> </li>
-        <li> <a href = "#/today/task/2"> today task-2 </a> </li>
-        <li> <a href = "#/inbox">inbox </a> </li>
-        <li> <a href = "#/inbox/task/3"> inbox task-3 </a> </li>
-        <li> <a href = "#/filters-labels">test1 </a> </li>
-        <li> <a href = "#/filters/5">fillter-5 </a> </li>
-        <li> <a href = "#/labels/5">label-5 </a> </li>
+       <svg class="filters-labels-icon sys-icon" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path opacity="0.1" fill-rule="evenodd" clip-rule="evenodd" d="M13 6.5A1.5 1.5 0 0114.5 5h3A1.5 1.5 0 0119 6.5v3a1.5 1.5 0 01-1.5 1.5h-3A1.5 1.5 0 0113 9.5v-3zM6.5 13A1.5 1.5 0 005 14.5v3A1.5 1.5 0 006.5 19h3a1.5 1.5 0 001.5-1.5v-3A1.5 1.5 0 009.5 13h-3zm8 0a1.5 1.5 0 00-1.5 1.5v3a1.5 1.5 0 001.5 1.5h3a1.5 1.5 0 001.5-1.5v-3a1.5 1.5 0 00-1.5-1.5h-3zm-8-8A1.5 1.5 0 005 6.5v3A1.5 1.5 0 006.5 11h3A1.5 1.5 0 0011 9.5v-3A1.5 1.5 0 009.5 5h-3z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 6h-3a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5zm-3-1A1.5 1.5 0 0013 6.5v3a1.5 1.5 0 001.5 1.5h3A1.5 1.5 0 0019 9.5v-3A1.5 1.5 0 0017.5 5h-3zm-8 9h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zm-1.5.5A1.5 1.5 0 016.5 13h3a1.5 1.5 0 011.5 1.5v3A1.5 1.5 0 019.5 19h-3A1.5 1.5 0 015 17.5v-3zm9.5-.5h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zm-1.5.5a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5v3a1.5 1.5 0 01-1.5 1.5h-3a1.5 1.5 0 01-1.5-1.5v-3zM6.5 6h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zM5 6.5A1.5 1.5 0 016.5 5h3A1.5 1.5 0 0111 6.5v3A1.5 1.5 0 019.5 11h-3A1.5 1.5 0 015 9.5v-3z" fill="currentColor">
 
-    </ul> --}}
+       </path>
+       </svg>
 
+        <div class="text">filters & labels
+        </div>
+
+        <div class="task-num">
+        </div>
+
+    </a> 
+  
 </div>
 
 <div class="projects menu-item">
@@ -94,54 +99,7 @@
     <div class="text">You have no projects
     </div>
 
-</div>
-
-<div class="labels menu-item">
-
-    <div class="labels-header">
-
-        <svg width="16px" class="arrow-down-btn" height="16px" viewBox="0 0 16 16">
-            <g transform="translate(-266, -17)" fill="#777777">
-            <path d="M280,22.7581818 L279.1564,22 L273.9922,26.506 L273.4414,26.0254545 L273.4444,26.0281818 L268.8562,22.0245455 L268,22.7712727 C269.2678,23.878 272.8084,26.9674545 273.9922,28 C274.8718,27.2330909 274.0144,27.9809091 280,22.7581818"
-            ></path>
-        </g>
-        </svg>
-
-        <div class="title">Labels
-        </div>
-
-        <svg width="13" height="13" class="add-labels add-btn">
-            <path d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z" fill="currentColor" fill-rule="evenodd">
-
-        </path>
-        </svg>
-    </div>
-
-    <div class="labels-list">
-
-        {{#each labels}}
-
-            <div class="item" data-id={{this.id}}>
-        
-                <svg width="24" class="label-icon" height="24" viewBox="0 0 24 24">
-                    <path fill="currentColor" fill-rule="nonzero" d="M5.914 11.086l4.5-4.5A2 2 0 0 1 11.828 6H16a2 2 0 0 1 2 2v4.172a2 2 0 0 1-.586 1.414l-4.5 4.5a2 2 0 0 1-2.828 0l-4.172-4.172a2 2 0 0 1 0-2.828zM14 11a1 1 0 1 0 0-2 1 1 0 0 0 0 2z">
-        
-                </path>
-                </svg>
-        
-                <div class="label-name">{{this.name}}
-                </div>
-        
-                <div class="task-number">{{../this.labelTaskLength}}
-                </div>
-        
-            </div>  
-
-        {{/each}}  
-        
-    </div>
-
-</div>
+</div>  
 
 <div class="fillter menu-item">
 

@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import { LabelsService } from "../../services/labels.service";
 import { TasksService } from "../../services/tasks.service";
-import { AddProjectComponent } from "../main/addProjectComponent/addProjectComponent";
 import { ILabel } from '../../interfaces/label.interface';
 
 import '../menuComponent/menuComponent.scss';
@@ -15,10 +14,6 @@ export class MenuComponent {
     private $el:any;
 
     constructor(){
-      this.labelsService.eventEmitter.on('label-change', (labels:ILabel[]) => {
-        this.labelsList = labels
-        this.setHtml()
-      });
       this.setHtml()
     }
     
@@ -46,9 +41,6 @@ export class MenuComponent {
     //----------------------------------
 
     initEvents(){
-      this.$el.find(".add-labels").on("click" , (e) => {
-        this.onAddLabelClick(e);
-      })
       this.$el.find(".labels-list .item").on("click" , (e) => {
         this.onItemClick(e);
       })
@@ -64,16 +56,6 @@ export class MenuComponent {
     onSystemLabelItemClick(e){
       this.$el.find(".sysLabelItem").removeClass("selected");
       $(e.target).closest(".sysLabelItem").addClass("selected");
-    }
-
-    //----------------------------------
-    // onAddLabelClick
-    //----------------------------------
-
-    onAddLabelClick(e){
-      new AddProjectComponent();
-      $(".bg-shadow-wrap").removeClass("hide");
-      $(".project-dialog").addClass("show");
     }
 
     //----------------------------------

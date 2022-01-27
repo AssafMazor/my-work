@@ -307,4 +307,32 @@
       }
     }
   }
+
+  .empty-state-wrap {
+    position: relative;
+    max-width: 360px;
+    margin: auto;
+    text-align: center;
+    transition: opacity 0.17s ease-in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .empty-state-icon-wrap {
+      margin: auto;
+      width: 220px;
+      height: 200px;
+    }
+
+    .empty-state-text {
+      font-size: 15px;
+      color: #202020;
+      margin: 8px 0;
+    }
+
+    .empty-state-desc {
+      color: #777;
+      font-size: 12px;
+    }
+  }
 }

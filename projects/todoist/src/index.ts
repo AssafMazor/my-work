@@ -1,10 +1,11 @@
 import './style.scss';
-import { MainComponents } from"./components/main/mainComponent";
+import $ from "jquery"
+import { MainComponents } from './components/main/mainComponent';
 import Backbone from "backbone";
-import { TasksService } from './services/tasks.service';
 import { UiManagerService } from "./services/uiManager.service";
+import { DataService } from "./services/data.service"
 
-const tasksService:TasksService = TasksService.Instance;
+const dataService:DataService = DataService.Instance
 const uiManagerService:UiManagerService = UiManagerService.Instance;
 
 var Router = Backbone.Router.extend ({
@@ -23,16 +24,16 @@ var Router = Backbone.Router.extend ({
       this.navigate("today", {trigger: true});
   },
   inbox: function() {
-    uiManagerService.showInbox(tasksService.getTasks())
+    uiManagerService.showInbox()
   },
   today: function() {
-    uiManagerService.showToday(tasksService.getAllTasks())
+    uiManagerService.showToday()
   },
   upcoming: function() {
-    uiManagerService.showUpcoming(tasksService.getAllTasks())
+    uiManagerService.showUpcoming()
   },
   filtersLabels: function() {
-      console.log("filtersLabels");
+    uiManagerService.showFillterAndLabels();
   },
   fillter: function(filterId) {
       console.log("fillter" + filterId);
@@ -44,6 +45,11 @@ var Router = Backbone.Router.extend ({
     uiManagerService.showViewTask(taskId)
   }
 });
+
 var router = new Router();
-new MainComponents();
-Backbone.history.start();
+
+dataService.loadData(() => {
+  $(".loader").addClass("hide");
+  new MainComponents();
+  Backbone.history.start();  
+})

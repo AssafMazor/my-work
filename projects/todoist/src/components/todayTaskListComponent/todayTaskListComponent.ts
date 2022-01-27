@@ -27,11 +27,14 @@ export class TodayTaskListComponent {
         this.isTasksOverDue();
         this.renderTodayTasks();
         this.renderOverDueTasks();
+        this.isTasksListEmpty();
       });
 
       this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask, subTask:ITask) => {
+        this.isTasksOverDue();
         this.renderTodayTasks();
         this.renderOverDueTasks();
+        this.isTasksListEmpty();
       })
     }
 
@@ -54,6 +57,7 @@ export class TodayTaskListComponent {
       this.renderTodayTasks();
       this.renderOverDueTasks();
       this.isTasksOverDue();
+      this.isTasksListEmpty();
     }
 
     //----------------------------------
@@ -139,6 +143,21 @@ export class TodayTaskListComponent {
       }else {
         this.$el.find(".overdue-section").addClass("hide");
         this.$el.find(".task-list-name").addClass("hide");
+      }
+    }
+
+    //----------------------------------
+    // isTasksListEmpty
+    //----------------------------------
+
+    isTasksListEmpty(){
+      if(this.tasksService.getTasksByDate(new Date().getTime()).length === 0){
+        debugger;
+        if(this.tasksService.getOverDueTasks().length === 0){
+          this.$el.find(".empty-list-wrap").removeClass("hide");
+        }
+      }else {
+        this.$el.find(".empty-list-wrap").addClass("hide");
       }
     }
 }

@@ -1,4 +1,4 @@
-.project-dialog {
+.filter-dialog {
   border-radius: 10px !important;
   box-shadow: 0 2px 8px 0 rgb(0 0 0 / 16%);
   background-color: #fff;
@@ -15,7 +15,7 @@
     left: 38%;
   }
 
-  .header-project {
+  .filter-header {
     background-color: #fafafa;
     border-bottom: 1px solid #dddddd;
     height: 54px;
@@ -37,7 +37,7 @@
     padding-top: 15px;
   }
 
-  .label-name-input {
+  .filter-name-input {
     font-size: 14px;
     border-radius: 5px;
     border: 1px solid #ddd;
@@ -47,7 +47,7 @@
     display: flex;
   }
 
-  .project-confirm {
+  .filter-confirm {
     height: 45%;
     display: flex;
     justify-content: flex-end;
@@ -67,7 +67,7 @@
       }
     }
 
-    .add-project {
+    .filter-label {
       height: 32px;
       display: flex;
       align-items: center;
@@ -85,7 +85,7 @@
 
       &.disable {
         background-color: #c5c5c5;
-        cursor: not-allowed;
+        pointer-events: none;
       }
     }
   }

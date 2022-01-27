@@ -25,14 +25,17 @@ export class InboxTaskListComponent {
       this.tasksService.eventEmitter.on('task-change', () => {
         this.taskList = this.tasksService.getTasks()
         this.renderAllTasks(false);
+        this.isTaskListEmpty();
       });
 
       this.tasksService.eventEmitter.on("addNewSubTask" , (newSubTask:ITask, subTask:ITask) => {
-        this.renderAllTasks(false)
+        this.renderAllTasks(false);
+        this.isTaskListEmpty();
       })
       
       this.tasksService.eventEmitter.on("toggle-completed-tasks" , (completedTasksList) => {
         this.renderCompletedTasks(completedTasksList);
+        this.isTaskListEmpty();
       })
     }
 
@@ -49,6 +52,7 @@ export class InboxTaskListComponent {
 
       this.initEvents();
       this.renderAllTasks(false);
+      this.isTaskListEmpty();
     }
 
     //----------------------------------
@@ -67,7 +71,6 @@ export class InboxTaskListComponent {
       })
     }
 
-  
     //----------------------------------
     // onItemShowCompletedTasksClick
     //----------------------------------
@@ -124,5 +127,20 @@ export class InboxTaskListComponent {
         let section = this.sectionsService.getSection(task.sectionId);
         new SectionComponent(section , this ,  eSectionMode.section , false);
       })
+    }
+
+    //----------------------------------
+    // isTaskListEmpty
+    //----------------------------------
+
+    isTaskListEmpty(){
+      debugger;
+      if(this.tasksService.getNotFinishedTasks().length === 0){
+        if(this.sectionList.length === 0){
+          $(".empty-state-wrap").removeClass("hide");
+        }
+      }else {
+        $(".empty-state-wrap").addClass("hide");
+      }
     }
 }

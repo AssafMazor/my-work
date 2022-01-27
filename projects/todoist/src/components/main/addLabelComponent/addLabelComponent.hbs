@@ -1,0 +1,69 @@
+{{#if isEditMode}}
+    <div class="inside">
+        <div class="label-header">
+
+        <div class="text">Add label
+        </div>
+
+        </div>
+
+        <div class="title">Label name
+        </div>
+
+        <input class="label-name-input" value="{{label.name}}">
+
+        <div class="label-confirm">
+
+            <button type="button" class="cancel">
+
+            <div class="text">Cancel
+            </div>
+
+            </button>
+
+            <button type="button" class="save-label-btn">
+
+            <div class="text">Save  
+            </div>
+
+            </button>
+
+        </div>
+    </div>
+{{else}}
+    <div class="inside">
+    <div class="label-header">
+
+        <div class="text">Add label
+        </div>
+
+        </div>
+
+        <div class="title">Label name
+        </div>
+
+        <input class="label-name-input">
+
+        <div class="label-confirm">
+
+            <button type="button" class="cancel">
+
+            <div class="text">Cancel
+            </div>
+
+            </button>
+
+            <button type="button" class="add-label-btn disable">
+
+            <div class="text">Add  
+            </div>
+
+            </button>
+
+        </div>
+    </div>
+{{/if}}
+
+
+
+

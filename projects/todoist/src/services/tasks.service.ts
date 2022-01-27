@@ -13,6 +13,10 @@ export class TasksService {
         this.eventEmitter = new EventEmitter();
         this.taskList = require("../data/tasks.json");
     }
+
+    //----------------------------------
+    // laodData
+    //----------------------------------
     
     laodData(callback?){
         setTimeout(()=>{
@@ -20,7 +24,11 @@ export class TasksService {
             callback();
         }, 1000)
     }
-    
+
+    //----------------------------------
+    // returnNewTask
+    //----------------------------------
+
     returnNewTask():ITask{
         return  {
             "name": "",    
@@ -38,13 +46,25 @@ export class TasksService {
         }
     }
 
+    //----------------------------------
+    // getAllTasks
+    //----------------------------------
+
     getAllTasks():ITask[]{
         return this.taskList
     }
 
+    //----------------------------------
+    // getTasks
+    //----------------------------------
+
     getTasks():ITask[]{
         return this.getTasksBySection("-1");
     }
+
+    //----------------------------------
+    // getTasksBySection
+    //----------------------------------
 
     getTasksBySection(sectionId:string):ITask[]{
         let fillterd = this.taskList.filter((task) => {
@@ -53,19 +73,31 @@ export class TasksService {
         return fillterd;
     }
 
+    //----------------------------------
+    // getTask
+    //----------------------------------
+
     getTask(taskId:string):ITask | null{
         let fillterd = this.taskList.filter((task)=> { 
             return task.id === taskId;
         });
         return !isEmpty(fillterd) ? fillterd[0] : null;
     }
-    
+
+    //----------------------------------
+    // getCompletedTask
+    //----------------------------------
+
     getCompletedTask(taskId:string):ITask{
         let fillterd = this.taskList.filter((task)=> { 
             return task.id === taskId
         });
         return fillterd[0];
     }
+    
+    //----------------------------------
+    // getCompletedTasksList
+    //----------------------------------
 
     getCompletedTasksList(sectionId:string):ITask[]{
         let fillterd = this.taskList.filter((task)=> { 
@@ -73,6 +105,10 @@ export class TasksService {
         });
         return fillterd
     }
+
+    //----------------------------------
+    // getTasksByDate
+    //----------------------------------
 
     getTasksByDate(day:number):ITask[]{
         let start = moment(day).startOf('day').valueOf();
@@ -84,13 +120,21 @@ export class TasksService {
         return fillterd;
     }
 
+    //----------------------------------
+    // getOverDueTasks
+    //----------------------------------
+
     getOverDueTasks():ITask[]{
         let fillterd = this.taskList.filter((task) => {
             return new Date(task.sentTime).getDate() === new Date().getDate() - 1
         })
         return fillterd;
     }
-    
+
+    //----------------------------------
+    // addTaskLabels
+    //----------------------------------
+
     addTaskLabels(taskId:string , choosenLabels:number[]){
         let task = this.getTask(taskId);
         if(task){
@@ -102,6 +146,10 @@ export class TasksService {
         }
         this.eventEmitter.emit('task-change');
     }
+
+    //----------------------------------
+    // addTasknewLabels
+    //----------------------------------
 
     addTasknewLabels(taskId:string , choosenLabels:number[]){
         let task = this.getTask(taskId);
@@ -115,10 +163,18 @@ export class TasksService {
         this.eventEmitter.emit('task-change');
     }
 
+    //----------------------------------
+    // addNewTask
+    //----------------------------------
+
     addNewTask(newTask:ITask){
         this.taskList.push(newTask);
         this.eventEmitter.emit('task-change');
     }
+    
+    //----------------------------------
+    // addSubTask
+    //----------------------------------
 
     addSubTask(newSubTask:ITask , task:ITask){
         this.taskList.push(newSubTask);
@@ -127,6 +183,10 @@ export class TasksService {
         this.eventEmitter.emit('addNewSubTask', task, newSubTask);
     }
 
+    //----------------------------------
+    // getTaskLabels
+    //----------------------------------
+
     getTaskLabels(labelId:number){
         let fillterd = this.taskList.filter((task) => {
             return task.labels.includes(labelId)
@@ -134,12 +194,31 @@ export class TasksService {
         this.eventEmitter.emit('task-change', fillterd);
     }
 
+    //----------------------------------
+    // getLabelTaskLength
+    //----------------------------------
+
     getLabelTaskLength(labelId:number):number{
         var fillterd = this.taskList.filter((task) => {
             return task.labels.includes(labelId);
         })
         return fillterd.length
     }
+
+    //----------------------------------
+    // getNotFinishedTasks
+    //----------------------------------
+
+    getNotFinishedTasks(){
+        let fillterd = this.taskList.filter((task) => {
+            return !task.isfinished && task.parentId === "-1"
+        })
+        return fillterd
+    }
+
+    //----------------------------------
+    // editTask
+    //----------------------------------
 
     editTask(editedTask:ITask){
         let task = this.getTask(editedTask.id);
@@ -158,10 +237,18 @@ export class TasksService {
         this.eventEmitter.emit('task-change');
     }
 
+    //----------------------------------
+    // finishTask
+    //----------------------------------
+
     finishTask(task:ITask){
         task.isfinished = true;
         this.eventEmitter.emit('task-change');
     }
+
+    //----------------------------------
+    // getCompletedTasks
+    //----------------------------------
 
     getCompletedTasks(){
         let fillterd = this.taskList.filter((task) => {

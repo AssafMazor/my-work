@@ -1,0 +1,76 @@
+.label-item {
+  display: flex;
+  align-items: center;
+  margin: 0 -10px;
+  border-radius: 5px;
+  padding: 8px 7px 8px 6px;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+
+  &:hover {
+    background-color: #fff !important;
+    .items-row {
+      display: flex;
+    }
+  }
+
+  .label-icon {
+    color: #808080;
+  }
+
+  .label-name {
+    font-size: 14px !important;
+    color: #333;
+    flex: 1;
+  }
+
+  .items-row {
+    display: none;
+    align-items: center;
+
+    .labels-action {
+      margin-left: 4px;
+      color: gray;
+      cursor: pointer;
+    }
+
+    .setting-dialog {
+      background-color: #fff;
+      border-collapse: separate;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+      box-shadow: 0 1px 8px 0 rgb(0 0 0 / 8%);
+      list-style: none;
+      margin: 0;
+      padding: 4px 0;
+      width: 250px;
+      position: absolute;
+      top: 44px;
+      right: -111px;
+      z-index: 3;
+
+      .item {
+        width: 100%;
+        padding: 4px 10px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .icon {
+          color: grey;
+          height: 24px;
+          width: 24px;
+          margin-right: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .text {
+          font-size: 13px;
+          color: #202020;
+        }
+      }
+    }
+  }
+}

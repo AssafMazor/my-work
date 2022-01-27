@@ -3,10 +3,12 @@ import { TodayTaskListComponent } from "../components/todayTaskListComponent/tod
 import { InboxTaskListComponent } from "../components/InboxTaskListComponent/InboxTaskListComponent";
 import { ViewTaskComponents } from "../components/viewTaskComponent/viewTaskComponent";
 import { UpcomingComponent } from "../components/upcomingComponent/upcomingComponent";
+import { TasksService } from '../services/tasks.service';
+import { FiltersLabelsComponent } from "../components/filters-LabelsComponent/filtersLabelsComponent";
 
 export class UiManagerService {
-
     private static _instance: UiManagerService;
+    tasksService:TasksService = TasksService.Instance;
 
     constructor(){
 
@@ -16,16 +18,16 @@ export class UiManagerService {
     // showInbox
     //----------------------------------
 
-    showInbox(inboxTasks){
-        new InboxTaskListComponent(inboxTasks);
+    showInbox(){
+        new InboxTaskListComponent(this.tasksService.getTasks());
     }
 
     //----------------------------------
     // showToday
     //----------------------------------
 
-    showToday(todayTasks){
-        new TodayTaskListComponent(todayTasks);
+    showToday(){
+        new TodayTaskListComponent(this.tasksService.getAllTasks());
     }
 
     //----------------------------------
@@ -41,8 +43,11 @@ export class UiManagerService {
     // showUpcoming
     //----------------------------------
 
-    showUpcoming(upComingTasks){
-        new UpcomingComponent(upComingTasks);
+    showUpcoming(){
+        new UpcomingComponent(this.tasksService.getAllTasks());
+    }
+    showFillterAndLabels(){
+        new FiltersLabelsComponent();
     }
 
     public static get Instance(){
