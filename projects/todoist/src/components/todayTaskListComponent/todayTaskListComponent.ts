@@ -152,7 +152,6 @@ export class TodayTaskListComponent {
 
     isTasksListEmpty(){
       if(this.tasksService.getTasksByDate(new Date().getTime()).length === 0){
-        debugger;
         if(this.tasksService.getOverDueTasks().length === 0){
           this.$el.find(".empty-list-wrap").removeClass("hide");
         }

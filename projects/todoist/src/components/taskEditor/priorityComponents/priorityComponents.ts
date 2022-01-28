@@ -1,9 +1,7 @@
 import $ from 'jquery';
 import { isEmpty } from 'lodash';
 import { ITask } from "../../../interfaces/task.interface";
-import { LabelsService } from "../../../services/labels.service";
-import { TasksService } from "../../../services/tasks.service";
-import { commonService } from '../../../services/common.service';
+import { CommonService , IPosition } from '../../../services/common.service';
 
 export interface IPriorityParams {
     parent: any,
@@ -14,7 +12,7 @@ import '../priorityComponents/priorityComponents.scss';
 const priorityTemplate = require('../priorityComponents/priorityComponents.hbs');
 
 export class PriorityComponents {
-    private commonService:commonService = commonService.Instance
+    private commonService:CommonService = CommonService.Instance
     private $el:any;
     private parent:any
     private task:ITask
@@ -35,7 +33,10 @@ export class PriorityComponents {
 
         this.parent.$el.find(".priority-dialog").html(this.$el);
 
-        this.commonService.getPotions(this.parent.$el);
+        this.commonService.getPotions(this.parent.$el ,<IPosition>{
+            btnClass:".priority-btn-wrap",
+            dialogClass:".priority-list"
+        });
         this.initEvents();
     }
     

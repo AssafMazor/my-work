@@ -4,14 +4,14 @@ import { TasksService } from "../../../services/tasks.service";
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import flatpickr from 'flatpickr';
-import { commonService } from '../../../services/common.service';
+import { CommonService , IPosition } from '../../../services/common.service';
 
 import '../datePickerComponents/datePickerComponents.scss';
 const datePickerTemplate = require('../datePickerComponents/datePickerComponents.hbs');
 
 export class DatePickerComponents {
     private tasksService:TasksService = TasksService.Instance;
-    private commonService:commonService = commonService.Instance
+    private commonService:CommonService = CommonService.Instance
     private $el:any;
     private task:ITask;
     private parent:any;
@@ -50,7 +50,10 @@ export class DatePickerComponents {
                 this.onSelectDateClick(selectedDates);  
             },
         })
-        this.commonService.getPotions(this.parent.$el)
+        this.commonService.getPotions(this.parent.$el,<IPosition>{
+            btnClass:".date-wrap",
+            dialogClass:".inside-date-picker"
+        })
         this.initEvents();
     } 
 

@@ -2,7 +2,7 @@ import $ from 'jquery'
 import moment from 'moment';
 import { ITask } from "../../interfaces/task.interface";
 import { LabelsService } from "../../services/labels.service";
-import { commonService } from '../../services/common.service';
+import { CommonService } from '../../services/common.service';
 import { TasksService } from "../../services/tasks.service";
 import { PriorityService } from "../../services/priority.service";
 import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorComponent";
@@ -31,7 +31,7 @@ export class TaskListItemComponents {
     private labelsService:LabelsService = LabelsService.Instance;
     private tasksService:TasksService = TasksService.Instance;
     private priorityService:PriorityService = PriorityService.Instance;
-    private commonService:commonService = commonService.Instance;
+    private commonService:CommonService = CommonService.Instance;
     private labelsNames:ILabel[] = [];
     private task:ITask;
     private $el:any;
@@ -70,7 +70,9 @@ export class TaskListItemComponents {
             labelsNames:this.labelsNames,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority),
             level:this.level,
-            isTaskHaveChildren:this.isTaskHaveChildren
+            isTaskHaveChildren:this.isTaskHaveChildren,
+            isViewMode:this.isViewMode,
+            sendTime:this.commonService.getDate(sentTime)
         }));
         this.$host.append(this.$el);
         
@@ -82,13 +84,13 @@ export class TaskListItemComponents {
     //----------------------------------
 
     initEvents(){
-        this.$el.find(".items-wrap .label-btn").on("click" , (e) => {
+        this.$el.find(".label-btn").on("click" , (e) => {
             this.onLabelBtnClick(e);
         })
         this.$el.find(".edit-btn").on("click" , (e) => {
             this.onEditBtnClick(e);
         })
-        this.$el.find(".item .task-editor .task-confirmation").on("click" , (e) => {
+        this.$el.find(".task-confirmation").on("click" , (e) => {
             this.onEditTaskConfirmation(e);
         })
         this.$el.find(".finish-checkbox").on("click" , (e) => {
@@ -191,9 +193,7 @@ export class TaskListItemComponents {
         }
 
         this.$el.find(".add-task-dialog").removeClass("hide");
-        alert('f')
         this.$el.find(".content").addClass("hide");
-        alert('f')
         this.$el.find(".task-list-footer .add-task-wrap").addClass("hide");
     }
 
@@ -203,7 +203,7 @@ export class TaskListItemComponents {
 
     onEditTaskConfirmation(e){
         $(".task-editor").addClass("hide");
-        $(".task-list-body .item .content").removeClass("hide");
+        this.$el.find(".content").removeClass("hide");
         $(".task-list-footer .add-task-wrap").removeClass("hide");
     }
 

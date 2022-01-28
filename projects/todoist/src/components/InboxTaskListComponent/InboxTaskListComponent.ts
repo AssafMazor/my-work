@@ -134,7 +134,6 @@ export class InboxTaskListComponent {
     //----------------------------------
 
     isTaskListEmpty(){
-      debugger;
       if(this.tasksService.getNotFinishedTasks().length === 0){
         if(this.sectionList.length === 0){
           $(".empty-state-wrap").removeClass("hide");

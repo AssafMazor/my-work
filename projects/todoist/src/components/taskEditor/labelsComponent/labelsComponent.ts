@@ -4,7 +4,7 @@ import { ITask } from "../../../interfaces/task.interface";
 import { ILabel } from "../../../interfaces/label.interface";
 import { LabelsService } from "../../../services/labels.service";
 import { LabelsListComponents } from "./labelsListItemComponents/labelsListItemComponents";
-import { commonService } from '../../../services/common.service';
+import { CommonService , IPosition } from '../../../services/common.service';
 
 export enum eTaskAction {
   Add,
@@ -23,7 +23,7 @@ const addLabelTemplate = require('../labelsComponent/labelsComponent.hbs');
 
 export class LabelComponents {
     private labelsService:LabelsService  = LabelsService.Instance;
-    private commonService:commonService = commonService.Instance
+    private commonService:CommonService = CommonService.Instance
     private selectedLabels:number[] = [];
     private labelsList:ILabel[];
     private originallabelsList:ILabel[];
@@ -55,7 +55,12 @@ export class LabelComponents {
         action:this.action
       }));
       this.parent.$el.find(".label-dialog").html(this.$el)
-      this.commonService.getPotions(this.parent.$el);
+      this.commonService.getPotions(
+        this.parent.$el, <IPosition>{
+          btnClass:".label-btn-wrap",
+          dialogClass:".label-contant"
+        } 
+      );
       this.setLabelsItem();
       this.initEvents();
     }

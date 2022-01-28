@@ -2,13 +2,12 @@ import $ from 'jquery';
 import moment from 'moment';
 import { ITask } from "../../interfaces/task.interface";
 import { TasksService } from "../../services/tasks.service";
-import { commonService } from '../../services/common.service';
+import { CommonService } from '../../services/common.service';
 import { LabelsService } from "../../services/labels.service";
 import { TaskEditorComponent, eTaskMode } from "../taskEditor/taskEditorComponent";
 import { PriorityService } from "../../services/priority.service";
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
-import { TaskListItemComponents , eTaskCaller } from "../taskListItem/taskListItem";
-import { isEmpty, iteratee } from 'lodash';
+import { TaskListItemComponents } from "../taskListItem/taskListItem";
 import { DatePickerComponents } from "./datePickerComponents/datePickerComponents"
 
 import '../viewTaskComponent/viewTaskComponent.scss';
@@ -16,15 +15,17 @@ const viewTaskTemplate = require('../viewTaskComponent/viewTaskComponent.hbs');
 
 export class ViewTaskComponents {
     private tasksService:TasksService = TasksService.Instance;;
-    private commonService:commonService = commonService.Instance;;
+    private commonService:CommonService = CommonService.Instance;;
     private priorityService:PriorityService = PriorityService.Instance;
     private $el:any;
     private labelsService:LabelsService = LabelsService.Instance;
     private task:ITask;
     private arrParents:any[] = [];
+    private originalTask:ITask;
 
     constructor(taskId){
-        this.task = <any>this.tasksService.getTask(taskId)
+        this.task = <any>this.tasksService.getTask(taskId);
+        this.originalTask = JSON.parse(JSON.stringify(this.task));
         this.getParents(this.task); 
         this.setHtml();
         this.renderSubTaskList();
@@ -43,7 +44,8 @@ export class ViewTaskComponents {
                 parent:this,
                 $host:this.$el.find(".task-item"),
                 level:0,
-                isToday:false
+                isToday:false,
+                isViewMode:true
             })
             this.renderSubTaskList();
         })
@@ -53,7 +55,7 @@ export class ViewTaskComponents {
     // setHtml
     //----------------------------------
 
-    setHtml(){ 
+    setHtml(){
         let sentTime = moment(this.task.sentTime);
 
         this.$el = $(viewTaskTemplate({
@@ -68,9 +70,9 @@ export class ViewTaskComponents {
             parent:this,
             $host:this.$el.find(".task-item"),
             level:0,
-            isToday:false
+            isToday:false,
+            isViewMode:true
         })
-        this.onChooseLabels(this.task.labels);
         this.initEvents();
     }
 
@@ -82,7 +84,7 @@ export class ViewTaskComponents {
         this.$el.find(".edit-label-wrap").on("click" , (e) => {
             this.onEditLabelBtnClick(e);
         })
-        this.$el.find(".content").on("click" , (e) => {
+        this.$el.find(".task-item .item .content").on("click" , (e) => {
             this.onEditTaskClick(e);
         })
         this.$el.find(".add-sub-task-wrap").on("click" , (e) => {
@@ -91,7 +93,7 @@ export class ViewTaskComponents {
         this.$el.find(".close-btn").on("click" , (e) => {
             this.onCloseBtnClick(e);
         })
-        $(".view-task-dialog").on("click" , (e) => {
+        this.$el.find(".popper").on("click" , (e) => {
             this.onPoperOverlayClick(e);
         })
         this.$el.find(".date-picker-btn").on("click" , (e) => {
@@ -113,10 +115,8 @@ export class ViewTaskComponents {
     //----------------------------------
 
     onPoperOverlayClick(e){
-        if(isEmpty($(e.target).closest(".inside"))){
-            $(".view-task-dialog").addClass("hide");
-            window.history.back();
-        }
+        $(".view-task-dialog").addClass("hide");
+        window.history.back();
     }
 
     //----------------------------------
@@ -204,7 +204,7 @@ export class ViewTaskComponents {
     //----------------------------------
 
     onEditTaskClick(e){
-        let $wrap = this.$el.find(".task-editor-wrap");
+        let $wrap = this.$el.find(`.item[data-id="${this.task.id}"] .task-editor-wrap`);
         $($wrap).removeClass("hide");
         
         new TaskEditorComponent({
@@ -216,9 +216,10 @@ export class ViewTaskComponents {
             parentSectionId:"-1"
         });
 
-        this.$el.find(".content").addClass("hide")
+        this.$el.find(`.item[data-id="${this.task.id}"] .content`).addClass("hide")
         this.$el.find(".features-wrap").addClass("hide")
     }
+
     //----------------------------------
     // onEditLabelBtnClick
     //----------------------------------
@@ -231,23 +232,5 @@ export class ViewTaskComponents {
             labels: this.labelsService.getLabels()
         });
         $(".add-new-label").addClass("show");
-    }
-
-    //----------------------------------
-    // onChooseLabels
-    //----------------------------------
-
-    onChooseLabels(choosenLabels:number[]){
-        this.$el.find(".features-wrap").html("")
-        choosenLabels.forEach((id:number) => {
-            this.$el.find(".features-wrap").append(`
-            <div class='label-wrap'>
-                <div class='label-name'>${this.labelsService.getLabel(id).name}
-                </div>
-            </div>
-            `
-            );
-        }) 
-        this.task.labels = choosenLabels
     }
 }

@@ -4,8 +4,16 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #00000080;
   z-index: 100;
+
+  .popper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000080;
+  }
 
   .inside {
     position: fixed;
@@ -18,6 +26,7 @@
     border-radius: 10px;
     box-shadow: 0 2px 8px 0 #00000029;
     left: 33%;
+    z-index: 1;
 
     .view-task-header {
       width: 100%;
@@ -98,44 +107,6 @@
           border: none;
           border-radius: 5px;
           font-size: 0.875rem;
-        }
-      }
-
-      .date-picker-btn {
-        box-sizing: border-box;
-        height: 28px;
-        display: flex;
-        padding: 3px 8px;
-        border-radius: 5px;
-        font-size: 13px;
-        margin-top: 14px;
-        cursor: pointer;
-        color: #d1453b;
-
-        .inside-date-picker-btn {
-          border: 1px solid #ccc;
-          display: flex;
-          align-items: center;
-          padding: 6px 3px;
-          box-sizing: border-box;
-
-          &:hover {
-            background-color: #eee;
-          }
-
-          .calender-btn {
-            margin-top: -2px;
-          }
-
-          .date-input {
-            color: #d1453b;
-            padding-left: 3px;
-            padding-right: 3px;
-          }
-
-          .label-date-input {
-            color: #d1453b;
-          }
         }
       }
 

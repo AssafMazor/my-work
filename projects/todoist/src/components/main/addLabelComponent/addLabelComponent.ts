@@ -33,7 +33,7 @@ export class addLabelComponent {
             isEditMode:this.isEditMode,
             label:this.label
         }));
-        $(".main .label-dialog").html(this.$el)
+        $(".main .add-label-dialog").html(this.$el)
 
         this.initEvents();
     }
@@ -62,7 +62,7 @@ export class addLabelComponent {
     //----------------------------------
 
     onCancelBtnClick(e){
-        $(".label-dialog").removeClass("show");
+        $(".add-label-dialog").removeClass("show");
         $(".bg-shadow-wrap").addClass("hide");
     }
 
@@ -89,7 +89,7 @@ export class addLabelComponent {
             "name":(this.$el.find(".label-name-input").val() || '').toString(),
             "id":this.labelList.length + 1
         })
-        $(".label-dialog").removeClass("show");
+        $(".add-label-dialog").removeClass("show");
         $(".bg-shadow-wrap").addClass("hide")
     }
     
@@ -100,7 +100,7 @@ export class addLabelComponent {
     onSaveLabelBtnClick(e){
         if(this.label){
             this.labelsService.saveLabel(this.$el.find(".label-name-input").val(),this.label.id);
-            $(".label-dialog").removeClass("show");
+            $(".add-label-dialog").removeClass("show");
             $(".bg-shadow-wrap").addClass("hide");
         }
     }

@@ -2,6 +2,7 @@ import $ from 'jquery';
 import { ITask } from "../../interfaces/task.interface";
 import { TasksService } from "../../services/tasks.service";
 import { LabelsService } from "../../services/labels.service";
+import { CommonService } from '../../services/common.service';
 import { LabelComponents , eTaskAction } from "./labelsComponent/labelsComponent"
 import { PriorityComponents } from "./priorityComponents/priorityComponents";
 import { PriorityService } from "../../services/priority.service";
@@ -29,6 +30,7 @@ const taskEditorTemplate = require('./taskEditorComponent.hbs');
 export class TaskEditorComponent {  
     private taskService:TasksService = TasksService.Instance;
     private labelsService:LabelsService = LabelsService.Instance;
+    private commonService:CommonService = CommonService.Instance;
     private priorityService:PriorityService = PriorityService.Instance;
     private task:ITask;
     private choosenLabels:number[] = [];
@@ -63,7 +65,7 @@ export class TaskEditorComponent {
             task:this.task,
             priorityColor:this.priorityService.getPriorityColor(this.task.priority),
             isAddSub:this.isAddSubTask,
-            sentTime:this.getTaskSendTime()
+            sentTime:this.commonService.getDate(moment(this.task.sentTime))
         }));
         this.$host.html(this.$el);
         this.onChooseLabels(this.task.labels)
@@ -77,10 +79,10 @@ export class TaskEditorComponent {
         this.$el.find(".name-task-input").on("input" , (e) => {
             this.onTaskNameInput(e);
         })
-        this.$el.find(".task-confirmation .cancel").on('click' , (e) => {
+        this.$el.find(".cancel").on('click' , (e) => {
             this.onAddTaskCancel(e);
         })
-        this.$el.find(".task-confirmation .add-task-btn").on("click" , (e) => {
+        this.$el.find(".add-task-btn").on("click" , (e) => {
             this.onAddTaskConfirmtion(e);
         })
         this.$el.find(".edit-label-wrap").on("click" , (e) => {
@@ -101,41 +103,11 @@ export class TaskEditorComponent {
         this.$el.find(".date-wrap").on("click" , (e) => {
             this.onDatePickerBtnClick(e);
         })
+        this.$el.find(".edit-name-task-input").on("input" , (e) => {
+            this.onEditTaskNameInput(e);
+        })
     }
 
-    //----------------------------------
-    // getTaskSendTime
-    //----------------------------------
-
-    getTaskSendTime(){
-        let sentTime = moment(this.task.sentTime);
-        let now = moment();
-        let diff = now.diff(sentTime, 'days');
-
-       if(diff > 7){
-            if(new Date(this.task.sentTime).getHours() > 0){
-                return sentTime.format('D MMM h:m');
-            }else {
-                return sentTime.format('D MMM');
-            }
-        }else {
-            if(diff > 0){
-                var mydate = sentTime;
-                if(new Date(this.task.sentTime).getHours() > 0){
-                    return moment(mydate).format('d h:m');
-                }else {
-                    debugger;
-                    return moment(mydate).format('dddd');
-                }
-            }else {
-                if(!isNaN(diff)){
-                    return `today ${sentTime.format('h:m')}` 
-                }
-                return "Schedule"
-            }
-        }
-    }
-    
     //----------------------------------
     // renderSubTaskList
     //----------------------------------
@@ -237,7 +209,6 @@ export class TaskEditorComponent {
         $(".add-task-wrap").removeClass("hide");
         this.parent.$el.find(".task-editor-wrap").addClass("hide");
         this.parent.$el.find(".content").removeClass("hide");
-        $(".features-wrap").removeClass("hide");
     }
 
     //----------------------------------
@@ -255,16 +226,20 @@ export class TaskEditorComponent {
     }
 
     //----------------------------------
+    // onEditTaskNameInput
+    //----------------------------------
+
+    onEditTaskNameInput(e){
+    }
+
+    //----------------------------------
     // onAddTaskCancel
     //----------------------------------
 
     onAddTaskCancel(e){
-        $(".task-editor-wrap").addClass("hide");
-        $(".content").removeClass("hide");
-        $(".new-editor-wrap").addClass("hide")
-        this.$host.find(".content").removeClass("hide");
-        $(".add-task-wrap").removeClass("hide");
-        $(".features-wrap").removeClass("hide")
+        this.$host.addClass("hide");
+        this.parent.$el.find(".content").removeClass("hide");
+        this.parent.$el.find(".add-task-wrap").removeClass("hide")
     }   
 
     //----------------------------------

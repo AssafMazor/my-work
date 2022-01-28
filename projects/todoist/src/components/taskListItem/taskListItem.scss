@@ -30,6 +30,10 @@
     color: #202020;
     text-decoration: none;
 
+    &.border-none {
+      border-bottom-style: none;
+    }
+
     &.finished {
       .finish-checkbox {
         background-color: #808080;
@@ -127,27 +131,122 @@
         width: 200px;
       }
 
+      .discription {
+        outline: none;
+        border: none;
+        background: none;
+        font-size: 14px;
+        line-height: 21px;
+        word-wrap: break-word;
+        word-break: break-word;
+        overflow: hidden;
+        width: 200px;
+      }
+
+      .date-picker-btn {
+        box-sizing: border-box;
+        height: 32px;
+        display: flex;
+        padding: 3px 8px;
+        border-radius: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        color: #d1453b;
+
+        .inside-date-picker-btn {
+          border: 1px solid #ccc;
+          display: flex;
+          align-items: center;
+          padding: 6px 3px;
+          box-sizing: border-box;
+
+          &:hover {
+            background-color: #eee;
+          }
+
+          .calender-btn {
+            margin-top: -2px;
+          }
+
+          .date-input {
+            color: #d1453b;
+            padding-left: 3px;
+            padding-right: 3px;
+          }
+
+          .label-date-input {
+            color: #d1453b;
+          }
+        }
+      }
+
       .item-info-tag {
         display: flex;
         width: 100%;
         align-items: center;
 
+        &.top {
+          margin-top: 14px;
+        }
+
+        .date-picker-btn {
+          box-sizing: border-box;
+          height: 32px;
+          display: flex;
+          padding: 3px 8px;
+          border-radius: 5px;
+          font-size: 13px;
+          cursor: pointer;
+          color: #d1453b;
+
+          .inside-date-picker-btn {
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            padding: 6px 3px;
+            box-sizing: border-box;
+
+            &:hover {
+              background-color: #eee;
+            }
+
+            .calender-btn {
+              margin-top: -2px;
+            }
+
+            .date-input {
+              color: #d1453b;
+              padding-left: 3px;
+              padding-right: 3px;
+            }
+
+            .label-date-input {
+              color: #d1453b;
+            }
+          }
+        }
+
         .date-wrap {
           display: flex;
-
-          .date-icon {
-            color: #d0453b;
-          }
-
-          .date-input {
-            color: #d0453b;
-            font-size: 12px;
-          }
+          font-size: 13px;
+          color: #d1453b;
         }
 
         .label-icon {
           margin: 0 5px 0 12px;
           color: #808080;
+        }
+
+        .label-wrap {
+          background-color: #80808033;
+          margin-right: 4px;
+          padding: 0 8px;
+          height: 28px;
+          line-height: 28px;
+          color: #202020;
+          border: none;
+          border-radius: 5px;
+          font-size: 0.875rem;
         }
 
         .label-tag-wrap {

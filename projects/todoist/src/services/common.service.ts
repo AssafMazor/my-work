@@ -1,8 +1,13 @@
 import  $ from "jquery";
 import moment from "moment";
 
-export class commonService {
-    private static _instance: commonService;
+export interface IPosition{
+    btnClass:string,
+    dialogClass: string
+}
+
+export class CommonService {
+    private static _instance: CommonService;
 
     constructor(){
     }
@@ -11,12 +16,13 @@ export class commonService {
     //  getPotions             
     //-------------------------
 
-    getPotions($parentEl){
-        let offset = $parentEl.find(".set-potions-btn").offset()
-        let BtnHeigth = $parentEl.find(".set-potions-btn").height()
+    getPotions($parentEl:any, pos:IPosition){
+        debugger;
+        let offset = $parentEl.find(pos.btnClass).offset()
+        let BtnHeigth = $parentEl.find(pos.btnClass).height()
         let pageHeigth = window.innerHeight
-        let ListHeigth = $parentEl.find(".set-potions-dialog").height()
-        let list =  $parentEl.find(".set-potions-dialog")
+        let ListHeigth = $parentEl.find(pos.dialogClass).height()
+        let list =  $parentEl.find(pos.dialogClass)
         let top:number;
         let left:number;
         let bottom:number;
@@ -37,7 +43,7 @@ export class commonService {
     //  getDate             
     //-------------------------
 
-    getDate(sentTime){
+    getDate(sentTime:any):string{
       let now = moment();
       let diff = now.diff(sentTime, 'days') + 1;
       if(diff > 7){

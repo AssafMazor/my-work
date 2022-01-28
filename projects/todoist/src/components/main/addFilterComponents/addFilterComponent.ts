@@ -21,7 +21,7 @@ export class AddFilterComponent {
 
     setHtml(){
         this.$el = $(addLabelTemplate({}));
-        $(".main .label-dialog").html(this.$el)
+        $(".main .add-filter-dialog").html(this.$el)
 
         this.initEvents();
     }
@@ -47,7 +47,7 @@ export class AddFilterComponent {
     //----------------------------------
 
     onCancelBtnClick(e){
-        $(".filter-dialog").removeClass("show")
+        $(".add-filter-dialog").removeClass("show")
     }
 
     //----------------------------------
@@ -71,7 +71,7 @@ export class AddFilterComponent {
             "name":($(".filter-name-input").val() || '').toString(),
             "id":this.labelList.length + 1
         })
-        $(".filter-dialog").removeClass("show");
+        $(".add-filter-dialog").removeClass("show");
         $(".bg-shadow-wrap").addClass("hide")
     }
 }
