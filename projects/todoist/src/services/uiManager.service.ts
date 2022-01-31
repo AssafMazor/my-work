@@ -5,13 +5,13 @@ import { ViewTaskComponents } from "../components/viewTaskComponent/viewTaskComp
 import { UpcomingComponent } from "../components/upcomingComponent/upcomingComponent";
 import { TasksService } from '../services/tasks.service';
 import { FiltersLabelsComponent } from "../components/filters-LabelsComponent/filtersLabelsComponent";
+import { labelTasksListComponent } from "../components/labelTasksListComponent/labelTasksListComponent";
 
 export class UiManagerService {
     private static _instance: UiManagerService;
     tasksService:TasksService = TasksService.Instance;
 
     constructor(){
-
     }
 
     //----------------------------------
@@ -34,7 +34,7 @@ export class UiManagerService {
     // showViewTask
     //----------------------------------
 
-    showViewTask(taskId){
+    showViewTask(taskId:string){
         $(".view-task-dialog").removeClass("hide")
         new ViewTaskComponents(taskId);
     }
@@ -46,8 +46,17 @@ export class UiManagerService {
     showUpcoming(){
         new UpcomingComponent(this.tasksService.getAllTasks());
     }
+
+    //----------------------------------
+    // showFillterAndLabels
+    //----------------------------------
+
     showFillterAndLabels(){
         new FiltersLabelsComponent();
+    }
+
+    showLabelTasksList(labelName:string){
+        new labelTasksListComponent(labelName)
     }
 
     public static get Instance(){

@@ -230,11 +230,7 @@
           display: flex;
           font-size: 13px;
           color: #d1453b;
-        }
-
-        .label-icon {
-          margin: 0 5px 0 12px;
-          color: #808080;
+          padding-right: 4px;
         }
 
         .label-wrap {
@@ -251,10 +247,21 @@
 
         .label-tag-wrap {
           display: flex;
-          .label {
-            color: #808080;
-            font-size: 12px;
-            padding-right: 9px;
+          align-items: center;
+
+          .label-item-wrap {
+            display: flex;
+
+            .label-icon {
+              margin: 3px;
+              color: #808080;
+            }
+
+            .label {
+              color: #808080;
+              font-size: 12px;
+              padding-right: 9px;
+            }
           }
         }
       }

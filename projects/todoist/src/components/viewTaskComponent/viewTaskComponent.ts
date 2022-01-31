@@ -9,6 +9,7 @@ import { PriorityService } from "../../services/priority.service";
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
 import { TaskListItemComponents } from "../taskListItem/taskListItem";
 import { DatePickerComponents } from "./datePickerComponents/datePickerComponents"
+import { ChangeAlertComponent } from '../main/changeAlertComponent/changeAlertComponent';
 
 import '../viewTaskComponent/viewTaskComponent.scss';
 const viewTaskTemplate = require('../viewTaskComponent/viewTaskComponent.hbs');
@@ -21,20 +22,21 @@ export class ViewTaskComponents {
     private labelsService:LabelsService = LabelsService.Instance;
     private task:ITask;
     private arrParents:any[] = [];
-    private originalTask:ITask;
-
+    private isEqualTasks:boolean = true;
+    private editedTask:ITask;
+    
     constructor(taskId){
         this.task = <any>this.tasksService.getTask(taskId);
-        this.originalTask = JSON.parse(JSON.stringify(this.task));
+        this.editedTask = JSON.parse(JSON.stringify(this.task))
         this.getParents(this.task); 
         this.setHtml();
         this.renderSubTaskList();
 
-        this.tasksService.eventEmitter.on("addNewSubTask" , (subTask , newSubTask:ITask) => {
+        this.tasksService.eventEmitter.on("addNewSubTask" , (subTask:ITask , newSubTask:ITask) => {
             this.task = subTask
             $(".sub-task-list").html("");
             this.renderSubTaskList();
-        })
+        }); 
 
         this.tasksService.eventEmitter.on("task-change" , () => {
             $(".sub-task-list").html("");
@@ -48,7 +50,7 @@ export class ViewTaskComponents {
                 isViewMode:true
             })
             this.renderSubTaskList();
-        })
+        });
     }
 
     //----------------------------------
@@ -115,8 +117,13 @@ export class ViewTaskComponents {
     //----------------------------------
 
     onPoperOverlayClick(e){
-        $(".view-task-dialog").addClass("hide");
-        window.history.back();
+        if(this.isEqualTasks){
+            $(".view-task-dialog").addClass("hide");
+            window.history.back();
+        }else {
+            new ChangeAlertComponent(this.editedTask)
+            $(".change-alert-dialog").removeClass("hide");
+        }
     }
 
     //----------------------------------
@@ -177,8 +184,13 @@ export class ViewTaskComponents {
     //----------------------------------
 
     onCloseBtnClick(e){
-        $(".view-task-dialog").addClass("hide");
-        window.history.back();
+        if(this.isEqualTasks){
+            $(".view-task-dialog").addClass("hide");
+            window.history.back();
+        }else {
+            new ChangeAlertComponent(this.editedTask)
+            $(".change-alert-dialog").removeClass("hide");
+        }
     }
 
     //----------------------------------
@@ -206,8 +218,8 @@ export class ViewTaskComponents {
     onEditTaskClick(e){
         let $wrap = this.$el.find(`.item[data-id="${this.task.id}"] .task-editor-wrap`);
         $($wrap).removeClass("hide");
-        
-        new TaskEditorComponent({
+
+        let editor = new TaskEditorComponent({
             $wrap:$wrap,
             parent:this,
             task:this.task,
@@ -215,6 +227,11 @@ export class ViewTaskComponents {
             isAddSubTask:false,
             parentSectionId:"-1"
         });
+
+        editor.eventEmitter.on('edit-task-change' , (isEqual:boolean,editTask:ITask) => {
+            this.isEqualTasks = isEqual
+            this.editedTask = editTask
+        })
 
         this.$el.find(`.item[data-id="${this.task.id}"] .content`).addClass("hide")
         this.$el.find(".features-wrap").addClass("hide")

@@ -2,6 +2,8 @@ import $ from 'jquery';
 import { LabelsService } from "../../services/labels.service";
 import { TasksService } from "../../services/tasks.service";
 import { ILabel } from '../../interfaces/label.interface';
+import { FavoriteLabelItemComponent } from './favoriteLabelItemComponent/favoriteLabelItemComponent';
+import { isEmpty } from 'lodash';
 
 import '../menuComponent/menuComponent.scss';
 const menuTemplate = require('../menuComponent/menuComponent.hbs');
@@ -14,7 +16,13 @@ export class MenuComponent {
     private $el:any;
 
     constructor(){
-      this.setHtml()
+      this.setHtml();
+
+      this.labelsService.eventEmitter.on('label-change', (labelsList:ILabel[]) => {
+        this.labelsList = labelsList
+        this.renderFavoriteLabelList();
+        this.isFavoriteLabelListEmpty();
+      });
     }
     
     //----------------------------------
@@ -22,18 +30,19 @@ export class MenuComponent {
     //----------------------------------
 
     setHtml(){
-      this.labelsList = this.labelsService.getLabels()
+      this.labelsList = this.labelsService.getLabels();
       this.getLabelsTaskLength();
 
       this.$el = $(menuTemplate({
         labels:this.labelsList,
         todayTime:new Date().getDate(),
-        labelTaskLength:this.labelTaskLength
+        favoriteListLength:this.labelsService.getFavoriteLabels().length === 0,
       }));
 
       $(".main .menu").html(this.$el)
 
       this.initEvents();
+      this.renderFavoriteLabelList()
     }
 
     //----------------------------------
@@ -76,5 +85,30 @@ export class MenuComponent {
         this.labelTaskLength = [];
         this.labelTaskLength.push(this.taskService.getLabelTaskLength(label.id))
       })
+    }
+    
+    //----------------------------------
+    // renderFavoriteLabelList
+    //----------------------------------
+
+    renderFavoriteLabelList(){
+      this.$el.find(".favorite-list").html("")
+      this.labelsService.getFavoriteLabels().forEach((label:ILabel) => {
+        new FavoriteLabelItemComponent(label,this)
+      })
+    }
+
+    //----------------------------------
+    // isFavoriteLabelListEmpty
+    //----------------------------------
+
+    isFavoriteLabelListEmpty(){
+      debugger;
+
+      if(isEmpty(this.labelsService.getFavoriteLabels())){
+        this.$el.find(".menu-item.favorite-wrap").addClass("hide");
+      }else {
+        this.$el.find(".menu-item.favorite-wrap").removeClass("hide");
+      }
     }
 }

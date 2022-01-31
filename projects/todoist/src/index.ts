@@ -16,8 +16,8 @@ var Router = Backbone.Router.extend ({
      'upcoming' : 'upcoming',
      'filters-labels' : 'filtersLabels',
      'filters/:filterId' : 'fillter',
-     'labels/:labelId' : 'label',
-     'task/view/:id':"view"
+     'label/:name' : 'label',
+     'task/view/:id':"view",
   },
 
   main: function(){
@@ -35,15 +35,15 @@ var Router = Backbone.Router.extend ({
   filtersLabels: function() {
     uiManagerService.showFillterAndLabels();
   },
-  fillter: function(filterId) {
+  fillter: function(filterId:string) {
       console.log("fillter" + filterId);
   },
-  label: function(labelId) {
-      console.log("label" + labelId);
+  label: function(labelName:string) {
+    uiManagerService.showLabelTasksList(labelName);
   },
-  view:function(taskId){
+  view:function(taskId:string){
     uiManagerService.showViewTask(taskId)
-  }
+  },
 });
 
 var router = new Router();

@@ -72,8 +72,15 @@ export class addLabelComponent {
 
     onLabelNameInput(e){
         if(this.$el.find(".label-name-input").val() !== ""){
-            this.$el.find(".add-label-btn").removeClass("disable");
-            this.$el.find(".save-label-btn").removeClass("disable")
+            if(this.labelsService.isLabelExist(this.$el.find(".label-name-input").val()).length > 0){
+                this.$el.find(".add-label-btn").addClass("disable");
+                this.$el.find(".save-label-btn").addClass("disable");
+                this.$el.find(".label-exsist-error").removeClass("hide");
+            }else {
+                this.$el.find(".add-label-btn").removeClass("disable");
+                this.$el.find(".save-label-btn").removeClass("disable");
+                this.$el.find(".label-exsist-error").addClass("hide");
+            }
         }else {
             this.$el.find(".add-label-btn").addClass("disable");
             this.$el.find(".save-label-btn").addClass("disable");
@@ -87,7 +94,8 @@ export class addLabelComponent {
     onAddLabelBtnClick(e){
         this.labelsService.createNewLabel({
             "name":(this.$el.find(".label-name-input").val() || '').toString(),
-            "id":this.labelList.length + 1
+            "id":this.labelList.length + 1,
+            "favorite":false,
         })
         $(".add-label-dialog").removeClass("show");
         $(".bg-shadow-wrap").addClass("hide")

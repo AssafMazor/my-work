@@ -3,7 +3,7 @@ import { TasksService } from "../../../services/tasks.service";
 import { LabelsService } from '../../../services/labels.service';
 import { ILabel } from '../../../interfaces/label.interface';
 import { addLabelComponent , elabelMode } from '../../main/addLabelComponent/addLabelComponent';
-import { DeleteComponent } from '../../main/deleteComponent/deleteComponent';
+import { DeleteAlertComponent } from '../../main/deleteAlertComponent/deleteAlertComponent';
 
 export enum eItemMode {
   label,
@@ -56,11 +56,23 @@ export class LabelFilterItemComponent {
       this.$el.find(".more-settings-btn").on("click" , (e) => {
         this.onSettingsBtnClick(e);
       })
-      this.$el.find(".item.edit-item").on("click" , (e) => {
+      this.$el.find(".edit-item").on("click" , (e) => {
         this.onEditItemClick(e);
       })
       this.$el.find(".delete-item").on("click" , (e) => {
           this.onDeleteLabelItemClick(e);
+      })
+      this.$el.find(".add-favorite-item").on("click" , (e) => {
+        this.onToggleFavoriteClick(e);
+      })
+      this.$el.find(".add-heart-btn").on("click" , (e) => {
+        this.onToggleFavoriteClick(e);
+      })
+      this.$el.find(".remove-favorite-item").on("click" , (e) => {
+        this.onToggleFavoriteClick(e);
+      })
+      this.$el.find(".remove-heart-btn").on("click" , (e) => {
+        this.onToggleFavoriteClick(e);
       })
     }
 
@@ -69,9 +81,11 @@ export class LabelFilterItemComponent {
     //----------------------------------
 
     onEditLabelBtnClick(e){
+      e.preventDefault();
+
       new addLabelComponent(elabelMode.edit,this.label);
       $(".bg-shadow-wrap").removeClass("hide");
-      $(".label-dialog").addClass("show");
+      $(".add-label-dialog").addClass("show");
     }
 
     //----------------------------------
@@ -79,7 +93,9 @@ export class LabelFilterItemComponent {
     //----------------------------------
 
     onDeleteLabelItemClick(e){
-      new DeleteComponent(this.label.name,this.label);
+      e.preventDefault();
+
+      new DeleteAlertComponent(this.label.name,this.label);
       $(".delete-dialog").removeClass("hide");
     }
 
@@ -88,10 +104,22 @@ export class LabelFilterItemComponent {
     //----------------------------------
     
     onEditItemClick(e){
+      e.preventDefault();
+
       new addLabelComponent(elabelMode.edit,this.label);
       $(".bg-shadow-wrap").removeClass("hide");
-      $(".label-dialog").addClass("show");
-      $(".setting-dialog").addClass("hide")
+      $(".add-label-dialog").addClass("show");
+      $(".setting-dialog").addClass("hide");
+    }
+
+    //----------------------------------
+    // onFavoriteItemClick
+    //----------------------------------
+
+    onToggleFavoriteClick(e){
+      e.preventDefault();
+
+      this.labelsService.toggleFavoriteLabel(this.label.id);
     }
 
     //----------------------------------
@@ -99,6 +127,8 @@ export class LabelFilterItemComponent {
     //----------------------------------
 
     onSettingsBtnClick(e){
+      e.preventDefault();
+
       $(".setting-dialog").toggleClass("hide")
     }
 }

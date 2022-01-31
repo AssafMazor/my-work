@@ -84,10 +84,12 @@
     }
   }
 
-  .fillter {
+  .favorite-wrap {
     position: relative;
+    padding-top: 24px;
+    padding-bottom: 16px;
 
-    .fillter-header {
+    .favorite-header {
       display: flex;
       align-items: center;
 
@@ -102,7 +104,7 @@
       }
     }
 
-    .fillter-list {
+    .favorite-list {
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -114,17 +116,18 @@
         padding: 0 22px 0 8px;
         min-height: 34px;
         border-radius: 5px;
-        margin-top: 13px;
+        margin-top: 5px;
+        text-decoration: none;
 
         &:hover {
           background-color: #eee;
         }
 
-        .priority-btn {
+        .favorite-icon {
           color: #808080;
         }
 
-        .fillter-name {
+        .favorite-name {
           padding-left: 5px;
           color: black;
           white-space: nowrap;

@@ -40,7 +40,6 @@ export class changeNewProfilePicComponent {
         },
         showZoomer: true
         });
-        debugger;
         croppie.croppie('bind', {
             url: img
     });

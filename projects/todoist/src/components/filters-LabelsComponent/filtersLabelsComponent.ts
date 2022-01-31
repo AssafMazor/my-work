@@ -55,7 +55,7 @@ export class FiltersLabelsComponent {
     onAddLabelBtnClick(e){
       new addLabelComponent(elabelMode.add);
       $(".bg-shadow-wrap").removeClass("hide");
-      $(".label-dialog").addClass("show");
+      $(".add-label-dialog").addClass("show");
     }
 
     //----------------------------------

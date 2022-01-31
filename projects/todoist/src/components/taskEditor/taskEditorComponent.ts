@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import  EventEmitter from 'events';
 import { ITask } from "../../interfaces/task.interface";
 import { TasksService } from "../../services/tasks.service";
 import { LabelsService } from "../../services/labels.service";
@@ -8,6 +9,7 @@ import { PriorityComponents } from "./priorityComponents/priorityComponents";
 import { PriorityService } from "../../services/priority.service";
 import moment from 'moment';
 import { DatePickerComponents } from "../viewTaskComponent/datePickerComponents/datePickerComponents"
+import { isEqual } from 'lodash';
 
 export enum eTaskMode {
     Add,
@@ -19,10 +21,11 @@ export interface IEditorParams {
     parent:any,
     task: ITask,
     isAddMode:eTaskMode,
-    showAsDialog?:boolean
+    showAsDialog?:boolean,
     isAddSubTask:boolean,
-    parentSectionId:string
-  }
+    parentSectionId:string,
+    labelId?:number[],
+}
   
 import './taskEditorComponent.scss';
 const taskEditorTemplate = require('./taskEditorComponent.hbs');
@@ -32,6 +35,7 @@ export class TaskEditorComponent {
     private labelsService:LabelsService = LabelsService.Instance;
     private commonService:CommonService = CommonService.Instance;
     private priorityService:PriorityService = PriorityService.Instance;
+    public eventEmitter: EventEmitter = new EventEmitter;
     private task:ITask;
     private choosenLabels:number[] = [];
     private $host:any;
@@ -42,16 +46,22 @@ export class TaskEditorComponent {
     private parent:any;
     private isAddSubTask:boolean = true;
     private parentSectionId:string;
+    private originalTask:ITask;
 
     constructor(params:IEditorParams){
         this.isAddSubTask = params.isAddSubTask
         this.parent = params.parent
         this.parentSectionId = params.parentSectionId
         this.task = params.task;
+        this.originalTask = JSON.parse(JSON.stringify(params.task))
         this.$host = params.$wrap
         this.isAddMode = params.isAddMode === eTaskMode.Add;
         this.showAsDialog = !!params.showAsDialog;
         this.setHtml();
+
+        if(params.labelId !== undefined){   
+            this.onChooseLabels(params.labelId)
+        }
     }
 
     //----------------------------------
@@ -230,6 +240,20 @@ export class TaskEditorComponent {
     //----------------------------------
 
     onEditTaskNameInput(e){
+        this.task.name = this.$el.find(".edit-name-task-input").val();
+        this.detectChanges();
+    }
+
+    //----------------------------------
+    // detectChanges
+    //----------------------------------
+
+    detectChanges(){
+        if(isEqual(this.originalTask, this.task)){
+            this.eventEmitter.emit('edit-task-change', true,this.task);
+        }else {
+            this.eventEmitter.emit('edit-task-change', false,this.task);
+        }
     }
 
     //----------------------------------
@@ -282,6 +306,8 @@ export class TaskEditorComponent {
             );
         }) 
         this.choosenLabels = choosenLabels;
+        this.task.labels = choosenLabels
+        this.detectChanges();
     }
 
     //----------------------------------
@@ -293,5 +319,7 @@ export class TaskEditorComponent {
         this.$el.find(".priority-icon").addClass(choosenPriorityName)
         
         this.choosenPriority = choosenPriorityId;
+        this.task.priority = choosenPriorityId
+        this.detectChanges();
     }
 }

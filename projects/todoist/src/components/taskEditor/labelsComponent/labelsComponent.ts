@@ -140,7 +140,8 @@ export class LabelComponents {
       let labelVal = this.$el.find(".label-header-input-text").val()
       this.labelsService.createNewLabel({
         "name":labelVal,
-        "id":this.labelsService.getLabels().length + 1
+        "id":this.labelsService.getLabels().length + 1,
+        "favorite":false,
       })
       this.parent.$el.find(".label-contant").removeClass("show");
     }

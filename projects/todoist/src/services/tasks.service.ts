@@ -18,7 +18,7 @@ export class TasksService {
     // laodData
     //----------------------------------
     
-    laodData(callback?){
+    laodData(callback){
         setTimeout(()=>{
             this.taskList = require("../data/tasks.json");
             callback();
@@ -94,6 +94,17 @@ export class TasksService {
         });
         return fillterd[0];
     }
+
+    removeLabelsFromTasks(labelId:number,callback:Function){
+        setTimeout(()=>{
+            this.taskList.filter((task:ITask) => {
+                task.labels = task.labels.filter((id) => {
+                    return id !== labelId
+                })
+            })    
+            callback();
+        },150)
+    }
     
     //----------------------------------
     // getCompletedTasksList
@@ -103,6 +114,17 @@ export class TasksService {
         let fillterd = this.taskList.filter((task)=> { 
             return task.isfinished && task.sectionId === sectionId
         });
+        return fillterd
+    }
+
+    //----------------------------------
+    // getTasksByLabelId
+    //----------------------------------
+
+    getTasksByLabelId(labelId:number):ITask[]{
+        let fillterd = this.taskList.filter((task) => {
+            return task.labels.includes(labelId);
+        })
         return fillterd
     }
 

@@ -17,7 +17,6 @@ export class CommonService {
     //-------------------------
 
     getPotions($parentEl:any, pos:IPosition){
-        debugger;
         let offset = $parentEl.find(pos.btnClass).offset()
         let BtnHeigth = $parentEl.find(pos.btnClass).height()
         let pageHeigth = window.innerHeight

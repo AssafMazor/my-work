@@ -31,13 +31,26 @@
       }
     }
 
-    .title {
-      font-size: 14px;
-      width: 50%;
-      font-weight: 700;
-      display: block;
-      margin: 0 0 7px;
-      padding-top: 15px;
+    .title-wrap {
+      display: flex;
+      align-items: flex-end;
+
+      .title {
+        font-size: 14px;
+        width: 50%;
+        font-weight: 700;
+        display: block;
+        margin: 0 0 7px;
+        padding-top: 15px;
+        flex: 1;
+      }
+
+      .label-exsist-error {
+        font-size: 12px;
+        color: #d1453b;
+        font-weight: 400;
+        margin: 0 0 7px;
+      }
     }
 
     .label-name-input {

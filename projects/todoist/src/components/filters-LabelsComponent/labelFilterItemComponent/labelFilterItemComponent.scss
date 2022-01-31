@@ -3,9 +3,10 @@
   align-items: center;
   margin: 0 -10px;
   border-radius: 5px;
-  padding: 8px 7px 8px 6px;
+  padding: 1px 10px;
   border-bottom: 1px solid #f0f0f0;
   position: relative;
+  text-decoration: none;
 
   &:hover {
     background-color: #fff !important;
@@ -45,7 +46,7 @@
       padding: 4px 0;
       width: 250px;
       position: absolute;
-      top: 44px;
+      top: 32px;
       right: -111px;
       z-index: 3;
 

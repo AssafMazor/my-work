@@ -4,10 +4,10 @@ import { ILabel } from '../../../interfaces/label.interface';
 import { LabelsService } from '../../../services/labels.service';
 import { TasksService } from '../../../services/tasks.service';
 
-import "../deleteComponent/deleteComponent.scss"
-const deleteTemplate = require('../deleteComponent/deleteComponent.hbs');
+import "./deleteAlertComponent.scss"
+const deleteAlertTemplate = require('../deleteAlertComponent/deleteAlertComponent.hbs');
 
-export class DeleteComponent {
+export class DeleteAlertComponent {
   private $el:any;
   private tasksService:TasksService = TasksService.Instance;
   private labelsService:LabelsService = LabelsService.Instance;
@@ -23,7 +23,7 @@ export class DeleteComponent {
   //----------------------------------
 
   setHtml(deletingName){
-    this.$el = $(deleteTemplate({
+    this.$el = $(deleteAlertTemplate({
         deletingName:deletingName
     }));
     $(".main .delete-dialog").html(this.$el);
@@ -70,7 +70,7 @@ export class DeleteComponent {
   //----------------------------------
 
   onDeleteBtnClick(e){
-    this.labelsService.deleteLabel(this.label);
+    this.labelsService.deleteLabel(this.label, ()=>{});
     $(".delete-dialog").addClass("hide");
   }
 }
