@@ -4,7 +4,7 @@ export interface ITask {
     parentId:string,
     isToday:boolean,
     sentTime:number,
-    labels:number[],
+    labels:string[],
     isfinished:boolean,
     priority:number,
     category:number,

@@ -33,7 +33,7 @@ export class LabelsService {
         return fillterd[0]
     }
 
-    getLabel(labelId:number):ILabel{
+    getLabel(labelId:string):ILabel{
         let fillterd = this.labelList.filter((label) => {
             return label.id === labelId
         })
@@ -52,23 +52,22 @@ export class LabelsService {
         this.eventEmitter.emit('label-change', this.labelList);
     }
 
-    saveLabel(inputName:string,labelId:number){
+    saveLabel(inputName:string,labelId:string){
         let label = this.getLabel(labelId);
         label.name = inputName;
         this.eventEmitter.emit('label-change', this.labelList);
     }
 
-    deleteLabel(deletedLabel:ILabel,callback:Function){
+    deleteLabel(deletedLabelId:string,callback:Function){
         setTimeout(() => {
             this.labelList = this.labelList.filter((label) => {
-                return label !== deletedLabel
+                return label.id !== deletedLabelId
             })
-            this.tasksService.removeLabelsFromTasks(deletedLabel.id, () =>{
+            this.tasksService.removeLabelsFromTasks(deletedLabelId, () =>{
                 this.eventEmitter.emit('label-change', this.labelList);     
                 callback()
             });
         }, 0);
-       
     }
 
     getFavoriteLabels():ILabel[]{
@@ -78,7 +77,7 @@ export class LabelsService {
         return fillterd
     }
 
-    toggleFavoriteLabel(labelId:number){
+    toggleFavoriteLabel(labelId:string){
         let label = this.getLabel(labelId);
         label.favorite = !label.favorite;
         this.eventEmitter.emit('label-change', this.labelList);

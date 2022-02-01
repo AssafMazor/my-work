@@ -32,6 +32,7 @@
 
     &.border-none {
       border-bottom-style: none;
+      height: auto;
     }
 
     &.finished {
@@ -277,6 +278,64 @@
         color: gray;
         width: 19px;
         padding-right: 3px;
+      }
+
+      .settings-btn-wrap {
+        height: 24px;
+        width: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        .settings-btn {
+          border-radius: 3px;
+          width: 24px;
+          color: grey;
+          margin-left: 8px;
+        }
+      }
+
+      .settings-menu {
+        .popper {
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          cursor: default;
+          z-index: 2;
+        }
+
+        .inside {
+          background-color: #fff;
+          border-radius: 3px;
+          border: 1px solid #ddd;
+          box-shadow: 0 1px 8px 0 #00000014;
+          margin: 0;
+          padding: 4px 0;
+          position: absolute;
+          width: 250px;
+          z-index: 3;
+          top: 12px;
+          right: -200px;
+
+          .settings-item {
+            width: 100%;
+            display: flex;
+            padding: 4px 10px;
+            align-items: center;
+
+            .settings-icon {
+              color: gray;
+            }
+
+            .settings-text {
+              font-size: 13px;
+              color: #202020;
+              padding-left: 6px;
+            }
+          }
+        }
       }
     }
   }

@@ -24,7 +24,7 @@ const addLabelTemplate = require('../labelsComponent/labelsComponent.hbs');
 export class LabelComponents {
     private labelsService:LabelsService  = LabelsService.Instance;
     private commonService:CommonService = CommonService.Instance
-    private selectedLabels:number[] = [];
+    private selectedLabels:string[] = [];
     private labelsList:ILabel[];
     private originallabelsList:ILabel[];
     private task:ITask;
@@ -137,10 +137,11 @@ export class LabelComponents {
     //----------------------------------
 
     onAddNewLabelClick(e){
+      let id = this.labelsService.getLabels().length + 1
       let labelVal = this.$el.find(".label-header-input-text").val()
       this.labelsService.createNewLabel({
         "name":labelVal,
-        "id":this.labelsService.getLabels().length + 1,
+        "id":id.toString(),
         "favorite":false,
       })
       this.parent.$el.find(".label-contant").removeClass("show");
@@ -185,11 +186,11 @@ export class LabelComponents {
     // toggleClick
     //----------------------------------
 
-    toggleClick(id:number , $el:any){
+    toggleClick(id:string , $el:any){
       if($el.find(".square").hasClass("checked")){
         this.selectedLabels.push(id);
       }else {
-        this.selectedLabels = this.selectedLabels.filter((itemId:number) => {
+        this.selectedLabels = this.selectedLabels.filter((itemId:string) => {
           return itemId !== $el.data("id");
         });
       } 

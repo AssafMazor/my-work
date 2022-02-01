@@ -7,14 +7,24 @@ import { TasksService } from '../../../services/tasks.service';
 import "./deleteAlertComponent.scss"
 const deleteAlertTemplate = require('../deleteAlertComponent/deleteAlertComponent.hbs');
 
+export enum edeleteMode {
+  task,
+  label,
+  view
+}
+
 export class DeleteAlertComponent {
   private $el:any;
   private tasksService:TasksService = TasksService.Instance;
   private labelsService:LabelsService = LabelsService.Instance;
-  private label:ILabel;
+  private deletingsId:string;
+  private deletingType:boolean;
+  private isViewMode:boolean;
 
-  constructor(deletingName:string,label:ILabel){
-    this.label = label
+  constructor(deletingName:string,deletingsId: string,deletingType:edeleteMode,isViewMode?:edeleteMode){
+    this.deletingsId = deletingsId
+    this.deletingType = deletingType === edeleteMode.task
+    this.isViewMode = isViewMode === edeleteMode.view
     this.setHtml(deletingName);
   }
 
@@ -56,7 +66,7 @@ export class DeleteAlertComponent {
   }
 
   //----------------------------------
-  // onCloseBtnClick
+  // onPopperOverlayClick
   //----------------------------------
 
   onPopperOverlayClick(e){
@@ -66,11 +76,19 @@ export class DeleteAlertComponent {
   }
   
   //----------------------------------
-  // onCloseBtnClick
+  // onDeleteBtnClick
   //----------------------------------
 
   onDeleteBtnClick(e){
-    this.labelsService.deleteLabel(this.label, ()=>{});
+    if(this.deletingType){
+      this.tasksService.deleteTask(this.deletingsId,()=> {});
+    }else {
+      this.labelsService.deleteLabel(this.deletingsId, ()=>{});
+    }
+    if(this.isViewMode){
+      $(".view-task-dialog").addClass("hide");
+      window.history.back();
+    }
     $(".delete-dialog").addClass("hide");
   }
 }

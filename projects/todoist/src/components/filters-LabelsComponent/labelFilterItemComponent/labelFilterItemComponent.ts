@@ -3,7 +3,7 @@ import { TasksService } from "../../../services/tasks.service";
 import { LabelsService } from '../../../services/labels.service';
 import { ILabel } from '../../../interfaces/label.interface';
 import { addLabelComponent , elabelMode } from '../../main/addLabelComponent/addLabelComponent';
-import { DeleteAlertComponent } from '../../main/deleteAlertComponent/deleteAlertComponent';
+import { DeleteAlertComponent , edeleteMode } from '../../main/deleteAlertComponent/deleteAlertComponent';
 
 export enum eItemMode {
   label,
@@ -95,7 +95,7 @@ export class LabelFilterItemComponent {
     onDeleteLabelItemClick(e){
       e.preventDefault();
 
-      new DeleteAlertComponent(this.label.name,this.label);
+      new DeleteAlertComponent(this.label.name,this.label.id,edeleteMode.label);
       $(".delete-dialog").removeClass("hide");
     }
 

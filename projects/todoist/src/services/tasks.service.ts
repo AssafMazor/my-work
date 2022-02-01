@@ -2,6 +2,7 @@ import { ITask } from "../interfaces/task.interface"
 import {EventEmitter} from 'events';
 import moment from "moment";
 import { isEmpty } from "lodash";
+import { parse } from "handlebars";
 
 export class TasksService {
     private static _instance: TasksService;
@@ -95,7 +96,11 @@ export class TasksService {
         return fillterd[0];
     }
 
-    removeLabelsFromTasks(labelId:number,callback:Function){
+    //----------------------------------
+    // removeLabelsFromTasks
+    //----------------------------------
+
+    removeLabelsFromTasks(labelId:string,callback:Function){
         setTimeout(()=>{
             this.taskList.filter((task:ITask) => {
                 task.labels = task.labels.filter((id) => {
@@ -121,7 +126,7 @@ export class TasksService {
     // getTasksByLabelId
     //----------------------------------
 
-    getTasksByLabelId(labelId:number):ITask[]{
+    getTasksByLabelId(labelId:string):ITask[]{
         let fillterd = this.taskList.filter((task) => {
             return task.labels.includes(labelId);
         })
@@ -157,10 +162,10 @@ export class TasksService {
     // addTaskLabels
     //----------------------------------
 
-    addTaskLabels(taskId:string , choosenLabels:number[]){
+    addTaskLabels(taskId:string , choosenLabels:string[]){
         let task = this.getTask(taskId);
         if(task){
-            choosenLabels.forEach((id) => {
+            choosenLabels.forEach((id:string) => {
                 if(!(task!).labels.includes(id)){
                     task!.labels.push(id);
                 }
@@ -173,10 +178,10 @@ export class TasksService {
     // addTasknewLabels
     //----------------------------------
 
-    addTasknewLabels(taskId:string , choosenLabels:number[]){
+    addTasknewLabels(taskId:string , choosenLabels:string[]){
         let task = this.getTask(taskId);
         if(task){
-            choosenLabels.forEach((id) => {
+            choosenLabels.forEach((id:string) => {
                 if(!(task!).labels.includes(id)){
                     task!.labels.push(id);
                 }
@@ -209,8 +214,8 @@ export class TasksService {
     // getTaskLabels
     //----------------------------------
 
-    getTaskLabels(labelId:number){
-        let fillterd = this.taskList.filter((task) => {
+    getTaskLabels(labelId:string){
+        let fillterd = this.taskList.filter((task:ITask) => {
             return task.labels.includes(labelId)
         })
         this.eventEmitter.emit('task-change', fillterd);
@@ -220,8 +225,8 @@ export class TasksService {
     // getLabelTaskLength
     //----------------------------------
 
-    getLabelTaskLength(labelId:number):number{
-        var fillterd = this.taskList.filter((task) => {
+    getLabelTaskLength(labelId:string):number{
+        var fillterd = this.taskList.filter((task:ITask) => {
             return task.labels.includes(labelId);
         })
         return fillterd.length
@@ -239,24 +244,70 @@ export class TasksService {
     }
 
     //----------------------------------
+    // duplicateTask
+    //----------------------------------
+
+    duplicateTask(task:ITask){
+        let subtasksIds:string[] = [];
+        this.getTaskChildrenIds(task.id, subtasksIds)
+
+        subtasksIds.forEach((subTaskId)=>{
+            let copySubTask = JSON.parse(JSON.stringify(this.getTask(subTaskId)));
+            copySubTask.id = copySubTask.id + "_1"
+
+            if(copySubTask.parentId !== "-1"){
+                copySubTask.parentId = copySubTask.parentId + "_1"
+            };
+            
+            let children = JSON.parse(JSON.stringify(copySubTask.children));
+            copySubTask.children = [];
+
+            children.forEach((childId:string) =>{
+                copySubTask.children.push(childId + "_1");
+            });
+
+            this.taskList.push(copySubTask);
+        })
+        this.eventEmitter.emit('task-change');
+    }
+    
+    //----------------------------------
+    // getSubTasks
+    //----------------------------------
+
+    getTaskChildrenIds(taskId:string,subTaskIdsArr:string[]){
+        let task = this.getTask(taskId);
+        if(task){
+            subTaskIdsArr.push(task.id);        
+
+            task.children.forEach((childId:string) => {
+                this.getTaskChildrenIds(childId,subTaskIdsArr)
+            })
+        }
+    }
+
+    //----------------------------------
     // editTask
     //----------------------------------
 
     editTask(editedTask:ITask){
-        let task = this.getTask(editedTask.id);
+        setTimeout(() =>{
+            let task = this.getTask(editedTask.id);
 
-        if(task){
-            task.category = editedTask.category;
-            task.id = editedTask.id;
-            task.isfinished = editedTask.isfinished;
-            task.labels = editedTask.labels;
-            task.name = editedTask.name;
-            task.priority = editedTask.priority;
-            task.sentTime = editedTask.sentTime;
-            task.title = editedTask.title;
-            task.children = editedTask.children;    
-        }
-        this.eventEmitter.emit('task-change');
+            if(task){
+                task.category = editedTask.category;
+                task.id = editedTask.id;
+                task.isfinished = editedTask.isfinished;
+                task.labels = editedTask.labels;
+                task.name = editedTask.name;
+                task.priority = editedTask.priority;
+                task.sentTime = editedTask.sentTime;
+                task.title = editedTask.title;
+                task.children = editedTask.children;    
+            }
+            this.eventEmitter.emit('task-change');
+        },0)
+       
     }
 
     //----------------------------------
@@ -266,6 +317,24 @@ export class TasksService {
     finishTask(task:ITask){
         task.isfinished = true;
         this.eventEmitter.emit('task-change');
+    }
+
+    //----------------------------------
+    // deleteTask
+    //----------------------------------
+
+    deleteTask(taskId:string,callback:Function){
+        setTimeout(() => {
+            let subTaskIdsArr:string[] = [];
+            this.getTaskChildrenIds(taskId,subTaskIdsArr);
+
+            this.taskList = this.taskList.filter((task) => {
+                return !subTaskIdsArr.includes(task.id)
+            })
+    
+            this.eventEmitter.emit('task-change');
+            callback()
+        }, 0);
     }
 
     //----------------------------------

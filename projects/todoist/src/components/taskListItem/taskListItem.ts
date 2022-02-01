@@ -9,6 +9,7 @@ import { TaskEditorComponent , eTaskMode } from "../taskEditor/taskEditorCompone
 import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/labelsComponent";
 import { ILabel } from '../../interfaces/label.interface';
 import { DatePickerComponents } from '../viewTaskComponent/datePickerComponents/datePickerComponents';
+import { DeleteAlertComponent , edeleteMode } from '../main/deleteAlertComponent/deleteAlertComponent';
 
 export enum eTaskCaller {
     View,
@@ -102,6 +103,59 @@ export class TaskListItemComponents {
         this.$el.find(".date-wrap").on("click" , (e) => {
             this.onTimeBtnClick(e);
         })
+        this.$el.find(".settings-btn-wrap").on("click" , (e) => {
+            this.onSettingsBtnClick(e);
+        })
+        this.$el.find(".settings-menu .popper").on("click" , (e)=> {
+            this.onSettingsMenuPopperClick(e);
+        })
+        this.$el.find(".settings-item.delete-item").on("click" , (e) => {
+            this.onDeleteTaskItemClick(e);
+        })
+        this.$el.find(".settings-item.duplicate-item").on("click" , (e) => {
+            this.onDuplicateItemClick(e);
+        })
+    }
+
+    //----------------------------------
+    // onDuplicateItemClick
+    //----------------------------------
+
+    onDuplicateItemClick(e){
+        e.preventDefault();
+
+        this.tasksService.duplicateTask(this.task);
+    }
+
+    //----------------------------------
+    // onSettingsBtnClick
+    //----------------------------------
+
+    onSettingsBtnClick(e){
+        e.preventDefault();
+
+        this.$el.find(".settings-menu").toggleClass("hide")
+    }
+
+    //----------------------------------
+    // onSettingsBtnClick
+    //----------------------------------
+
+    onSettingsMenuPopperClick(e){
+        e.preventDefault();
+
+        this.$el.find(".settings-menu").addClass("hide")
+    }
+
+    //----------------------------------
+    // onDeleteTaskItemClick
+    //----------------------------------
+    
+    onDeleteTaskItemClick(e){
+        e.preventDefault();
+
+        new DeleteAlertComponent(this.task.name,this.task.id,edeleteMode.task);
+        $(".delete-dialog").removeClass("hide");
     }
 
     //----------------------------------
@@ -133,7 +187,7 @@ export class TaskListItemComponents {
     getLabels(){
         this.labelsNames = [];
 
-        this.task.labels.forEach((labelId:number) => {
+        this.task.labels.forEach((labelId:string) => {
             this.labelsNames.push(this.labelsService.getLabel(labelId))
         })
     }
@@ -213,7 +267,7 @@ export class TaskListItemComponents {
 
     onChooseLabels(){
         this.$el.find(".label-tag-wrap").html("")
-        this.task.labels.forEach((id:number) => {
+        this.task.labels.forEach((id:string) => {
             this.$el.find(".label-tag-wrap").append(`
             <div class='label'>${this.labelsService.getLabel(id).name}
             </div>

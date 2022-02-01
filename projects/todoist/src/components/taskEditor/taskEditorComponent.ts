@@ -24,7 +24,7 @@ export interface IEditorParams {
     showAsDialog?:boolean,
     isAddSubTask:boolean,
     parentSectionId:string,
-    labelId?:number[],
+    labelId?:string[],
 }
   
 import './taskEditorComponent.scss';
@@ -37,7 +37,7 @@ export class TaskEditorComponent {
     private priorityService:PriorityService = PriorityService.Instance;
     public eventEmitter: EventEmitter = new EventEmitter;
     private task:ITask;
-    private choosenLabels:number[] = [];
+    private choosenLabels:string[] = [];
     private $host:any;
     private $el:any;
     private isAddMode: boolean = false;
@@ -78,7 +78,9 @@ export class TaskEditorComponent {
             sentTime:this.commonService.getDate(moment(this.task.sentTime))
         }));
         this.$host.html(this.$el);
-        this.onChooseLabels(this.task.labels)
+        if(!this.isAddMode){
+            this.onChooseLabels(this.task.labels)
+        }
         this.initEvents();
     }
     //----------------------------------
@@ -219,6 +221,7 @@ export class TaskEditorComponent {
         $(".add-task-wrap").removeClass("hide");
         this.parent.$el.find(".task-editor-wrap").addClass("hide");
         this.parent.$el.find(".content").removeClass("hide");
+        this.eventEmitter.emit('edit-task-change', true,this.task);
     }
 
     //----------------------------------
@@ -294,9 +297,9 @@ export class TaskEditorComponent {
     // onChooseLabels
     //----------------------------------
 
-    onChooseLabels(choosenLabels:number[]){
+    onChooseLabels(choosenLabels:string[]){
         $(".features-wrap").html("")
-        choosenLabels.forEach((id:number) => {
+        choosenLabels.forEach((id:string) => {
             $(".features-wrap").append(`
             <div class='label-wrap'>
                 <div class='label-name'>${this.labelsService.getLabel(id).name}

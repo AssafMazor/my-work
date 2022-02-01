@@ -92,9 +92,10 @@ export class addLabelComponent {
     //----------------------------------
 
     onAddLabelBtnClick(e){
+        let id = this.labelList.length + 1
         this.labelsService.createNewLabel({
             "name":(this.$el.find(".label-name-input").val() || '').toString(),
-            "id":this.labelList.length + 1,
+            "id":id.toString(),
             "favorite":false,
         })
         $(".add-label-dialog").removeClass("show");

@@ -1,6 +1,6 @@
 export interface ILabel {
     name:string,
-    id:number,
+    id:string,
     favorite:boolean,
     isAttache?:boolean
 }

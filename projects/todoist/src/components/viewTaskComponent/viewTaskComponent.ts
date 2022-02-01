@@ -10,6 +10,7 @@ import { LabelComponents , eTaskAction } from "../taskEditor/labelsComponent/lab
 import { TaskListItemComponents } from "../taskListItem/taskListItem";
 import { DatePickerComponents } from "./datePickerComponents/datePickerComponents"
 import { ChangeAlertComponent } from '../main/changeAlertComponent/changeAlertComponent';
+import { DeleteAlertComponent , edeleteMode } from '../main/deleteAlertComponent/deleteAlertComponent';
 
 import '../viewTaskComponent/viewTaskComponent.scss';
 const viewTaskTemplate = require('../viewTaskComponent/viewTaskComponent.hbs');
@@ -101,6 +102,53 @@ export class ViewTaskComponents {
         this.$el.find(".date-picker-btn").on("click" , (e) => {
             this.onDatePickerBtnClick(e);
         })
+        this.$el.find(".settings-btn-wrap").on("click" , (e) => {
+            this.onSettingsBtnClick(e);
+        })
+        this.$el.find(".settings-menu-popper").on("click" , (e) => {
+            this.onSettingsMenuPopperClick(e);
+        })
+        this.$el.find(".settings-edit-item").on("click" , (e) => {
+            this.onSettingsEditItemClick(e);
+        })
+        this.$el.find(".settings-delete-item").on("click" , (e) => {
+            this.onDeleteTaskItemClick(e);
+        })
+    }
+
+    //----------------------------------
+    // onSettingsEditItemClick
+    //----------------------------------
+
+    onDeleteTaskItemClick(e){
+        this.$el.find(".settings-menu-wrap").addClass("hide");
+        new DeleteAlertComponent(this.task.name,this.task.id,edeleteMode.task,edeleteMode.view);
+        $(".delete-dialog").removeClass("hide");
+    }
+
+    //----------------------------------
+    // onSettingsEditItemClick
+    //----------------------------------
+
+    onSettingsEditItemClick(e){
+        this.onEditTaskClick(e);
+        this.$el.find(".settings-menu-wrap").addClass("hide");
+    }
+
+    //----------------------------------
+    // onSettingsBtnClick
+    //----------------------------------
+
+    onSettingsBtnClick(e){
+        this.$el.find(".settings-menu-wrap").removeClass("hide");
+    }
+
+    //----------------------------------
+    // onSettingsMenuPopperClick
+    //----------------------------------
+
+    onSettingsMenuPopperClick(e){
+        this.$el.find(".settings-menu-wrap").addClass("hide");
     }
 
     //----------------------------------

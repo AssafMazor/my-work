@@ -185,8 +185,8 @@ export class SectionComponent {
         level:level,
         isToday:false
       });
-      
-      let $el = this.$el.find(`.section-task-list .item.${task.name}`)
+   
+      let $el = this.$el.find(`.section-task-list .item[data-id="${task.id}"]`)
       
       task.children.forEach((taskId:string) => {
         let subtask = this.tasksService.getTask(taskId);

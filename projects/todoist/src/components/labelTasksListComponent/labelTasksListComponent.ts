@@ -5,7 +5,7 @@ import { ILabel } from '../../interfaces/label.interface';
 import { TaskListItemComponents } from '../taskListItem/taskListItem';
 import { TaskEditorComponent , eTaskMode } from '../taskEditor/taskEditorComponent';
 import { addLabelComponent , elabelMode } from '../main/addLabelComponent/addLabelComponent';
-import { DeleteAlertComponent } from '../main/deleteAlertComponent/deleteAlertComponent';
+import { DeleteAlertComponent , edeleteMode } from '../main/deleteAlertComponent/deleteAlertComponent';
 
 import '../labelTasksListComponent/labelTasksListComponent.scss'
 const labelTasksListTemplate = require('../labelTasksListComponent/labelTasksListComponent.hbs');
@@ -114,7 +114,7 @@ export class labelTasksListComponent {
     //----------------------------------
 
     onDeleteLabelItemClick(e){
-      new DeleteAlertComponent(this.label.name,this.label);
+      new DeleteAlertComponent(this.label.name,this.label.id,edeleteMode.label);
       $(".delete-dialog").removeClass("hide");
       this.$el.find(".setting-dialog").addClass("hide");
     }

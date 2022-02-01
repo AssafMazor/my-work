@@ -67,9 +67,10 @@ export class AddFilterComponent {
     //----------------------------------
 
     onAddProjectClick(e){
+        let id = this.labelList.length + 1
         this.labelsService.createNewLabel({
             "name":($(".filter-name-input").val() || '').toString(),
-            "id":this.labelList.length + 1,
+            "id":id.toString(),
             "favorite":false
         })
         $(".add-filter-dialog").removeClass("show");

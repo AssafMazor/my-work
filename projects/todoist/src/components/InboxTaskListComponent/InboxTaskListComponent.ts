@@ -107,7 +107,6 @@ export class InboxTaskListComponent {
 
     renderAllTasks(showComplete:boolean){    
       this.$el.find(".inbox-task-list-body").html("");
-
       new SectionComponent(null , this , eSectionMode.taskList , showComplete);
       this.sectionList.forEach((section:ISection) => {
         new SectionComponent(section , this ,  eSectionMode.section,showComplete);
