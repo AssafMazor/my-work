@@ -290,6 +290,8 @@ export class DatePickerComponents {
         "id": this.task.id,
         "children": this.task.children,
         "sectionId":this.task.sectionId
-        })
+        },
+        ()=>{}
+        )
     }
 }

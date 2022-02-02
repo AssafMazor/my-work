@@ -5,11 +5,10 @@ export class SectionsService {
     private static _instance: SectionsService;
 
     eventEmitter:EventEmitter;
-    sectionList:ISection[];
+    sectionList:ISection[] = [];
 
     constructor() {
         this.eventEmitter = new EventEmitter();
-        this.sectionList = require("../data/section.json");
     }
     
     laodData(callback?){

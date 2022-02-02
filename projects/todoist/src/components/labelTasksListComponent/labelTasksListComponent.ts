@@ -134,7 +134,7 @@ export class labelTasksListComponent {
     //----------------------------------
 
     onToggleFavoriteClick(e){
-      this.labelsService.toggleFavoriteLabel(this.label.id);
+      this.labelsService.toggleFavoriteLabel(this.label.id,()=>{});
     }
 
     //----------------------------------
@@ -168,7 +168,7 @@ export class labelTasksListComponent {
 
     onSaveBtnClick(e){
       if(!this.labelsService.getLabelByName(this.$el.find(".label-name-input").val())){
-          this.labelsService.saveLabel(this.$el.find(".label-name-input").val(),this.label.id);
+          this.labelsService.saveLabel(this.$el.find(".label-name-input").val(),this.label.id,()=>{});
           this.$el.find(".label-title").removeClass("hide");
           this.$el.find(".edit-label-title-wrap").addClass("hide");
       }     

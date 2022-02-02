@@ -143,7 +143,9 @@ export class LabelComponents {
         "name":labelVal,
         "id":id.toString(),
         "favorite":false,
-      })
+      },
+      ()=>{}
+      )
       this.parent.$el.find(".label-contant").removeClass("show");
     }
 

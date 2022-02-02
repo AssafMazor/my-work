@@ -14,21 +14,24 @@ export class PriorityService {
     priorityList:IPriority[] = [];
 
     constructor() {
-        this.getPrioritysArray();
+        this.getPrioritysArray(()=>{});
     }
 
-    getPrioritysArray() {
-        if(!this.priorityList) {
-            var priorityList = require("../data/prioritys.json")
-            this.priorityList = priorityList
-            this.eventEmitter.emit("prioritys-change" , this.priorityList)
-        }else {
-            this.eventEmitter.emit("prioritys-change" , this.priorityList)
-        }
+    getPrioritysArray(callback:Function) {
+        setTimeout(()=>{
+            if(!this.priorityList) {
+                var priorityList = require("../data/prioritys.json")
+                this.priorityList = priorityList
+                this.eventEmitter.emit("prioritys-change" , this.priorityList)
+            }else {
+                this.eventEmitter.emit("prioritys-change" , this.priorityList)
+            }
+        callback()
+        },0)
     }
 
     getPriorityColor(priorityId:number){
-        return  Object.keys(ePriorityColors)[Object.values(ePriorityColors).indexOf(priorityId)];
+        return Object.keys(ePriorityColors)[Object.values(ePriorityColors).indexOf(priorityId)];
     }
 
     public static get Instance(){

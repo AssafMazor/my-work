@@ -148,7 +148,8 @@ export class TaskEditorComponent {
             "children":[],
             "sectionId":"-1"
         },
-        this.task
+        this.task,
+        ()=>{}
         );
         $(".add-task").addClass("hide");
         $(".add-task-wrap").removeClass("hide");
@@ -215,7 +216,8 @@ export class TaskEditorComponent {
             "id":this.task.id,
             "children":this.task.children,
             "sectionId":this.parentSectionId
-        }
+        },
+        ()=>{}
         );
         $(".add-task").addClass("hide");
         $(".add-task-wrap").removeClass("hide");
@@ -287,7 +289,9 @@ export class TaskEditorComponent {
             "id":new Date().getTime().toString(),
             "children":[],
             "sectionId":this.parentSectionId
-        },);
+        },
+        ()=>{}
+        );
         $(".add-task").addClass("hide");
         $(".add-task-wrap").removeClass("hide");
         $(".new-editor-wrap").addClass("hide");

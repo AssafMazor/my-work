@@ -2,17 +2,15 @@ import { ITask } from "../interfaces/task.interface"
 import {EventEmitter} from 'events';
 import moment from "moment";
 import { isEmpty } from "lodash";
-import { parse } from "handlebars";
 
 export class TasksService {
     private static _instance: TasksService;
 
     eventEmitter:EventEmitter;
-    taskList:ITask[];
+    taskList:ITask[] = [];
 
     constructor() {
         this.eventEmitter = new EventEmitter();
-        this.taskList = require("../data/tasks.json");
     }
 
     //----------------------------------
@@ -162,52 +160,64 @@ export class TasksService {
     // addTaskLabels
     //----------------------------------
 
-    addTaskLabels(taskId:string , choosenLabels:string[]){
-        let task = this.getTask(taskId);
-        if(task){
-            choosenLabels.forEach((id:string) => {
-                if(!(task!).labels.includes(id)){
-                    task!.labels.push(id);
-                }
-            })
-        }
-        this.eventEmitter.emit('task-change');
+    addTaskLabels(taskId:string , choosenLabels:string[],callback:Function){
+        setTimeout(() => {
+            let task = this.getTask(taskId);
+            if(task){
+                choosenLabels.forEach((id:string) => {
+                    if(!(task!).labels.includes(id)){
+                        task!.labels.push(id);
+                    }
+                })
+            }
+            this.eventEmitter.emit('task-change');
+            callback()
+        }, 0); 
     }
 
     //----------------------------------
     // addTasknewLabels
     //----------------------------------
 
-    addTasknewLabels(taskId:string , choosenLabels:string[]){
-        let task = this.getTask(taskId);
-        if(task){
-            choosenLabels.forEach((id:string) => {
-                if(!(task!).labels.includes(id)){
-                    task!.labels.push(id);
-                }
-            })
-        }
-        this.eventEmitter.emit('task-change');
+    addTasknewLabels(taskId:string , choosenLabels:string[],callback:Function){
+        setTimeout(() => {
+            let task = this.getTask(taskId);
+            if(task){
+                choosenLabels.forEach((id:string) => {
+                    if(!(task!).labels.includes(id)){
+                        task!.labels.push(id);
+                    }
+                })
+            }
+            this.eventEmitter.emit('task-change');
+            callback()
+        }, 0);
     }
 
     //----------------------------------
     // addNewTask
     //----------------------------------
 
-    addNewTask(newTask:ITask){
-        this.taskList.push(newTask);
-        this.eventEmitter.emit('task-change');
+    addNewTask(newTask:ITask,callback:Function){
+        setTimeout(()=>{
+            this.taskList.push(newTask);
+            this.eventEmitter.emit('task-change');
+            callback()
+        },0)
     }
     
     //----------------------------------
     // addSubTask
     //----------------------------------
 
-    addSubTask(newSubTask:ITask , task:ITask){
-        this.taskList.push(newSubTask);
-        task.children.push(newSubTask.id);
-
-        this.eventEmitter.emit('addNewSubTask', task, newSubTask);
+    addSubTask(newSubTask:ITask , task:ITask,callback:Function){
+        setTimeout(()=>{
+            this.taskList.push(newSubTask);
+            task.children.push(newSubTask.id);
+    
+            this.eventEmitter.emit('addNewSubTask', task, newSubTask);
+            callback()
+        },0)
     }
 
     //----------------------------------
@@ -247,11 +257,12 @@ export class TasksService {
     // duplicateTask
     //----------------------------------
 
-    duplicateTask(task:ITask){
-        let subtasksIds:string[] = [];
-        this.getTaskChildrenIds(task.id, subtasksIds)
+    duplicateTask(task:ITask,callback:Function){
+        setTimeout(()=>{
+          let subtasksIds:string[] = [];
+          this.getTaskChildrenIds(task.id, subtasksIds)
 
-        subtasksIds.forEach((subTaskId)=>{
+          subtasksIds.forEach((subTaskId)=>{
             let copySubTask = JSON.parse(JSON.stringify(this.getTask(subTaskId)));
             copySubTask.id = copySubTask.id + "_1"
 
@@ -267,8 +278,10 @@ export class TasksService {
             });
 
             this.taskList.push(copySubTask);
-        })
-        this.eventEmitter.emit('task-change');
+          })
+          this.eventEmitter.emit('task-change');
+          callback()
+        },0)
     }
     
     //----------------------------------
@@ -290,7 +303,7 @@ export class TasksService {
     // editTask
     //----------------------------------
 
-    editTask(editedTask:ITask){
+    editTask(editedTask:ITask,callback:Function){
         setTimeout(() =>{
             let task = this.getTask(editedTask.id);
 
@@ -306,17 +319,20 @@ export class TasksService {
                 task.children = editedTask.children;    
             }
             this.eventEmitter.emit('task-change');
-        },0)
-       
+            callback()
+        },0)   
     }
 
     //----------------------------------
     // finishTask
     //----------------------------------
 
-    finishTask(task:ITask){
-        task.isfinished = true;
-        this.eventEmitter.emit('task-change');
+    finishTask(task:ITask,callback:Function){
+        setTimeout(()=>{
+            task.isfinished = true;
+            this.eventEmitter.emit('task-change');
+            callback()
+        }, 20)
     }
 
     //----------------------------------
@@ -334,7 +350,7 @@ export class TasksService {
     
             this.eventEmitter.emit('task-change');
             callback()
-        }, 0);
+        }, 50);
     }
 
     //----------------------------------
@@ -345,7 +361,7 @@ export class TasksService {
         let fillterd = this.taskList.filter((task) => {
             return task.isfinished
         });
-        return fillterd
+        return fillterd     
     }
 
     public static get Instance(){

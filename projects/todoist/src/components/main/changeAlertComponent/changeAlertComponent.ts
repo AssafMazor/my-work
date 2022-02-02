@@ -80,7 +80,8 @@ export class ChangeAlertComponent {
             "id":this.descardTask.id,
             "children":this.descardTask.children,
             "sectionId":this.descardTask.parentId
-        }
+        },
+        ()=>{}
         );
         $(".change-alert-dialog").addClass("hide");
         $(".view-task-dialog").addClass("hide");

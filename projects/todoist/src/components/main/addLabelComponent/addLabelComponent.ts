@@ -97,7 +97,9 @@ export class addLabelComponent {
             "name":(this.$el.find(".label-name-input").val() || '').toString(),
             "id":id.toString(),
             "favorite":false,
-        })
+        },
+        ()=>{}
+        )
         $(".add-label-dialog").removeClass("show");
         $(".bg-shadow-wrap").addClass("hide")
     }
@@ -108,7 +110,7 @@ export class addLabelComponent {
 
     onSaveLabelBtnClick(e){
         if(this.label){
-            this.labelsService.saveLabel(this.$el.find(".label-name-input").val(),this.label.id);
+            this.labelsService.saveLabel(this.$el.find(".label-name-input").val(),this.label.id,()=>{});
             $(".add-label-dialog").removeClass("show");
             $(".bg-shadow-wrap").addClass("hide");
         }

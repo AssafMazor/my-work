@@ -119,7 +119,7 @@ export class LabelFilterItemComponent {
     onToggleFavoriteClick(e){
       e.preventDefault();
 
-      this.labelsService.toggleFavoriteLabel(this.label.id);
+      this.labelsService.toggleFavoriteLabel(this.label.id,()=>{});
     }
 
     //----------------------------------

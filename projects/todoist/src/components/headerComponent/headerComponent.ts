@@ -12,6 +12,10 @@ export class HeaderComponents {
     constructor(){
       this.setHtml();
     }
+    
+    //----------------------------------
+    // setHtml
+    //----------------------------------
 
     setHtml(){
       this.$el = $(headerTemplate({}))
@@ -19,15 +23,23 @@ export class HeaderComponents {
 
       this.initEvents();
     }
-    
+
+    //----------------------------------
+    // initEvents
+    //----------------------------------
+
     initEvents(){
-      $(".menu-btn").on("click" , (e) => {
+      this.$el.find(".menu-btn").on("click" , (e) => {
         $(".main .menu").toggleClass("show")
       })
-      $(".header .qiuck-add-task-wrap ").on("click" , (e) => {
+      this.$el.find(".header .qiuck-add-task-wrap").on("click" , (e) => {
         this.onQiuckTaskAdd(e);
       })
     }
+
+    //----------------------------------
+    // onQiuckTaskAdd
+    //----------------------------------
 
     onQiuckTaskAdd(e){
           let $wrap = $(".new-editor-wrap");
@@ -45,6 +57,5 @@ export class HeaderComponents {
 
         $(".add-task-dialog").removeClass("hide");
         $(".task-list-footer .add-task-wrap").addClass("hide");
-    }
-
+    } 
 }

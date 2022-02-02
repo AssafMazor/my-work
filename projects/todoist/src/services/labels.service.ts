@@ -1,6 +1,7 @@
 import { ILabel} from "../interfaces/label.interface"
 import {EventEmitter} from 'events';
 import { TasksService } from "./tasks.service";
+import { Callbacks } from "jquery";
 
 
 export class LabelsService {   
@@ -15,16 +16,28 @@ export class LabelsService {
         this.labelList = require("../data/labels.json");
     }
 
+    //----------------------------------
+    // laodData
+    //----------------------------------
+
     laodData(callback){
         setTimeout(()=>{
             this.labelList = require("../data/labels.json");
             callback();
-        }, 250)
+        }, 1000)
     }
+
+    //----------------------------------
+    // getLabels
+    //----------------------------------
 
     getLabels():ILabel[]{
         return this.labelList;
     }
+
+    //----------------------------------
+    // getLabelByName
+    //----------------------------------
 
     getLabelByName(labelName:string):ILabel{
         let fillterd = this.labelList.filter((label:ILabel) => {
@@ -33,12 +46,20 @@ export class LabelsService {
         return fillterd[0]
     }
 
+    //----------------------------------
+    // getLabel
+    //----------------------------------
+
     getLabel(labelId:string):ILabel{
         let fillterd = this.labelList.filter((label) => {
             return label.id === labelId
         })
         return fillterd[0]
     }
+
+    //----------------------------------
+    // isLabelExist
+    //----------------------------------
 
     isLabelExist(labelName:string):ILabel[]{
         let fillterd = this.labelList.filter((label) => {
@@ -47,16 +68,33 @@ export class LabelsService {
         return fillterd
     }
 
-    createNewLabel(label:ILabel){
-        this.labelList.push(label)
-        this.eventEmitter.emit('label-change', this.labelList);
+    //----------------------------------
+    // createNewLabel
+    //----------------------------------
+
+    createNewLabel(label:ILabel,callback:Function){
+        setTimeout(()=>{
+            this.labelList.push(label)
+            this.eventEmitter.emit('label-change', this.labelList);
+            callback()
+        },0)
+    }
+    //----------------------------------
+    // saveLabel
+    //----------------------------------
+
+    saveLabel(inputName:string,labelId:string,callback:Function){
+        setTimeout(()=>{
+            let label = this.getLabel(labelId);
+            label.name = inputName;
+            this.eventEmitter.emit('label-change', this.labelList);
+            callback()
+        },0) 
     }
 
-    saveLabel(inputName:string,labelId:string){
-        let label = this.getLabel(labelId);
-        label.name = inputName;
-        this.eventEmitter.emit('label-change', this.labelList);
-    }
+    //----------------------------------
+    // deleteLabel
+    //----------------------------------
 
     deleteLabel(deletedLabelId:string,callback:Function){
         setTimeout(() => {
@@ -70,6 +108,10 @@ export class LabelsService {
         }, 0);
     }
 
+    //----------------------------------
+    // getFavoriteLabels
+    //----------------------------------
+
     getFavoriteLabels():ILabel[]{
         let fillterd = this.labelList.filter((label) => {
             return label.favorite
@@ -77,12 +119,19 @@ export class LabelsService {
         return fillterd
     }
 
-    toggleFavoriteLabel(labelId:string){
-        let label = this.getLabel(labelId);
-        label.favorite = !label.favorite;
-        this.eventEmitter.emit('label-change', this.labelList);
+    //----------------------------------
+    // toggleFavoriteLabel
+    //----------------------------------
+
+    toggleFavoriteLabel(labelId:string,callback:Function){
+        setTimeout(()=>{
+            let label = this.getLabel(labelId);
+            label.favorite = !label.favorite;
+            this.eventEmitter.emit('label-change', this.labelList);
+            callback()
+        },0)
     }
-    
+
     public static get Instance(){
         return this._instance || (this._instance = new this());
     }

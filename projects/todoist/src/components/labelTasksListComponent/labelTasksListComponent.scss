@@ -23,6 +23,7 @@
           height: 100%;
           display: flex;
           align-items: flex-start;
+          cursor: pointer;
 
           .arrow-left-btn {
             line-height: 25px;
@@ -39,6 +40,7 @@
           cursor: pointer;
           padding: 2px 4px;
           border-radius: 5px;
+          flex: 1;
 
           &:hover {
             background-color: #eeeeee;
@@ -97,7 +99,6 @@
           display: flex;
           align-items: center;
           padding-right: 9px;
-          flex: 1;
           justify-content: flex-end;
 
           .options-btn {

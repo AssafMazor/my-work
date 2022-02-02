@@ -124,7 +124,7 @@ export class TaskListItemComponents {
     onDuplicateItemClick(e){
         e.preventDefault();
 
-        this.tasksService.duplicateTask(this.task);
+        this.tasksService.duplicateTask(this.task,()=>{});
     }
 
     //----------------------------------
@@ -199,7 +199,7 @@ export class TaskListItemComponents {
     onFinishBtnClick(e){
         e.preventDefault();
 
-        this.tasksService.finishTask(this.task);
+        this.tasksService.finishTask(this.task,()=>{});
     }
 
     //----------------------------------
