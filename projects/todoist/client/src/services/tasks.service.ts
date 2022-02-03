@@ -28,7 +28,7 @@ export class TasksService {
     // returnNewTask
     //----------------------------------
 
-    returnNewTask():ITask{
+    createEmptyTask():ITask{
         return  {
             "taskId":new Date().getTime().toString(),
             "data":{
@@ -46,6 +46,9 @@ export class TasksService {
             }
         }
     }
+
+
+    //fetchTasks()
 
     //----------------------------------
     // getAllTasks
