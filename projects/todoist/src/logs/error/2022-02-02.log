@@ -1,0 +1,336 @@
+2022-02-02 11:30:39 error: uncaughtException: app is not defined
+ReferenceError: app is not defined
+    at App.initCors (C:\Users\97252\test\test\src\app.ts:47:1)
+    at new App (C:\Users\97252\test\test\src\app.ts:26:10)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\server.ts:11:13)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:12)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)
+2022-02-02 11:30:41 error: uncaughtException: app is not defined
+ReferenceError: app is not defined
+    at App.initCors (C:\Users\97252\test\test\src\app.ts:47:5)
+    at new App (C:\Users\97252\test\test\src\app.ts:26:10)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\server.ts:11:13)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:12)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)
+2022-02-02 11:30:44 error: uncaughtException: app is not defined
+ReferenceError: app is not defined
+    at App.initCors (C:\Users\97252\test\test\src\app.ts:47:7)
+    at new App (C:\Users\97252\test\test\src\app.ts:26:10)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\server.ts:11:13)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:12)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)
+2022-02-02 11:30:53 error: uncaughtException: app is not defined
+ReferenceError: app is not defined
+    at App.initializeMiddlewares (C:\Users\97252\test\test\src\app.ts:60:11)
+    at new App (C:\Users\97252\test\test\src\app.ts:27:10)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\server.ts:11:13)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:12)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)
+2022-02-02 11:31:09 error: uncaughtException: this.initCors is not a function
+TypeError: this.initCors is not a function
+    at new App (C:\Users\97252\test\test\src\app.ts:26:10)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\server.ts:11:13)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:12)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)
+    at main (C:\Users\97252\test\test\node_modules\ts-node\src\bin.ts:331:12)
+2022-02-02 12:45:51 error: uncaughtException: TasksRoute is not defined
+ReferenceError: TasksRoute is not defined
+    at Object.<anonymous> (C:\Users\97252\test\test\src\server.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1374:12)
+    at Module.load (internal/modules/cjs/loader.js:950:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:790:12)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)
+    at main (C:\Users\97252\test\test\node_modules\ts-node\src\bin.ts:331:12)
+    at Object.<anonymous> (C:\Users\97252\test\test\node_modules\ts-node\src\bin.ts:482:3)
+2022-02-02 12:46:23 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 12:48:44 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 12:49:04 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 13:07:00 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 13:07:11 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 13:07:52 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 13:08:29 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 13:08:43 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 13:08:48 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 13:09:05 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 13:09:23 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-02 13:11:08 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\test\test\src\services\tasks.service.ts
+- C:\Users\97252\test\test\src\controllers\tasks.controller.ts
+- C:\Users\97252\test\test\src\routes\tasks.route.ts
+- C:\Users\97252\test\test\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\test\test\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\test\test\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\test\test\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\test\test\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)

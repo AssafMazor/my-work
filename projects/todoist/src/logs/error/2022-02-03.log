@@ -1,0 +1,66 @@
+2022-02-03 11:23:52 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\my-work\projects\todoist\server\src\services\tasks.service.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\controllers\tasks.controller.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\routes\tasks.route.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\my-work\projects\todoist\server\src\services\tasks.service.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\controllers\tasks.controller.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\routes\tasks.route.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\my-work\projects\todoist\server\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\my-work\projects\todoist\server\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\my-work\projects\todoist\server\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\my-work\projects\todoist\server\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-03 11:25:49 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\my-work\projects\todoist\server\src\services\tasks.service.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\controllers\tasks.controller.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\routes\tasks.route.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\my-work\projects\todoist\server\src\services\tasks.service.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\controllers\tasks.controller.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\routes\tasks.route.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\my-work\projects\todoist\server\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\my-work\projects\todoist\server\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\my-work\projects\todoist\server\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\my-work\projects\todoist\server\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
+2022-02-03 11:26:32 error: uncaughtException: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\my-work\projects\todoist\server\src\services\tasks.service.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\controllers\tasks.controller.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\routes\tasks.route.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\server.ts
+Error: Cannot find module '@models/tasks.models'
+Require stack:
+- C:\Users\97252\my-work\projects\todoist\server\src\services\tasks.service.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\controllers\tasks.controller.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\routes\tasks.route.ts
+- C:\Users\97252\my-work\projects\todoist\server\src\server.ts
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:902:15)
+    at Function.Module._resolveFilename.sharedData.moduleResolveFilenameHook.installedValue (C:\Users\97252\my-work\projects\todoist\server\node_modules\@cspotcode\source-map-support\source-map-support.js:679:30)
+    at Function.Module._resolveFilename (C:\Users\97252\my-work\projects\todoist\server\node_modules\tsconfig-paths\lib\register.js:75:40)
+    at Function.Module._load (internal/modules/cjs/loader.js:746:27)
+    at Module.require (internal/modules/cjs/loader.js:974:19)
+    at require (internal/modules/cjs/helpers.js:93:18)
+    at Object.<anonymous> (C:\Users\97252\my-work\projects\todoist\server\src\services\tasks.service.ts:5:1)
+    at Module._compile (internal/modules/cjs/loader.js:1085:14)
+    at Module.m._compile (C:\Users\97252\my-work\projects\todoist\server\node_modules\ts-node\src\index.ts:1371:23)
+    at Module._extensions..js (internal/modules/cjs/loader.js:1114:10)
