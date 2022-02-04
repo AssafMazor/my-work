@@ -194,7 +194,7 @@ export class labelTasksListComponent {
       new TaskEditorComponent({
         $wrap:$wrap, 
         parent:this,
-        task:this.tasksService.returnNewTask(),
+        task:this.tasksService.createEmptyTask(),
         isAddMode:eTaskMode.Add,
         isAddSubTask:false,
         parentSectionId:"-1",

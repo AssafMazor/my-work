@@ -1,5 +1,5 @@
 export interface ITask {
-    taskId:string,
+    id:string,
     data:{
         name: string,    
         title:string,

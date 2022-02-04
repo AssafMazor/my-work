@@ -3,6 +3,7 @@ import { CreateUserDto } from '@dtos/users.dto';
 import { User } from '@interfaces/users.interface';
 import userService from '@services/users.service';
 import { allColors } from 'winston/lib/winston/config';
+import { JSONCookie } from 'cookie-parser';
 
 class UsersController {
   public userService = new userService();
@@ -30,6 +31,9 @@ class UsersController {
 
   public createUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+
+      JSON.stringify(req.body);
+      
       const userData: CreateUserDto = req.body;
       const createUserData: User = await this.userService.createUser(userData);
 

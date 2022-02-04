@@ -122,7 +122,7 @@ export class ViewTaskComponent {
 
     onDeleteTaskItemClick(e){
         this.$el.find(".settings-menu-wrap").addClass("hide");
-        new DeleteAlertComponent(this.task.data.name,this.task.taskId,edeleteMode.task,edeleteMode.view);
+        new DeleteAlertComponent(this.task.data.name,this.task.id,edeleteMode.task,edeleteMode.view);
         $(".delete-dialog").removeClass("hide");
     }
 
@@ -221,7 +221,7 @@ export class ViewTaskComponent {
         if(parent){
             this.arrParents.push({
                 name: parent.data.name,
-                taskId:parent.taskId
+                taskId:parent.id
             });
             this.getParents(parent);
         }
@@ -264,7 +264,7 @@ export class ViewTaskComponent {
     //----------------------------------
 
     onEditTaskClick(e){
-        let $wrap = this.$el.find(`.item[data-id="${this.task.taskId}"] .task-editor-wrap`);
+        let $wrap = this.$el.find(`.item[data-id="${this.task.id}"] .task-editor-wrap`);
         $($wrap).removeClass("hide");
 
         let editor = new TaskEditorComponent({
@@ -281,7 +281,7 @@ export class ViewTaskComponent {
             this.editedTask = editTask
         })
 
-        this.$el.find(`.item[data-id="${this.task.taskId}"] .content`).addClass("hide")
+        this.$el.find(`.item[data-id="${this.task.id}"] .content`).addClass("hide")
         this.$el.find(".features-wrap").addClass("hide")
     }
 

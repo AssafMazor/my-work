@@ -1,21 +1,20 @@
 import { hash } from 'bcrypt';
 // import { CreateTaskDto } from '@dtos/tasks.dto';
 import { HttpException } from '@exceptions/HttpException';
-import { ITask
-  ,ITaskItem, IResTask } from '@interfaces/tasks.interface';
+import { ITask,ITaskItem, IResTask } from '@interfaces/tasks.interface';
 import tasksModel from '@models/tasks.model';
 import { isEmpty } from '@utils/util';
 
 class TaskService {
   public tasks = tasksModel;
 
-  public async findAllTasks(userId:string): Promise<IResTask[]> {
+  public async getAllTasks(userId:string): Promise<IResTask[]> {
     let tasks: ITaskItem[] = this.tasks.filter((taskItem)=>{
       return taskItem.userId === userId
     })
     
     return tasks.map((task) => {
-      return {...{id: task.taskId}, ...task.data}
+      return {...{id: task.taskId}, ...{data:task.data}}
     });
   }
 
@@ -27,17 +26,20 @@ class TaskService {
     if (isEmpty(taskItem)) {
       throw new HttpException(400, "You're not taskData");
     }
-    return {...{id: taskItem.taskId}, ...taskItem.data}
+    return {...{id: taskItem.taskId}, ...{data:taskItem.data}}
   }
 
-  public async createTask(taskData: ITask,userId:string){
+  public async createTask(userId:string,taskData: any): Promise<IResTask[]>{
+    console.log(taskData,new Date().getTime().toString(),userId)
     if (isEmpty(taskData)) throw new HttpException(400, "You're not taskData");
 
-    this.tasks = [...this.tasks, {
+    let newItemTask = <ITaskItem>{
       userId:userId,
       taskId:new Date().getTime().toString(),
       data:taskData
-    }];
+    }
+    this.tasks = [...this.tasks, newItemTask];
+    return this.getAllTasks(userId);
   }
 
   public async updateTask(taskData:ITaskItem): Promise<IResTask> {
@@ -50,12 +52,12 @@ class TaskService {
 
     taskItem.data = taskData.data
 
-    return {...{id: taskItem.taskId}, ...taskItem.data}
+    return {...{id: taskItem.taskId}, ...{data:taskItem.data}}
   }
 
   public async deleteTask(taskId: string,userId:string): Promise<ITaskItem[]> {
     let subTaskIdsArr:string[] = [];
-    this.getTaskChildrenIds(taskId,userId,subTaskIdsArr);
+    await this.getTaskChildrenIds(taskId,userId,subTaskIdsArr);
     
     this.tasks = this.tasks.filter((taskItem) => {
       return !subTaskIdsArr.includes(taskItem.taskId)
@@ -64,18 +66,18 @@ class TaskService {
     return this.tasks;
   }
 
-  public async getTaskChildrenIds(taskId: string,userId:string,subTaskIdsArr:string[]){
+  private async getTaskChildrenIds(taskId: string,userId:string,subTaskIdsArr:string[]){
     let task = await this.findTaskById(taskId,userId);
     if(task){
         subTaskIdsArr.push(task.id);        
 
-        task.children.forEach((childId:string) => {
+        task.data.children.forEach((childId:string) => {
             this.getTaskChildrenIds(childId,userId,subTaskIdsArr)
         })
     }
   }
 
-  public async addSubTask(taskData){
+  public async addSubTask(taskData): Promise<ITaskItem[]>{
     if (isEmpty(taskData)) throw new HttpException(400, "You're not taskData");
     let parentTask = await this.findTaskById(taskData.data.parentId,taskData.userId);
 
@@ -84,7 +86,8 @@ class TaskService {
       taskId:new Date().getTime().toString(),
       data:taskData.data
     }];
-    parentTask.children = [parentTask.children,taskData.taskId];
+    parentTask.data.children = [parentTask.data.children,taskData.taskId];
+    return this.tasks
   }
 }
 

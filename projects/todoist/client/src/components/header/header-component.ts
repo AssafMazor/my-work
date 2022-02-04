@@ -54,7 +54,7 @@ export class HeaderComponents {
           new TaskEditorComponent({
             $wrap:$wrap, 
             parent:this,
-            task:this.tasksService.returnNewTask(),
+            task:this.tasksService.createEmptyTask(),
             isAddMode:eTaskMode.Add,
             showAsDialog:true,
             isAddSubTask:false,

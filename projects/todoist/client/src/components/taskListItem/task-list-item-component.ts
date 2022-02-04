@@ -154,7 +154,7 @@ export class TaskListItemComponents {
     onDeleteTaskItemClick(e){
         e.preventDefault();
 
-        new DeleteAlertComponent(this.task.data.name,this.task.taskId,edeleteMode.task);
+        new DeleteAlertComponent(this.task.data.name,this.task.id,edeleteMode.task);
         $(".delete-dialog").removeClass("hide");
     }
 

@@ -117,7 +117,7 @@ export class SectionComponent {
       new TaskEditorComponent({
         $wrap:$wrap, 
         parent:this,
-        task:this.tasksService.returnNewTask(),
+        task:this.tasksService.createEmptyTask(),
         isAddMode:eTaskMode.Add,
         isAddSubTask:false,
         parentSectionId:this.section.id
@@ -186,7 +186,7 @@ export class SectionComponent {
         isToday:false
       });
    
-      let $el = this.$el.find(`.section-task-list .item[data-id="${task.taskId}"]`)
+      let $el = this.$el.find(`.section-task-list .item[data-id="${task.id}"]`)
       
       task.data.children.forEach((taskId:string) => {
         let subtask = this.tasksService.getTask(taskId);

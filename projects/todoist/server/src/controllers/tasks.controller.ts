@@ -2,28 +2,20 @@ import { NextFunction, Request, Response } from 'express';
 // import { CreateTaskDto } from '@dtos/tasks.dto';
 import { ITask,ITaskItem , IResTask } from '@interfaces/tasks.interface';
 import  TaskService from '@services/tasks.service';
+import { allColors } from 'winston/lib/winston/config';
 
 class TasksController {
   public taskService = new TaskService();
 
   public getTasks = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const userId:string = String(req.params.userId);
-      const findAllUTasksData: IResTask[] = await this.taskService.findAllTasks(userId);
-      res.status(200).json({ data: findAllUTasksData, message: 'findAll' });
+      let userId:string = req.params.userId;
+      let findAllUTasksData: IResTask[] = await this.taskService.getAllTasks(userId);
+      res.status(200).json(findAllUTasksData);
     } catch (error) {
       next(error);
     }
   };
-
-
-//   {userId: "",
-//   taskId,
-//   data:
-// }
-
-
-
 
   public getTask = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -39,9 +31,14 @@ class TasksController {
 
   public createTask = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const userId:string = String(req.params.userId);
-      const taskData: ITask = req.body;
-      await this.taskService.createTask(taskData,userId);
+      let userId:string =  req.params.userId;
+      let taskData: IResTask = JSON.parse(req.body.data);
+
+      console.log(JSON.stringify(taskData));
+
+      //let tasks:IResTask[] = await this.taskService.createTask(userId,taskData);
+      res.status(200);
+
     } catch (error) {
       next(error);
     }
@@ -50,8 +47,7 @@ class TasksController {
   public updateTask = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const updateTaskData: IResTask = await this.taskService.updateTask(req.body);
-
-      res.status(200).json({ data: updateTaskData, message: 'updated' });
+      res.status(200).json({ data: updateTaskData });
     } catch (error) {
       next(error);
     }
@@ -72,9 +68,9 @@ class TasksController {
   public addSubTask = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const taskData = String(req.body);
-      await this.taskService.addSubTask(taskData);
+      let tasks = await this.taskService.addSubTask(taskData);
 
-      res.status(200).json({});
+      res.status(200).json(tasks);
     } catch (error) {
       next(error);
     }

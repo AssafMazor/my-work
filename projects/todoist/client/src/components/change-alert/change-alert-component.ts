@@ -66,7 +66,7 @@ export class ChangeAlertComponent {
 
     onDiscardBtnClick(e){
         this.taskService.editTask({
-            "taskId":this.descardTask.taskId,
+            "id":this.descardTask.id,
             "data":{
                 "name":this.descardTask.data.name,
                 "title":this.descardTask.data.title,

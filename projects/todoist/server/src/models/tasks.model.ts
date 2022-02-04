@@ -14,6 +14,23 @@ const taskModel: ITaskItem[] = [
             isfinished:false,
             priority:1,
             category:1,
+            children:["1234"],
+            sectionId:"-1"
+        }
+    },
+    {
+        userId:"88",
+        taskId:"1234",
+        data:{
+            name: "ariel",    
+            title:"mazor",
+            parentId:"123",
+            isToday:false,
+            sentTime:new Date().getTime(),
+            labels:["1"],
+            isfinished:false,
+            priority:1,
+            category:1,
             children:[],
             sectionId:"-1"
         }

@@ -278,7 +278,7 @@ export class DatePickerComponent {
 
     onSendTimeChange(time:any){
         this.tasksService.editTask({
-            "taskId": this.task.taskId,
+            "id": this.task.id,
             "data":{
                 "name": this.task.data.name,
                 "title": this.task.data.title,
@@ -291,7 +291,7 @@ export class DatePickerComponent {
                 "category": this.task.data.category,
                 "children": this.task.data.children,
                 "sectionId":this.task.data.sectionId
-            } 
+            }
             },
         ()=>{}
         )

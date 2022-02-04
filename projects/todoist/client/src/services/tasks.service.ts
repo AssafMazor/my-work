@@ -1,7 +1,8 @@
 import { ITask } from "../interfaces/task.interface"
 import {EventEmitter} from 'events';
 import moment from "moment";
-import { isEmpty } from "lodash";
+import { isEmpty, result } from "lodash";
+import $ from 'jquery'
 
 export class TasksService {
     private static _instance: TasksService;
@@ -18,10 +19,17 @@ export class TasksService {
     //----------------------------------
     
     laodData(callback){
-        setTimeout(()=>{
-            this.taskList = require("../data/tasks.json");
-            callback();
-        }, 1000)
+        $.ajax({
+            type: "get",
+            url:'http://localhost:3000/88/tasks',
+            success: (result)=>{
+                this.taskList = result;
+                callback()
+            },
+            error: ()=>{
+                return;
+            }
+        });
     }
 
     //----------------------------------
@@ -30,7 +38,7 @@ export class TasksService {
 
     createEmptyTask():ITask{
         return  {
-            "taskId":new Date().getTime().toString(),
+            "id":new Date().getTime().toString(),
             "data":{
                 "name": "",    
                 "title":"",
@@ -46,9 +54,6 @@ export class TasksService {
             }
         }
     }
-
-
-    //fetchTasks()
 
     //----------------------------------
     // getAllTasks
@@ -83,7 +88,7 @@ export class TasksService {
 
     getTask(taskId:string):ITask | null{
         let fillterd = this.taskList.filter((task)=> { 
-            return task.taskId === taskId;
+            return task.id === taskId;
         });
         return !isEmpty(fillterd) ? fillterd[0] : null;
     }
@@ -94,7 +99,7 @@ export class TasksService {
 
     getCompletedTask(taskId:string):ITask{
         let fillterd = this.taskList.filter((task)=> { 
-            return task.taskId === taskId
+            return task.id === taskId
         });
         return fillterd[0];
     }
@@ -204,11 +209,24 @@ export class TasksService {
     //----------------------------------
 
     addNewTask(newTask:ITask,callback:Function){
-        setTimeout(()=>{
-            this.taskList.push(newTask);
-            this.eventEmitter.emit('task-change');
-            callback()
-        },0)
+        console.log(JSON.stringify(newTask.data))
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:3000/88/addTask/${newTask.id}`,
+            data: {
+                "data": JSON.stringify(newTask.data)
+            },  
+            success: (result)=>{
+                debugger;
+                this.taskList = result
+                this.eventEmitter.emit('task-change');
+                callback();
+            },
+            error: ()=>{
+                alert("erorr")
+                return;
+            }
+        });
     }
     
     //----------------------------------
@@ -217,8 +235,15 @@ export class TasksService {
 
     addSubTask(newSubTask:ITask , task:ITask,callback:Function){
         setTimeout(()=>{
-            this.taskList.push(newSubTask);
-            task.data.children.push(newSubTask.taskId);
+            fetch(`http://localhost:3000/88/subTask/${newSubTask.id}`,{})
+            .then(response => response.json())
+            .then(result => {
+                this.taskList = result;
+                console.log(result)
+            })
+            .catch(error => {
+               return;
+            });
     
             this.eventEmitter.emit('addNewSubTask', task, newSubTask);
             callback()
@@ -265,7 +290,7 @@ export class TasksService {
     duplicateTask(task:ITask,callback:Function){
         setTimeout(()=>{
           let subtasksIds:string[] = [];
-          this.getTaskChildrenIds(task.taskId, subtasksIds)
+          this.getTaskChildrenIds(task.id, subtasksIds)
 
           subtasksIds.forEach((subTaskId)=>{
             let copySubTask = JSON.parse(JSON.stringify(this.getTask(subTaskId)));
@@ -279,7 +304,7 @@ export class TasksService {
             copySubTask.data.children = [];
 
             children.forEach((childId:string) =>{
-                copySubTask.data.children.push(childId + "_1");
+                copySubTask.children.push(childId + "_1");
             });
 
             this.taskList.push(copySubTask);
@@ -296,7 +321,7 @@ export class TasksService {
     getTaskChildrenIds(taskId:string,subTaskIdsArr:string[]){
         let task = this.getTask(taskId);
         if(task){
-            subTaskIdsArr.push(task.taskId);        
+            subTaskIdsArr.push(task.id);        
 
             task.data.children.forEach((childId:string) => {
                 this.getTaskChildrenIds(childId,subTaskIdsArr)
@@ -310,10 +335,9 @@ export class TasksService {
 
     editTask(editedTask:ITask,callback:Function){
         setTimeout(() =>{
-            let task = this.getTask(editedTask.taskId);
+            let task = this.getTask(editedTask.id);
 
             if(task){
-                task.taskId = editedTask.taskId;
                 task.data = editedTask.data
             }
             this.eventEmitter.emit('task-change');
@@ -343,7 +367,7 @@ export class TasksService {
             this.getTaskChildrenIds(taskId,subTaskIdsArr);
 
             this.taskList = this.taskList.filter((task) => {
-                return !subTaskIdsArr.includes(task.taskId)
+                return !subTaskIdsArr.includes(task.id)
             })
     
             this.eventEmitter.emit('task-change');

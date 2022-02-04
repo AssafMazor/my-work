@@ -14,12 +14,18 @@ class TasksRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/:userId(\\d+)`, this.tasksController.getTasks);
-    this.router.get(`${this.path}/:userId(\\d+)/:taskId(\\d+)`, this.tasksController.getTask);
-    this.router.post(`${this.path}/:userId(\\d+)`, this.tasksController.createTask);
-    this.router.post(`${this.path}/:userId(\\d+)/:taskId(\\d+)`, this.tasksController.updateTask);
+
+    //https://todoist.com/8/tasks
+    //https://todoist.com/8/tasks/5
+    //https://todoist.com/8/lables
+
+
+    this.router.get(`/:userId(\\d+)/tasks`, this.tasksController.getTasks);
+    this.router.get(`/:userId(\\d+)/tasks/:taskId(\\d+)`, this.tasksController.getTask);
+    this.router.post(`/:userId(\\d+)/addTask/:taskId`,this.tasksController.createTask);
+    this.router.post(`/:userId(\\d+)/subTask/:taskId(\\d+)`, this.tasksController.addSubTask);
+    this.router.put(`${this.path}/:userId(\\d+)/:taskId(\\d+)`, this.tasksController.updateTask);
     this.router.delete(`${this.path}/:userId(\\d+)/:taskId(\\d+)`, this.tasksController.deleteTask);
-    this.router.post(`${this.path}/:userId(\\d+)/:taskId(\\d+)`, this.tasksController.addSubTask);
   }
 }
 

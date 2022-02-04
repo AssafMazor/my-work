@@ -42,7 +42,7 @@ export class TaskEditorComponent {
     private $el:any;
     private isAddMode: boolean = false;
     private showAsDialog:boolean = false;
-    private choosenPriority:any;
+    private choosenPriority:number;
     private parent:any;
     private isAddSubTask:boolean = true;
     private parentSectionId:string;
@@ -51,6 +51,7 @@ export class TaskEditorComponent {
     constructor(params:IEditorParams){
         this.isAddSubTask = params.isAddSubTask
         this.parent = params.parent
+        this.choosenPriority = params.task.data.priority;
         this.parentSectionId = params.parentSectionId
         this.task = params.task;
         this.originalTask = JSON.parse(JSON.stringify(params.task))
@@ -59,7 +60,7 @@ export class TaskEditorComponent {
         this.showAsDialog = !!params.showAsDialog;
         this.setHtml();
 
-        if(params.labelId !== undefined){   
+        if(params.labelId){   
             this.onChooseLabels(params.labelId)
         }
     }
@@ -135,11 +136,11 @@ export class TaskEditorComponent {
 
     onAddSubTaskBtnClick(e){
         this.taskService.addSubTask({
-            "taskId": new Date().getTime().toString(),
+            "id": new Date().getTime().toString(),
             "data":{
                 "name":($(".name-task-input").val() || '').toString(),
                 "title":($(".description-task-input").val() || '').toString(),
-                "parentId":this.task.taskId,
+                "parentId":this.task.id,
                 "isToday":false,
                 "sentTime":new Date().getTime(),
                 "labels":this.choosenLabels,
@@ -206,7 +207,7 @@ export class TaskEditorComponent {
             e.stopPropagation();
         }
         this.taskService.editTask({
-            "taskId":this.task.taskId,
+            "id":this.task.id,
             "data":{
                 "name":($(".edit-name-task-input").val() || '').toString(),
                 "title":($(".edit-description-task-input").val() || "").toString(),
@@ -281,14 +282,14 @@ export class TaskEditorComponent {
 
     onAddTaskConfirmtion(e){
         this.taskService.addNewTask({
-            "taskId":new Date().getTime().toString(),
+            "id":new Date().getTime().toString(),
             "data":{
                 "name": ($(".name-task-input").val() || '').toString(),
                 "title":($(".description-task-input").val() || "").toString(),
                 "parentId":"-1",
                 "isToday":false,
                 "sentTime":new Date().getTime(),
-                "labels":this.choosenLabels,
+                "labels":this.choosenLabels ,
                 "isfinished":this.task.data.isfinished,
                 "priority":this.task.data.priority,
                 "category":this.task.data.category,

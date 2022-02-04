@@ -14,18 +14,8 @@ export interface ITask{
 }
 
 export interface IResTask {
-    id:string
-    name: string,    
-    title:string,
-    parentId:string,
-    isToday:boolean,
-    sentTime:number,
-    labels:string[],
-    isfinished:boolean,
-    priority:number,
-    category:number,
-    children:string[],
-    sectionId:string
+    id:string,
+    data:ITask
 }
 
 export interface ITaskItem {

@@ -1,6 +1,6 @@
-<div class="item level-{{level}} {{task.data.name}}" data-id={{task.taskId}}>
+<div class="item level-{{level}} {{task.data.name}}" data-id={{task.id}}>
     {{#if isViewMode}}
-    <a href="#/task/view/{{task.taskId}}" class="content border-none {{#if task.data.isfinished}}finished{{/if}}">
+    <a href="#/task/view/{{task.id}}" class="content border-none {{#if task.data.isfinished}}finished{{/if}}">
         <div type="button" class="finish-checkbox {{this.priorityColor}}">
             <svg xmlns="http://www.w3.org/2000/svg" class="feather finish-checkbox-check" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>  
@@ -33,7 +33,7 @@
         </div>
     </a>
     {{else}}
-    <a href="#/task/view/{{task.taskId}}" class="content {{#if task.data.isfinished}}finished{{/if}}">
+    <a href="#/task/view/{{task.id}}" class="content {{#if task.data.isfinished}}finished{{/if}}">
     {{#if isTaskHaveChildren}}
         <svg class="feather feather-down toggle-hide-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         <svg class="feather feather-right hide toggle-hide-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
