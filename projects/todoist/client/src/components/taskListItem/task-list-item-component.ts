@@ -269,7 +269,7 @@ export class TaskListItemComponents {
         this.$el.find(".label-tag-wrap").html("")
         this.task.data.labels.forEach((id:string) => {
             this.$el.find(".label-tag-wrap").append(`
-            <div class='label'>${this.labelsService.getLabel(id).name}
+            <div class='label'>${this.labelsService.getLabel(id).data.name}
             </div>
             `
             );

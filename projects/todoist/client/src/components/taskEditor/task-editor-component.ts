@@ -309,11 +309,11 @@ export class TaskEditorComponent {
     //----------------------------------
 
     onChooseLabels(choosenLabels:string[]){
-        $(".features-wrap").html("")
+        $(".features-wrap").html("");
         choosenLabels.forEach((id:string) => {
             $(".features-wrap").append(`
             <div class='label-wrap'>
-                <div class='label-name'>${this.labelsService.getLabel(id).name}
+                <div class='label-name'>${this.labelsService.getLabel(id).data.name}
                 </div>
             </div>
             `

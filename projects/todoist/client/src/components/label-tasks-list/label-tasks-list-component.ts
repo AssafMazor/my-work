@@ -114,7 +114,7 @@ export class labelTasksListComponent {
     //----------------------------------
 
     onDeleteLabelItemClick(e){
-      new DeleteAlertComponent(this.label.name,this.label.id,edeleteMode.label);
+      new DeleteAlertComponent(this.label.data.name,this.label.id,edeleteMode.label);
       $(".delete-dialog").removeClass("hide");
       this.$el.find(".setting-dialog").addClass("hide");
     }

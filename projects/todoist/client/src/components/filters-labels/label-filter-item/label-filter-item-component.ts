@@ -95,7 +95,7 @@ export class LabelFilterItemComponent {
     onDeleteLabelItemClick(e){
       e.preventDefault();
 
-      new DeleteAlertComponent(this.label.name,this.label.id,edeleteMode.label);
+      new DeleteAlertComponent(this.label.data.name,this.label.id,edeleteMode.label);
       $(".delete-dialog").removeClass("hide");
     }
 

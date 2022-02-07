@@ -1,7 +1,8 @@
+import $ from "jquery"
 import { ILabel} from "../interfaces/label.interface"
 import {EventEmitter} from 'events';
 import { TasksService } from "./tasks.service";
-import { Callbacks } from "jquery";
+import { debug } from "webpack";
 
 
 export class LabelsService {   
@@ -21,10 +22,17 @@ export class LabelsService {
     //----------------------------------
 
     laodData(callback){
-        setTimeout(()=>{
-            this.labelList = require("../data/labels.json");
-            callback();
-        }, 1000)
+        $.ajax({
+            type: "get",
+            url: 'http://localhost:3000/88/labels',
+            success: (result) => {
+                this.labelList = result;
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
     }
 
     //----------------------------------
@@ -41,7 +49,7 @@ export class LabelsService {
 
     getLabelByName(labelName:string):ILabel{
         let fillterd = this.labelList.filter((label:ILabel) => {
-            return label.name === labelName
+            return label.data.name === labelName
         })
         return fillterd[0]
     }
@@ -63,7 +71,7 @@ export class LabelsService {
 
     isLabelExist(labelName:string):ILabel[]{
         let fillterd = this.labelList.filter((label) => {
-            return label.name === labelName
+            return label.data.name === labelName
         })
         return fillterd
     }
@@ -73,23 +81,43 @@ export class LabelsService {
     //----------------------------------
 
     createNewLabel(label:ILabel,callback:Function){
-        setTimeout(()=>{
-            this.labelList.push(label)
-            this.eventEmitter.emit('label-change', this.labelList);
-            callback()
-        },0)
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:3000/88/createLabel/${label.id}`,
+            data:{
+                data:JSON.stringify(label)
+            },
+            success: (result) => {
+                this.labelList = result
+                this.eventEmitter.emit('label-change', this.labelList);
+                callback()
+            },
+            error: () => {
+                return;
+            }
+        });
     }
+    
     //----------------------------------
     // saveLabel
     //----------------------------------
 
     saveLabel(inputName:string,labelId:string,callback:Function){
-        setTimeout(()=>{
-            let label = this.getLabel(labelId);
-            label.name = inputName;
-            this.eventEmitter.emit('label-change', this.labelList);
-            callback()
-        },0) 
+        $.ajax({
+            type: "PUT",
+            url: `http://localhost:3000/88/editLabel/${labelId}`,
+            data:{
+                data:inputName
+            },
+            success: (result) => {
+                this.labelList = result
+                this.eventEmitter.emit('label-change', this.labelList);
+                callback()
+            },
+            error: () => {
+                return;
+            }
+        });        
     }
 
     //----------------------------------
@@ -97,7 +125,19 @@ export class LabelsService {
     //----------------------------------
 
     deleteLabel(deletedLabelId:string,callback:Function){
-        setTimeout(() => {
+        $.ajax({
+            type: "DELETE",
+            url: `http://localhost:3000/88/deleteLabel/${deletedLabelId}`,
+            success: (result) => {
+                debugger;
+                this.labelList = result
+                this.eventEmitter.emit('label-change', this.labelList);
+                callback()
+            },
+            error: () => {
+                return;
+            }
+        });        
             this.labelList = this.labelList.filter((label) => {
                 return label.id !== deletedLabelId
             })
@@ -105,7 +145,6 @@ export class LabelsService {
                 this.eventEmitter.emit('label-change', this.labelList);     
                 callback()
             });
-        }, 0);
     }
 
     //----------------------------------
@@ -114,7 +153,7 @@ export class LabelsService {
 
     getFavoriteLabels():ILabel[]{
         let fillterd = this.labelList.filter((label) => {
-            return label.favorite
+            return label.data.favorite
         })
         return fillterd
     }
@@ -126,7 +165,7 @@ export class LabelsService {
     toggleFavoriteLabel(labelId:string,callback:Function){
         setTimeout(()=>{
             let label = this.getLabel(labelId);
-            label.favorite = !label.favorite;
+            label.data.favorite = !label.data.favorite;
             this.eventEmitter.emit('label-change', this.labelList);
             callback()
         },0)

@@ -93,7 +93,7 @@ export class LabelComponent {
 
     adjustLabels(){
       this.labelsList.forEach((label:ILabel) => {    
-          label.isAttache = this.task.data.labels.includes(label.id);
+          label.data.isAttache = this.task.data.labels.includes(label.id);
 
           if(this.task.data.labels.includes(label.id)){
             this.selectedLabels.push(label.id)
@@ -140,9 +140,12 @@ export class LabelComponent {
       let id = this.labelsService.getLabels().length + 1
       let labelVal = this.$el.find(".label-header-input-text").val()
       this.labelsService.createNewLabel({
-        "name":labelVal,
         "id":id.toString(),
-        "favorite":false,
+        "data":{
+          "name":labelVal,
+          "favorite":false,
+          "isAttache":false
+        }
       },
       ()=>{}
       )
@@ -157,7 +160,7 @@ export class LabelComponent {
       let labelVal =  this.$el.find(".label-header-input-text").val();
 
       this.labelsList = this.originallabelsList.filter((label:ILabel) => {
-        return label.name.includes(labelVal);
+        return label.data.name.includes(labelVal);
       });
 
       this.setLabelsItem()
@@ -189,6 +192,7 @@ export class LabelComponent {
     //----------------------------------
 
     toggleClick(id:string , $el:any){
+      id = id.toString();
       if($el.find(".square").hasClass("checked")){
         this.selectedLabels.push(id);
       }else {

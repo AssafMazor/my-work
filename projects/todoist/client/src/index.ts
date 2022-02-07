@@ -21,7 +21,7 @@ var Router = Backbone.Router.extend ({
   },
 
   main: function(){
-      this.navigate("today", {trigger: true});
+      this.navigate("inbox", {trigger: true});
   },
   inbox: function() {
     uiManagerService.showInbox()
@@ -36,7 +36,6 @@ var Router = Backbone.Router.extend ({
     uiManagerService.showFillterAndLabels();
   },
   fillter: function(filterId:string) {
-      console.log("fillter" + filterId);
   },
   label: function(labelName:string) {
     uiManagerService.showLabelTasksList(labelName);

@@ -14,18 +14,19 @@ class TasksRoute implements Routes {
   }
 
   private initializeRoutes() {
-
-    //https://todoist.com/8/tasks
-    //https://todoist.com/8/tasks/5
-    //https://todoist.com/8/lables
-
-
     this.router.get(`/:userId(\\d+)/tasks`, this.tasksController.getTasks);
     this.router.get(`/:userId(\\d+)/tasks/:taskId(\\d+)`, this.tasksController.getTask);
+
     this.router.post(`/:userId(\\d+)/addTask/:taskId`,this.tasksController.createTask);
     this.router.post(`/:userId(\\d+)/subTask/:taskId(\\d+)`, this.tasksController.addSubTask);
-    this.router.put(`${this.path}/:userId(\\d+)/:taskId(\\d+)`, this.tasksController.updateTask);
-    this.router.delete(`${this.path}/:userId(\\d+)/:taskId(\\d+)`, this.tasksController.deleteTask);
+    this.router.post(`/:userId(\\d+)/addLabel/:taskId(\\d+)`, this.tasksController.addTaskLabels);
+    this.router.post(`/:userId(\\d+)/duplicateTask/:taskId(\\d+)`, this.tasksController.duplicateTask);
+    this.router.post(`/:userId(\\d+)/:removeLabel(\\d+)`, this.tasksController.deleteLabel);
+
+    this.router.put(`/:userId(\\d+)/editTask/:taskId(\\d+)`, this.tasksController.editTask);
+    this.router.put(`/:userId(\\d+)/finishTask/:taskId(\\d+)`, this.tasksController.finishTask);
+
+    this.router.delete(`/:userId(\\d+)/deleteTask/:taskId(\\d+)`, this.tasksController.deleteTask);
   }
 }
 

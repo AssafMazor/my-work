@@ -103,8 +103,6 @@ export class MenuComponent {
     //----------------------------------
 
     isFavoriteLabelListEmpty(){
-      debugger;
-
       if(isEmpty(this.labelsService.getFavoriteLabels())){
         this.$el.find(".menu-item.favorite-wrap").addClass("hide");
       }else {

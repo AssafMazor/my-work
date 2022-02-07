@@ -1,6 +1,8 @@
 export interface ILabel {
-    name:string,
     id:string,
-    favorite:boolean,
-    isAttache?:boolean
+    data:{ 
+        name:string,
+        favorite:boolean,
+        isAttache:boolean
+    }
 }

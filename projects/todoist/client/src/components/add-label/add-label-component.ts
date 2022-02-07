@@ -94,9 +94,12 @@ export class addLabelComponent {
     onAddLabelBtnClick(e){
         let id = this.labelList.length + 1
         this.labelsService.createNewLabel({
-            "name":(this.$el.find(".label-name-input").val() || '').toString(),
             "id":id.toString(),
-            "favorite":false,
+            "data":{
+                "name":(this.$el.find(".label-name-input").val() || '').toString(),
+                "favorite":false,
+                "isAttache":false,
+            }
         },
         ()=>{}
         )
@@ -115,4 +118,4 @@ export class addLabelComponent {
             $(".bg-shadow-wrap").addClass("hide");
         }
     }
-}
+} 

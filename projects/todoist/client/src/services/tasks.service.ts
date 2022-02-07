@@ -1,14 +1,14 @@
 import { ITask } from "../interfaces/task.interface"
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 import moment from "moment";
-import { isEmpty, result } from "lodash";
+import { isEmpty } from "lodash";
 import $ from 'jquery'
 
 export class TasksService {
     private static _instance: TasksService;
 
-    eventEmitter:EventEmitter;
-    taskList:ITask[] = [];
+    eventEmitter: EventEmitter;
+    taskList: ITask[] = [];
 
     constructor() {
         this.eventEmitter = new EventEmitter();
@@ -17,16 +17,16 @@ export class TasksService {
     //----------------------------------
     // laodData
     //----------------------------------
-    
-    laodData(callback){
+
+    laodData(callback) {
         $.ajax({
             type: "get",
-            url:'http://localhost:3000/88/tasks',
-            success: (result)=>{
+            url: 'http://localhost:3000/88/tasks',
+            success: (result) => {
                 this.taskList = result;
                 callback()
             },
-            error: ()=>{
+            error: () => {
                 return;
             }
         });
@@ -36,21 +36,21 @@ export class TasksService {
     // returnNewTask
     //----------------------------------
 
-    createEmptyTask():ITask{
-        return  {
-            "id":new Date().getTime().toString(),
-            "data":{
-                "name": "",    
-                "title":"",
-                "isToday":false,
-                "parentId":"-1",
-                "sentTime":new Date().getTime(),
-                "labels":[],
-                "isfinished":false,
-                "priority":4,
-                "category":1,
-                "children":[],
-                "sectionId":"-1"
+    createEmptyTask(): ITask {
+        return {
+            "id": new Date().getTime().toString(),
+            "data": {
+                "name": "",
+                "title": "",
+                "isToday": false,
+                "parentId": "-1",
+                "sentTime": new Date().getTime(),
+                "labels": [],
+                "isfinished": false,
+                "priority": 4,
+                "category": 1,
+                "children": [],
+                "sectionId": "-1"
             }
         }
     }
@@ -59,7 +59,7 @@ export class TasksService {
     // getAllTasks
     //----------------------------------
 
-    getAllTasks():ITask[]{
+    getAllTasks(): ITask[] {
         return this.taskList
     }
 
@@ -67,7 +67,7 @@ export class TasksService {
     // getTasks
     //----------------------------------
 
-    getTasks():ITask[]{
+    getTasks(): ITask[] {
         return this.getTasksBySection("-1");
     }
 
@@ -75,7 +75,7 @@ export class TasksService {
     // getTasksBySection
     //----------------------------------
 
-    getTasksBySection(sectionId:string):ITask[]{
+    getTasksBySection(sectionId: string): ITask[] {
         let fillterd = this.taskList.filter((task) => {
             return task.data.sectionId === sectionId && task.data.parentId === "-1"
         });
@@ -86,8 +86,8 @@ export class TasksService {
     // getTask
     //----------------------------------
 
-    getTask(taskId:string):ITask | null{
-        let fillterd = this.taskList.filter((task)=> { 
+    getTask(taskId: string): ITask | null {
+        let fillterd = this.taskList.filter((task) => {
             return task.id === taskId;
         });
         return !isEmpty(fillterd) ? fillterd[0] : null;
@@ -97,8 +97,8 @@ export class TasksService {
     // getCompletedTask
     //----------------------------------
 
-    getCompletedTask(taskId:string):ITask{
-        let fillterd = this.taskList.filter((task)=> { 
+    getCompletedTask(taskId: string): ITask {
+        let fillterd = this.taskList.filter((task) => {
             return task.id === taskId
         });
         return fillterd[0];
@@ -108,23 +108,29 @@ export class TasksService {
     // removeLabelsFromTasks
     //----------------------------------
 
-    removeLabelsFromTasks(labelId:string,callback:Function){
-        setTimeout(()=>{
-            this.taskList.filter((task:ITask) => {
-                task.data.labels = task.data.labels.filter((id) => {
-                    return id !== labelId
-                })
-            })    
-            callback();
-        },150)
+    removeLabelsFromTasks(labelId: string, callback: Function) {
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:3000/88/removeLabels/${labelId}`,
+            data: {
+                "labelId": labelId
+            },
+            success: (result) => {
+                this.taskList = result
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
     }
-    
+
     //----------------------------------
     // getCompletedTasksList
     //----------------------------------
 
-    getCompletedTasksList(sectionId:string):ITask[]{
-        let fillterd = this.taskList.filter((task)=> { 
+    getCompletedTasksList(sectionId: string): ITask[] {
+        let fillterd = this.taskList.filter((task) => {
             return task.data.isfinished && task.data.sectionId === sectionId
         });
         return fillterd
@@ -134,7 +140,7 @@ export class TasksService {
     // getTasksByLabelId
     //----------------------------------
 
-    getTasksByLabelId(labelId:string):ITask[]{
+    getTasksByLabelId(labelId: string): ITask[] {
         let fillterd = this.taskList.filter((task) => {
             return task.data.labels.includes(labelId);
         })
@@ -145,10 +151,10 @@ export class TasksService {
     // getTasksByDate
     //----------------------------------
 
-    getTasksByDate(day:number):ITask[]{
+    getTasksByDate(day: number): ITask[] {
         let start = moment(day).startOf('day').valueOf();
         let end = moment(day).endOf('day').valueOf();
-    
+
         let fillterd = this.taskList.filter((task) => {
             return task.data.sentTime >= start && task.data.sentTime < end;
         })
@@ -159,7 +165,7 @@ export class TasksService {
     // getOverDueTasks
     //----------------------------------
 
-    getOverDueTasks():ITask[]{
+    getOverDueTasks(): ITask[] {
         let fillterd = this.taskList.filter((task) => {
             return new Date(task.data.sentTime).getDate() === new Date().getDate() - 1
         })
@@ -170,31 +176,34 @@ export class TasksService {
     // addTaskLabels
     //----------------------------------
 
-    addTaskLabels(taskId:string , choosenLabels:string[],callback:Function){
-        setTimeout(() => {
-            let task = this.getTask(taskId);
-            if(task){
-                choosenLabels.forEach((id:string) => {
-                    if(!(task!).data.labels.includes(id)){
-                        task!.data.labels.push(id);
-                    }
-                })
+    addTaskLabels(taskId: string, choosenLabels: string[], callback: Function) {
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:3000/88/addLabel/${taskId}`,
+            data: {
+                "labels": JSON.stringify(choosenLabels)
+            },
+            success: (result) => {
+                this.taskList = result
+                this.eventEmitter.emit('task-change');
+                callback();
+            },
+            error: () => {
+                return;
             }
-            this.eventEmitter.emit('task-change');
-            callback()
-        }, 0); 
+        });
     }
 
     //----------------------------------
     // addTasknewLabels
     //----------------------------------
 
-    addTasknewLabels(taskId:string , choosenLabels:string[],callback:Function){
+    addTasknewLabels(taskId: string, choosenLabels: string[], callback: Function) {
         setTimeout(() => {
             let task = this.getTask(taskId);
-            if(task){
-                choosenLabels.forEach((id:string) => {
-                    if(!(task!).data.labels.includes(id)){
+            if (task) {
+                choosenLabels.forEach((id: string) => {
+                    if (!(task!).data.labels.includes(id)) {
                         task!.data.labels.push(id);
                     }
                 })
@@ -208,54 +217,52 @@ export class TasksService {
     // addNewTask
     //----------------------------------
 
-    addNewTask(newTask:ITask,callback:Function){
-        console.log(JSON.stringify(newTask.data))
+    addNewTask(newTask: ITask, callback: Function) {
         $.ajax({
             type: "POST",
             url: `http://localhost:3000/88/addTask/${newTask.id}`,
             data: {
                 "data": JSON.stringify(newTask.data)
-            },  
-            success: (result)=>{
-                debugger;
+            },
+            success: (result) => {
                 this.taskList = result
                 this.eventEmitter.emit('task-change');
                 callback();
             },
-            error: ()=>{
-                alert("erorr")
+            error: () => {
                 return;
             }
         });
     }
-    
+
     //----------------------------------
     // addSubTask
     //----------------------------------
 
-    addSubTask(newSubTask:ITask , task:ITask,callback:Function){
-        setTimeout(()=>{
-            fetch(`http://localhost:3000/88/subTask/${newSubTask.id}`,{})
-            .then(response => response.json())
-            .then(result => {
-                this.taskList = result;
-                console.log(result)
-            })
-            .catch(error => {
-               return;
-            });
-    
-            this.eventEmitter.emit('addNewSubTask', task, newSubTask);
-            callback()
-        },0)
+    addSubTask(newSubTask: ITask, task: ITask, callback: Function) {
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:3000/88/subTask/${newSubTask.id}`,
+            data: {
+                "task": JSON.stringify(newSubTask)
+            },
+            success: (result) => {
+                this.taskList = result
+                this.eventEmitter.emit('addNewSubTask', task, newSubTask);
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
     }
 
     //----------------------------------
     // getTaskLabels
     //----------------------------------
 
-    getTaskLabels(labelId:string){
-        let fillterd = this.taskList.filter((task:ITask) => {
+    getTaskLabels(labelId: string) {
+        let fillterd = this.taskList.filter((task: ITask) => {
             return task.data.labels.includes(labelId)
         })
         this.eventEmitter.emit('task-change', fillterd);
@@ -265,8 +272,8 @@ export class TasksService {
     // getLabelTaskLength
     //----------------------------------
 
-    getLabelTaskLength(labelId:string):number{
-        var fillterd = this.taskList.filter((task:ITask) => {
+    getLabelTaskLength(labelId: string): number {
+        var fillterd = this.taskList.filter((task: ITask) => {
             return task.data.labels.includes(labelId);
         })
         return fillterd.length
@@ -276,7 +283,7 @@ export class TasksService {
     // getNotFinishedTasks
     //----------------------------------
 
-    getNotFinishedTasks(){
+    getNotFinishedTasks() {
         let fillterd = this.taskList.filter((task) => {
             return !task.data.isfinished && task.data.parentId === "-1"
         })
@@ -287,106 +294,105 @@ export class TasksService {
     // duplicateTask
     //----------------------------------
 
-    duplicateTask(task:ITask,callback:Function){
-        setTimeout(()=>{
-          let subtasksIds:string[] = [];
-          this.getTaskChildrenIds(task.id, subtasksIds)
-
-          subtasksIds.forEach((subTaskId)=>{
-            let copySubTask = JSON.parse(JSON.stringify(this.getTask(subTaskId)));
-            copySubTask.id = copySubTask.id + "_1"
-
-            if(copySubTask.data.parentId !== "-1"){
-                copySubTask.data.parentId = copySubTask.data.parentId + "_1"
-            };
-            
-            let children = JSON.parse(JSON.stringify(copySubTask.data.children));
-            copySubTask.data.children = [];
-
-            children.forEach((childId:string) =>{
-                copySubTask.children.push(childId + "_1");
-            });
-
-            this.taskList.push(copySubTask);
-          })
-          this.eventEmitter.emit('task-change');
-          callback()
-        },0)
-    }
-    
-    //----------------------------------
-    // getSubTasks
-    //----------------------------------
-
-    getTaskChildrenIds(taskId:string,subTaskIdsArr:string[]){
-        let task = this.getTask(taskId);
-        if(task){
-            subTaskIdsArr.push(task.id);        
-
-            task.data.children.forEach((childId:string) => {
-                this.getTaskChildrenIds(childId,subTaskIdsArr)
-            })
-        }
+    duplicateTask(task: ITask, callback: Function) {
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:3000/88/duplicateTask/${task.id}`,
+            data: {
+                "data": JSON.stringify(task)
+            },
+            success: (result) => {
+                this.taskList = result
+                this.eventEmitter.emit('task-change');
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
     }
 
     //----------------------------------
     // editTask
     //----------------------------------
 
-    editTask(editedTask:ITask,callback:Function){
-        setTimeout(() =>{
-            let task = this.getTask(editedTask.id);
-
-            if(task){
-                task.data = editedTask.data
+    editTask(editedTask: ITask, callback: Function) {
+        $.ajax({
+            type: "PUT",
+            url: `http://localhost:3000/88/editTask/${editedTask.id}`,
+            data: {
+                "data": JSON.stringify(editedTask)
+            },
+            success: (result) => {
+                this.taskList = result
+                this.eventEmitter.emit('task-change');
+                callback();
+            },
+            error: () => {
+                return;
             }
-            this.eventEmitter.emit('task-change');
-            callback()
-        },0)   
+        });
     }
 
     //----------------------------------
     // finishTask
     //----------------------------------
 
-    finishTask(task:ITask,callback:Function){
-        setTimeout(()=>{
-            task.data.isfinished = true;
-            this.eventEmitter.emit('task-change');
-            callback()
-        }, 20)
+    finishTask(task: ITask, callback: Function) {
+        $.ajax({
+            type: "PUT",
+            url: `http://localhost:3000/88/finishTask/${task.id}`,
+            data:{
+                data:task
+            },
+            success: (result) => {
+                this.taskList = result
+                this.eventEmitter.emit('task-change');
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
     }
 
     //----------------------------------
     // deleteTask
     //----------------------------------
 
-    deleteTask(taskId:string,callback:Function){
-        setTimeout(() => {
-            let subTaskIdsArr:string[] = [];
-            this.getTaskChildrenIds(taskId,subTaskIdsArr);
-
-            this.taskList = this.taskList.filter((task) => {
-                return !subTaskIdsArr.includes(task.id)
-            })
-    
-            this.eventEmitter.emit('task-change');
-            callback()
-        }, 50);
+    deleteTask(taskId: string, callback: Function) {
+        let task = this.getTask(taskId);
+        if(task){
+            $.ajax({
+                type: "DELETE",
+                url: `http://localhost:3000/88/deleteTask/${taskId}`,
+                data:{
+                    data:task.data.parentId
+                },
+                success: (result) => {
+                    this.taskList = result
+                    this.eventEmitter.emit('task-change');
+                    callback();
+                },
+                error: () => {
+                    return;
+                }
+            });
+        }
     }
 
     //----------------------------------
     // getCompletedTasks
     //----------------------------------
 
-    getCompletedTasks(){
+    getCompletedTasks() {
         let fillterd = this.taskList.filter((task) => {
             return task.data.isfinished
         });
-        return fillterd     
+        return fillterd
     }
 
-    public static get Instance(){
+    public static get Instance() {
         return this._instance || (this._instance = new this());
     }
 }

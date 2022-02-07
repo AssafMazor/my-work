@@ -35,12 +35,6 @@ export class HeaderComponents {
       this.$el.find(".header .qiuck-add-task-wrap").on("click" , (e) => {
         this.onQiuckTaskAdd(e);
       })
-      this.$el.find(".btn-test").on("click" , (e) => {
-        fetch('http://localhost:3000/tasks')
-          .then(data => {
-            console.log(data);
-          })
-      })
     }
 
     //----------------------------------
