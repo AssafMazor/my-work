@@ -4,11 +4,10 @@ import {EventEmitter} from 'events';
 export class SectionsService {
     private static _instance: SectionsService;
 
-    eventEmitter:EventEmitter;
+    eventEmitter:EventEmitter = new EventEmitter();
     sectionList:ISection[] = [];
 
     constructor() {
-        this.eventEmitter = new EventEmitter();
     }
     
     laodData(callback?){

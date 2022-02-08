@@ -5,7 +5,6 @@ import { ILabel , IResLabel,ILabelItem } from '@interfaces/labels.interface';
 import labelModel from '@models/labels.model';
 import { isEmpty } from '@utils/util';
 import TaskService from './tasks.service';
-import { ITaskItem } from '@/interfaces/tasks.interface';
 
 class LabelsService {
   public labels = labelModel; 

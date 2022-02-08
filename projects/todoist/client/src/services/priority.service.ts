@@ -1,3 +1,4 @@
+import $ from "jquery"
 import { IPriority } from "../interfaces/priority.interface"
 import {EventEmitter} from 'events';
 
@@ -14,20 +15,22 @@ export class PriorityService {
     priorityList:IPriority[] = [];
 
     constructor() {
-        this.getPrioritysArray(()=>{});
     }
 
-    getPrioritysArray(callback:Function) {
-        setTimeout(()=>{
-            if(!this.priorityList) {
-                var priorityList = require("../data/prioritys.json")
-                this.priorityList = priorityList
-                this.eventEmitter.emit("prioritys-change" , this.priorityList)
-            }else {
-                this.eventEmitter.emit("prioritys-change" , this.priorityList)
+    loadData(callback:Function) {
+        $.ajax({
+            type: "get",
+            url: 'http://localhost:3000/88/priorities',
+            success: (result) => {
+                debugger;
+                this.priorityList = result;
+                this.eventEmitter.emit("prioritys-change" , this.priorityList)     
+                callback()
+            },
+            error: () => {
+                return;
             }
-        callback()
-        },0)
+        });
     }
 
     getPriorityColor(priorityId:number){
