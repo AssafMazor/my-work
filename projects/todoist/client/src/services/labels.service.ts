@@ -2,7 +2,6 @@ import $ from "jquery"
 import { ILabel} from "../interfaces/label.interface"
 import {EventEmitter} from 'events';
 import { TasksService } from "./tasks.service";
-import { debug } from "webpack";
 
 
 export class LabelsService {   
@@ -14,7 +13,6 @@ export class LabelsService {
 
     constructor() {
         this.eventEmitter = new EventEmitter();
-        this.labelList = require("../data/labels.json");
     }
 
     //----------------------------------
@@ -130,21 +128,16 @@ export class LabelsService {
             url: `http://localhost:3000/88/deleteLabel/${deletedLabelId}`,
             success: (result) => {
                 debugger;
-                this.labelList = result
+                this.labelList = result.labels
                 this.eventEmitter.emit('label-change', this.labelList);
+                this.tasksService.taskList = result.tasks
+                this.tasksService.eventEmitter.emit('task-change')
                 callback()
             },
             error: () => {
                 return;
             }
         });        
-            this.labelList = this.labelList.filter((label) => {
-                return label.id !== deletedLabelId
-            })
-            this.tasksService.removeLabelsFromTasks(deletedLabelId, () =>{
-                this.eventEmitter.emit('label-change', this.labelList);     
-                callback()
-            });
     }
 
     //----------------------------------
@@ -163,12 +156,19 @@ export class LabelsService {
     //----------------------------------
 
     toggleFavoriteLabel(labelId:string,callback:Function){
-        setTimeout(()=>{
-            let label = this.getLabel(labelId);
-            label.data.favorite = !label.data.favorite;
-            this.eventEmitter.emit('label-change', this.labelList);
-            callback()
-        },0)
+        $.ajax({
+            type: "PUT",
+            url: `http://localhost:3000/88/toggleFavoriteLabel/${labelId}`,
+            success: (result) => {
+                debugger;
+                this.labelList = result
+                this.eventEmitter.emit('label-change', this.labelList);
+                callback()
+            },
+            error: () => {
+                return;
+            }
+        });
     }
 
     public static get Instance(){

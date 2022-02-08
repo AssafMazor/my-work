@@ -103,18 +103,18 @@ class TaskService {
     });
   }
 
-  public async removeLabelFromTasks(labelId:string,userId:string): Promise<IResTask[]>{
+  public async removeLabelFromTasks(labelId:string,userId:string){
     if (isEmpty(labelId)) throw new HttpException(400, "You're not taskData");
 
-    let tasks:IResTask[] = await this.getAllTasks(userId);
-    
-    for(const task of tasks) {
-        task.data.labels = task.data.labels.filter((id:string)=>{
-          return id !== labelId
-        })
+    let tasks = []
+    for(const task of this.tasks) {
+      task.data.labels = task.data.labels.filter((id:string)=>{
+        return id !== labelId
+      })
+      tasks.push(task)
     };
-
-    return tasks;
+    this.tasks = tasks
+    return await this.getAllTasks(userId);
   }
 
   public async addTaskLabels(labelsIdArr:string[],userId:string,taskId:string): Promise<IResTask[]>{

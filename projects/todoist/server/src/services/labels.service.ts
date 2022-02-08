@@ -4,9 +4,12 @@ import { HttpException } from '@exceptions/HttpException';
 import { ILabel , IResLabel,ILabelItem } from '@interfaces/labels.interface';
 import labelModel from '@models/labels.model';
 import { isEmpty } from '@utils/util';
+import TaskService from './tasks.service';
+import { ITaskItem } from '@/interfaces/tasks.interface';
 
 class LabelsService {
   public labels = labelModel; 
+  public taskService = new TaskService();
 
   public async getAllLabels(userId:string): Promise<IResLabel[]> {
     let labels: ILabelItem[] = this.labels.filter((label)=>{
@@ -18,14 +21,14 @@ class LabelsService {
     });
   }
 
-  private async findLabelById(labelId:string,userId:string): Promise<IResLabel> {
+  private async findLabelById(labelId:string,userId:string): Promise<ILabelItem> {
     let labelItem: ILabelItem = this.labels.filter((labelItem)=>{
       return labelItem.userId === userId && labelItem.labelId === labelId
     })[0]
     if (isEmpty(labelItem)) {
       throw new HttpException(400, "You're not taskData getTaskById");
     }
-    return {...{id: labelItem.labelId}, ...{data:labelItem.data}};
+    return labelItem
   }
 
   public async createLabel(label:IResLabel,userId:string): Promise<IResLabel[]> {
@@ -49,6 +52,28 @@ class LabelsService {
     label.data.name = labelName
     return await this.getAllLabels(userId);
   }
-}//deleteLabel
+  
+  public async deleteLabel(labelId:string,userId:string): Promise<object> {
+    if (isEmpty(labelId)) throw new HttpException(400, "You're not label");
+    let labels:ILabelItem[] = []
+    for(const label of this.labels){
+      if(label.labelId !== labelId){
+        labels.push(label);
+      }
+    }
+    this.labels = labels
+    let taskList = await this.taskService.removeLabelFromTasks(labelId,userId)
+    let labelList = await this.getAllLabels(userId);
+    return {labels:labelList,tasks:taskList}
+  }
+   
+  public async toggleFavoriteLabel(labelId:string,userId:string): Promise<IResLabel[]> {
+    if (isEmpty(labelId)) throw new HttpException(400, "You're not label");
+    let label:ILabelItem = await this.findLabelById(labelId,userId);
+    label.data.favorite = ! label.data.favorite
+   
+   return await this.getAllLabels(userId)
+  }
+}//
 
 export default LabelsService;

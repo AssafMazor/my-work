@@ -105,27 +105,6 @@ export class TasksService {
     }
 
     //----------------------------------
-    // removeLabelsFromTasks
-    //----------------------------------
-
-    removeLabelsFromTasks(labelId: string, callback: Function) {
-        $.ajax({
-            type: "POST",
-            url: `http://localhost:3000/88/removeLabels/${labelId}`,
-            data: {
-                "labelId": labelId
-            },
-            success: (result) => {
-                this.taskList = result
-                callback();
-            },
-            error: () => {
-                return;
-            }
-        });
-    }
-
-    //----------------------------------
     // getCompletedTasksList
     //----------------------------------
 
