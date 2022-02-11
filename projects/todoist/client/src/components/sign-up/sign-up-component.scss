@@ -1,0 +1,95 @@
+.sign-up-dialog {
+  font-size: 13px;
+  margin: 0;
+  line-height: 20px;
+  color: #333;
+  max-width: 452px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden;
+
+  .inside {
+    margin: 50px 0;
+    border-radius: 8px;
+    border: solid 1px #dbdbdb;
+    background: #fff;
+    padding: 25px;
+
+    .title {
+      font-weight: 700;
+      color: #000;
+      margin: 0 0 1.1em;
+      padding: 0;
+
+      &.email {
+        font-size: 13px;
+        margin: 0 0 3px;
+      }
+
+      &.sign-up {
+        font-size: 21px;
+      }
+
+      &.password {
+        font-size: 13px;
+        margin: 5px 0px 3px 1px;
+      }
+    }
+
+    .error-message {
+      display: flex;
+      align-items: center;
+      color: #dd4b39;
+      padding: 0.5em 0;
+
+      .warning-circle {
+        margin-right: 6px;
+        background: url(https://d3ptyyxy2at9ui.cloudfront.net/all_images-94aa31.png)
+          0 0 no-repeat;
+        background-position: 0 -65px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .email-input {
+      box-sizing: border-box;
+      font-size: 13px;
+      font-weight: 400;
+      width: 100%;
+      padding: 0.75em 1em;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .password-input {
+      box-sizing: border-box;
+      font-size: 13px;
+      font-weight: 400;
+      width: 100%;
+      padding: 0.75em 1em;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding-bottom: 10px;
+    }
+
+    .sign-up-button {
+      cursor: pointer;
+      width: 100%;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 12px;
+      background-color: #db4c3f;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      margin-top: 10px;
+
+      &:hover {
+        border-color: #b0281a;
+        background-color: #c53727;
+      }
+    }
+  }
+}
