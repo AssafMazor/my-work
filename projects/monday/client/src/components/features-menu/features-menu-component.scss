@@ -1,0 +1,111 @@
+.features-menu {
+  width: 66px;
+  height: 100%;
+  background-color: #292f4c;
+
+  .inside-features-menu {
+    height: 100%;
+
+    .items-col {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &.top-items-col {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+
+        .features-wrap {
+          height: 36px;
+          width: 36px;
+          display: flex;
+          justify-content: center;
+          margin-top: 8px;
+          align-items: center;
+          border-radius: 8px;
+          position: relative;
+          cursor: pointer;
+          outline: none;
+          color: white;
+
+          .monday-logo {
+            width: 40px;
+            height: 40px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            margin-top: -1px;
+          }
+
+          &.selected {
+            background-color: #ffffff4d !important;
+          }
+
+          &:hover {
+            background-color: #10131e;
+          }
+        }
+
+        .logo-icon-wrap {
+          height: 44px;
+          width: 44px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          margin-bottom: 16px;
+          justify-content: center;
+          cursor: pointer;
+          padding-top: 8px;
+
+          .logo-icon {
+            border: 2px solid #fff;
+            position: relative;
+            display: flex;
+            border-radius: 50%;
+            flex-shrink: 0;
+            height: 40px;
+            width: 40px;
+          }
+        }
+      }
+
+      .see-plans-warp {
+        position: fixed;
+        top: 43%;
+
+        .see-plans-btn {
+          background-color: #258750;
+          min-height: 100px;
+          width: 34px;
+          border-radius: 0 16px 16px 0;
+          cursor: pointer;
+          transition: background-color 200ms ease, width 200ms ease;
+          -webkit-user-select: none;
+          user-select: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 133px;
+
+          .text {
+            position: relative;
+            top: 3px;
+            font-size: 15px;
+            font-weight: 400;
+            color: #fff;
+            transform: rotate(-90deg);
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}
