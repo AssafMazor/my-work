@@ -9,6 +9,7 @@ export class DataService {
     private labelService:LabelsService  = LabelsService.Instance;
     private priorityService:PriorityService  = PriorityService.Instance;
     private sectionsService:SectionsService  = SectionsService.Instance;
+    public isdataNotLoaded:boolean = false;
 
     constructor(){ 
     }
@@ -18,7 +19,8 @@ export class DataService {
         this.sectionsService.laodData(()=>{
           this.priorityService.loadData(()=>{
             this.labelService.laodData(()=>{  
-              callback();  
+              this.isdataNotLoaded = false
+              callback();
             });  
           })
         });

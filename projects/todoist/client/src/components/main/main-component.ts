@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import { HeaderComponents } from "../header/header-component"
-import { MenuComponent } from "../menu/menu-component"
+import { HeaderComponents } from "../header/header-component";
+import { MenuComponent } from "../menu/menu-component";
 
 import "../main/main-component.scss"
 const mainTemplate = require('../main/main-component.hbs');

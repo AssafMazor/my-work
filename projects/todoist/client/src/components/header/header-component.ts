@@ -35,6 +35,9 @@ export class HeaderComponents {
       this.$el.find(".header .qiuck-add-task-wrap").on("click" , (e) => {
         this.onQiuckTaskAdd(e);
       })
+      this.$el.find(".sign-out-btn-wrap").on("click",(e)=>{
+        this.onSignOutBtnClick(e);
+      })
     }
 
     //----------------------------------
@@ -58,4 +61,8 @@ export class HeaderComponents {
         $(".add-task-dialog").removeClass("hide");
         $(".task-list-footer .add-task-wrap").addClass("hide");
     } 
+
+    onSignOutBtnClick(e){
+      window.localStorage.setItem('isLoggin','false');
+    }
 }

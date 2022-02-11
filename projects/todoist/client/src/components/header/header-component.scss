@@ -5,7 +5,7 @@
     padding-left: 42px;
     padding-right: 42px;
 
-    .btn-test{
+    .btn-test {
       background: red;
       padding: 20px;
       width: 72px;
@@ -15,6 +15,11 @@
       align-items: center;
       color: #fff;
       height: 42px;
+
+      .sign-out-btn-wrap {
+        text-decoration: none;
+        color: white;
+      }
 
       .features {
         display: flex;

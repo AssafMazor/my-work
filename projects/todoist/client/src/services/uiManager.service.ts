@@ -6,6 +6,8 @@ import { UpcomingComponent } from "../components/upcomingTasksList/upcoming-task
 import { TasksService } from '../services/tasks.service';
 import { FiltersLabelsComponent } from "../components/filters-labels/filters-labels-component";
 import { labelTasksListComponent } from "../components/label-tasks-list/label-tasks-list-component";
+import { SignUpComponent } from '../components/sign-up/sign-up-component';
+import { LoginComponent } from "../components/login/login-component";
 
 export class UiManagerService {
     private static _instance: UiManagerService;
@@ -55,10 +57,31 @@ export class UiManagerService {
         new FiltersLabelsComponent();
     }
 
+    //----------------------------------
+    // showLabelTasksList
+    //----------------------------------
+    
     showLabelTasksList(labelName:string){
         new labelTasksListComponent(labelName)
     }
 
+    //----------------------------------
+    // showLoginPage
+    //----------------------------------
+
+    showSignUpPage(){
+        debugger;
+        new SignUpComponent()
+    }
+
+    //----------------------------------
+    // showLoginPage
+    //----------------------------------
+
+    showLoginPage(){
+        new LoginComponent()
+    }
+    
     public static get Instance(){
         return this._instance || (this._instance = new this());
     }

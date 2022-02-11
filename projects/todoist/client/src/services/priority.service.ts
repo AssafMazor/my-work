@@ -11,16 +11,19 @@ export enum ePriorityColors {
 
 export class PriorityService {   
     private static _instance: PriorityService;
+
     eventEmitter = new EventEmitter();
     priorityList:IPriority[] = [];
+    userId:string|null;
 
     constructor() {
+        this.userId = window.localStorage.getItem('userId')
     }
 
     loadData(callback:Function) {
         $.ajax({
             type: "get",
-            url: 'http://localhost:3000/88/priorities',
+            url: `http://localhost:3000/${this.userId}/priorities`,
             success: (result) => {
                 debugger;
                 this.priorityList = result;

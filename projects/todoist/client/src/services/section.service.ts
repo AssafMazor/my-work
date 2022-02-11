@@ -1,3 +1,4 @@
+import $ from "jquery"
 import { ISection } from "../interfaces/section.interface"
 import {EventEmitter} from 'events';
 
@@ -6,15 +7,25 @@ export class SectionsService {
 
     eventEmitter:EventEmitter = new EventEmitter();
     sectionList:ISection[] = [];
+    userId:string|null;
 
     constructor() {
+        this.userId = window.localStorage.getItem('userId')
     }
     
-    laodData(callback?){
-        setTimeout(()=>{
-            this.sectionList = require("../data/section.json");
-            callback();
-        }, 1000)
+    laodData(callback){
+        $.ajax({
+            type: "get",
+            url: `http://localhost:3000/${this.userId}/sections`,
+            success: (result) => {
+                debugger;
+                this.sectionList = result
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
     }
 
     getSectionList(){

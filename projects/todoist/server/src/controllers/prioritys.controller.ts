@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { IPriorityItem  , IResPriority } from '@interfaces/prioritys.interface';
 import  PrioritiesService from '@services/priority.service';
 
-class PrioritysController {
+class PrioritiesController {
   public prioritiesService = new PrioritiesService();
 
   public getPriorities = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -15,4 +15,4 @@ class PrioritysController {
     }
   };
 }//
-export default PrioritysController;
+export default PrioritiesController;

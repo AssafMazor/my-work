@@ -10,9 +10,11 @@ export class LabelsService {
 
     eventEmitter:EventEmitter;
     labelList:ILabel[] = [];
+    userId:string|null;
 
     constructor() {
         this.eventEmitter = new EventEmitter();
+        this.userId = window.localStorage.getItem('userId')
     }
 
     //----------------------------------
@@ -22,7 +24,7 @@ export class LabelsService {
     laodData(callback){
         $.ajax({
             type: "get",
-            url: 'http://localhost:3000/88/labels',
+            url: `http://localhost:3000/${this.userId}/labels`,
             success: (result) => {
                 this.labelList = result;
                 callback();
@@ -81,7 +83,7 @@ export class LabelsService {
     createNewLabel(label:ILabel,callback:Function){
         $.ajax({
             type: "POST",
-            url: `http://localhost:3000/88/createLabel/${label.id}`,
+            url: `http://localhost:3000/${this.userId}/createLabel/${label.id}`,
             data:{
                 data:JSON.stringify(label)
             },
@@ -103,7 +105,7 @@ export class LabelsService {
     saveLabel(inputName:string,labelId:string,callback:Function){
         $.ajax({
             type: "PUT",
-            url: `http://localhost:3000/88/editLabel/${labelId}`,
+            url: `http://localhost:3000/${this.userId}/editLabel/${labelId}`,
             data:{
                 data:inputName
             },
@@ -125,7 +127,7 @@ export class LabelsService {
     deleteLabel(deletedLabelId:string,callback:Function){
         $.ajax({
             type: "DELETE",
-            url: `http://localhost:3000/88/deleteLabel/${deletedLabelId}`,
+            url: `http://localhost:3000/${this.userId}/deleteLabel/${deletedLabelId}`,
             success: (result) => {
                 debugger;
                 this.labelList = result.labels
@@ -158,7 +160,7 @@ export class LabelsService {
     toggleFavoriteLabel(labelId:string,callback:Function){
         $.ajax({
             type: "PUT",
-            url: `http://localhost:3000/88/toggleFavoriteLabel/${labelId}`,
+            url: `http://localhost:3000/${this.userId}/toggleFavoriteLabel/${labelId}`,
             success: (result) => {
                 debugger;
                 this.labelList = result

@@ -8,10 +8,30 @@ import { DataService } from "./services/data.service"
 const dataService:DataService = DataService.Instance
 const uiManagerService:UiManagerService = UiManagerService.Instance;
 
+const before = (router, cb)=>{
+    let isLoggin = window.localStorage.getItem('isLoggin') === "true"
+   if(!isLoggin){
+      router.navigate("login", {trigger: true});
+      $(".loader").addClass("hide");
+   } else{
+     if(!dataService.isdataNotLoaded){
+        dataService.loadData(() => {
+          $(".loader").addClass("hide");
+          new MainComponent();
+          cb();
+        })
+     }else{
+       cb();
+     }
+   }
+}
+
 var Router = Backbone.Router.extend ({
   routes: {
       "": "main",
      'inbox' : 'inbox',
+     'signUp':"signUp",
+     'login':'login',
      'today' : 'today',
      'upcoming' : 'upcoming',
      'filters-labels' : 'filtersLabels',
@@ -19,36 +39,48 @@ var Router = Backbone.Router.extend ({
      'label/:name' : 'label',
      'task/view/:id':"view",
   },
-
   main: function(){
+    before(this, ()=>{
       this.navigate("inbox", {trigger: true});
+    })
   },
   inbox: function() {
-    uiManagerService.showInbox()
+    before(this, ()=>{
+      uiManagerService.showInbox()
+    })
   },
   today: function() {
-    uiManagerService.showToday()
+    before(this, ()=>{
+      uiManagerService.showToday()
+    })
   },
   upcoming: function() {
-    uiManagerService.showUpcoming()
+    before(this, ()=>{
+      uiManagerService.showUpcoming()
+    })
   },
   filtersLabels: function() {
-    uiManagerService.showFillterAndLabels();
-  },
-  fillter: function(filterId:string) {
+    before(this, ()=>{
+      uiManagerService.showFillterAndLabels();
+    })
   },
   label: function(labelName:string) {
-    uiManagerService.showLabelTasksList(labelName);
+    before(this, ()=>{
+      uiManagerService.showLabelTasksList(labelName);
+    })
   },
   view:function(taskId:string){
-    uiManagerService.showViewTask(taskId)
+    before(this, ()=>{
+      uiManagerService.showViewTask(taskId)
+    })
+  },
+  signUp:function(){
+    uiManagerService.showSignUpPage()
+  },
+  login:function(){
+    uiManagerService.showLoginPage()
   },
 });
 
 var router = new Router();
-
-dataService.loadData(() => {
-  $(".loader").addClass("hide");
-  new MainComponent();
-  Backbone.history.start();  
-})
+Backbone.history.start();  

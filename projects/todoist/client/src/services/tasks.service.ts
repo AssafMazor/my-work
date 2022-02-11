@@ -9,9 +9,11 @@ export class TasksService {
 
     eventEmitter: EventEmitter;
     taskList: ITask[] = [];
+    userId:string | null;
 
     constructor() {
         this.eventEmitter = new EventEmitter();
+        this.userId = window.localStorage.getItem('userId')
     }
 
     //----------------------------------
@@ -21,7 +23,7 @@ export class TasksService {
     laodData(callback) {
         $.ajax({
             type: "get",
-            url: 'http://localhost:3000/88/tasks',
+            url: `http://localhost:3000/${this.userId}/tasks`,
             success: (result) => {
                 this.taskList = result;
                 callback()
@@ -158,7 +160,7 @@ export class TasksService {
     addTaskLabels(taskId: string, choosenLabels: string[], callback: Function) {
         $.ajax({
             type: "POST",
-            url: `http://localhost:3000/88/addLabel/${taskId}`,
+            url: `http://localhost:3000/${this.userId}/addLabel/${taskId}`,
             data: {
                 "labels": JSON.stringify(choosenLabels)
             },
@@ -199,7 +201,7 @@ export class TasksService {
     addNewTask(newTask: ITask, callback: Function) {
         $.ajax({
             type: "POST",
-            url: `http://localhost:3000/88/addTask/${newTask.id}`,
+            url: `http://localhost:3000/${this.userId}/addTask/${newTask.id}`,
             data: {
                 "data": JSON.stringify(newTask.data)
             },
@@ -221,7 +223,7 @@ export class TasksService {
     addSubTask(newSubTask: ITask, task: ITask, callback: Function) {
         $.ajax({
             type: "POST",
-            url: `http://localhost:3000/88/subTask/${newSubTask.id}`,
+            url: `http://localhost:3000/${this.userId}/subTask/${newSubTask.id}`,
             data: {
                 "task": JSON.stringify(newSubTask)
             },
@@ -276,7 +278,7 @@ export class TasksService {
     duplicateTask(task: ITask, callback: Function) {
         $.ajax({
             type: "POST",
-            url: `http://localhost:3000/88/duplicateTask/${task.id}`,
+            url: `http://localhost:3000/${this.userId}/duplicateTask/${task.id}`,
             data: {
                 "data": JSON.stringify(task)
             },
@@ -298,7 +300,7 @@ export class TasksService {
     editTask(editedTask: ITask, callback: Function) {
         $.ajax({
             type: "PUT",
-            url: `http://localhost:3000/88/editTask/${editedTask.id}`,
+            url: `http://localhost:3000/${this.userId}/editTask/${editedTask.id}`,
             data: {
                 "data": JSON.stringify(editedTask)
             },
@@ -320,7 +322,7 @@ export class TasksService {
     finishTask(task: ITask, callback: Function) {
         $.ajax({
             type: "PUT",
-            url: `http://localhost:3000/88/finishTask/${task.id}`,
+            url: `http://localhost:3000/${this.userId}/finishTask/${task.id}`,
             data:{
                 data:task
             },
@@ -344,7 +346,7 @@ export class TasksService {
         if(task){
             $.ajax({
                 type: "DELETE",
-                url: `http://localhost:3000/88/deleteTask/${taskId}`,
+                url: `http://localhost:3000/${this.userId}/deleteTask/${taskId}`,
                 data:{
                     data:task.data.parentId
                 },
