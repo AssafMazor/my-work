@@ -1,6 +1,6 @@
 import $ from "jquery";
 import {EventEmitter} from 'events';
-import { ITask } from "../interfaces/task.interface";
+import { IItem } from "../interfaces/item.interface";
 
 export enum eStatusColor {
     'Working on it' = 1,
@@ -9,9 +9,9 @@ export enum eStatusColor {
     '' = 4
  };
 
-export class TaskService {
-    private static _instance: TaskService;
-    private taskList:ITask[] = [];
+export class ItemService {
+    private static _instance: ItemService;
+    private itemList:IItem[] = [];
     public eventEmitter:EventEmitter = new EventEmitter();
 
     constructor(){
@@ -24,9 +24,9 @@ export class TaskService {
     laodData(callback:Function){
         $.ajax({
             type: "GET",
-            url: `http://localhost:3000/88/1/tasks`,
+            url: `http://localhost:3000/88/1/items`,
             success: (result) => {
-                this.taskList = result;
+                this.itemList = result;
                 callback();
             },
             error: () => {
@@ -39,9 +39,9 @@ export class TaskService {
     // laodData
     //---------------------------------
 
-    getTask(taskId:string):ITask{
-        let filtered = this.taskList.filter((task)=>{
-            return task.id === taskId
+    getTask(taskId:string):IItem{
+        let filtered = this.itemList.filter((item)=>{
+            return item.id === taskId
         })[0]
         return filtered
     }
@@ -50,20 +50,20 @@ export class TaskService {
     // getTasks
     //---------------------------------
 
-    getTasks(){
-        let filtered = this.taskList.filter((task)=>{
-            return task.data.parentId === "-1"
+    getItems(){
+        let filtered = this.itemList.filter((item)=>{
+            return item.data.parentId === "-1"
         })
         return filtered;
     }
 
     //--------------------------------
-    // getTasksByGroupId
+    // getItemsByGroupId
     //---------------------------------
 
-    getTasksByGroupId(groupId:string){
-        let filter = this.taskList.filter((task)=>{
-            return task.data.groupId === groupId
+    getItemsByGroupId(groupId:string){
+        let filter = this.itemList.filter((item)=>{
+            return item.data.groupId === groupId
         })
         return filter
     }
@@ -77,15 +77,15 @@ export class TaskService {
     }
 
     //--------------------------------
-    // addTask
+    // addItem
     //---------------------------------
 
-    addTask(taskName:string,groupId:string,callback:Function){
-        let newTask:ITask = {
+    addItem(itemName:string,groupId:string,callback:Function){
+        let newItem:IItem = {
             id:new Date().getTime().toString(),
             data:{
                 children:[],
-                name:taskName,
+                name:itemName,
                 statusId:4,
                 members:[],
                 date:new Date().getTime(),
@@ -95,13 +95,13 @@ export class TaskService {
         }
         $.ajax({
             type: "POST",
-            url: `http://localhost:3000/88/1/addTask/${new Date().getTime().toString()}`,
+            url: `http://localhost:3000/88/1/addItem/${new Date().getTime().toString()}`,
             data: {
-                "data":JSON.stringify(newTask),
+                "data":JSON.stringify(newItem),
             },
             success: (result) => {
-                this.taskList = result
-                this.eventEmitter.emit("tasks-change");
+                this.itemList = result
+                this.eventEmitter.emit("items-change");
                 callback();
             },
             error: () => {
@@ -114,8 +114,9 @@ export class TaskService {
     // addSubTask
     //---------------------------------
 
-    addSubTask(parent:ITask,callback:Function){
-        let newSubTask:ITask = {
+    addSubItem(parent:IItem,callback:Function){
+        debugger;
+        let newSubItem:IItem = {
             id:new Date().getTime().toString(),
             data:{
                 children:[],
@@ -129,13 +130,13 @@ export class TaskService {
         }
         $.ajax({
             type: "POST",
-            url: `http://localhost:3000/88/1/addSubTask/${newSubTask.id}`,
+            url: `http://localhost:3000/88/1/addSubItem/${newSubItem.id}`,
             data: {
-                "data":JSON.stringify(newSubTask),
+                "data":JSON.stringify(newSubItem),
             },
             success: (result) => {
-                this.taskList = result
-                this.eventEmitter.emit("tasks-change");
+                this.itemList = result
+                this.eventEmitter.emit("items-change");
                 callback();
             },
             error: () => {

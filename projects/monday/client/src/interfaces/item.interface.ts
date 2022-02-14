@@ -1,4 +1,4 @@
-export interface ITask{
+export interface IItem{
     id:string,
     data:{
       children:string[],

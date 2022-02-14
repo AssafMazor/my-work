@@ -1,6 +1,6 @@
 import $ from "jquery"
 import { taskListItemComponent } from "../board/group/group-item/group-item-row/group-item-row-component";
-import { TaskService } from "../../services/task.service";
+import { ItemService } from "../../services/item.service";
 import { GroupService } from "../../services/group.service";
 
 import "../header/header-component.scss"
@@ -8,7 +8,7 @@ const headerTemplate = require('../header/header-component.hbs');
 
 export class HeaderComponent {
     private $el:any;
-    private taskService:TaskService = TaskService.Instance
+    private ItemService:ItemService = ItemService.Instance
     private groupService:GroupService = GroupService.Instance
 
     constructor(){
@@ -31,6 +31,6 @@ export class HeaderComponent {
     onAddTaskItemClick(e){
        let groupId = this.groupService.getGroupList()[0].id;
 
-       this.taskService.addTask("New task",groupId,(()=>{}));
+       this.ItemService.addItem("New task",groupId,(()=>{}));
     }
 }

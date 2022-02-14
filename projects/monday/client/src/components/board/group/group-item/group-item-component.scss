@@ -1,0 +1,87 @@
+.group-item {
+  width: 100%;
+
+  .item-item {
+    width: 100%;
+  }
+
+  .sub-item-list-warp {
+    padding-top: 16px;
+    padding-bottom: 36px;
+    padding-left: 16px;
+
+    .group-header {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .group-name-wrap {
+        width: 435px;
+        padding-left: 17px;
+
+        .group-name {
+          color: #ffcf12;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: 14px;
+          font-weight: 600;
+          font-family: "Roboto", sans-serif;
+          width: 100px;
+        }
+      }
+
+      .features-items-row {
+        display: flex;
+        align-items: center;
+
+        .features-item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 40px;
+
+          .title {
+            font-size: 14px;
+            color: #323338;
+          }
+        }
+
+        .sub-item-wrap {
+          width: 75px;
+        }
+
+        .status-item-wrap {
+          width: 140px;
+        }
+
+        .members-item-wrap {
+          width: 98px;
+        }
+
+        .date-item-wrap {
+          width: 140px;
+        }
+
+        .timeline-items-wrap {
+          width: 188px;
+        }
+
+        .progress-tracking-item-wrap {
+          width: 140px;
+        }
+      }
+
+      .add-col-btn-wrap {
+        width: 18px;
+        height: 18px;
+        border: 1px solid black;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        justify-content: center;
+      }
+    }
+  }
+}
