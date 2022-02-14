@@ -3,7 +3,7 @@ export interface ITask{
     data:{
       children:string[],
       name:string,
-      status:number,
+      statusId:number,
       members:string[],
       date:number,
       groupId:string,

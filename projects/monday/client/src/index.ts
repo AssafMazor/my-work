@@ -1,5 +1,5 @@
 import './style.scss';
-import $ from "jquery"
+import $, { data } from "jquery"
 import { MainComponent } from './components/main/main-component';
 import Backbone from "backbone";
 import { UiManagerService } from "./services/uiManager.service";
@@ -20,5 +20,8 @@ var Router = Backbone.Router.extend ({
   
 var router = new Router();
 
-new MainComponent();
-Backbone.history.start();  
+dataService.loadData(()=>{
+    new MainComponent();
+    Backbone.history.start();      
+})
+

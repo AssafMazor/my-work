@@ -1,7 +1,7 @@
 import $ from "jquery"
 import { FeaturesMenuComponent } from "../features-menu/features-menu-component";
 import { HeaderComponent } from "../header/header-component";
-import { TaskListComponent } from "../task-list/task-list-component";
+import { boardComponent } from "../board/board-component";
 import { WorkspaceMenuComponent } from "../workspace-menu/workspace-menu-component";
 
 import "../main/main-component.scss"
@@ -31,7 +31,7 @@ export class MainComponent {
 
     renderComponents(){
         new WorkspaceMenuComponent();
-        new TaskListComponent();
+        new boardComponent();
         new HeaderComponent();
         new FeaturesMenuComponent();
     }

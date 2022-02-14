@@ -5,6 +5,11 @@ export class boardService {
 
     constructor(){
     }
+
+    laodData(callback){
+        callback()
+    }
+
     public static get Instance(){
         return this._instance || (this._instance = new this());
     }

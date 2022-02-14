@@ -48,7 +48,7 @@ export class TaskEditorComponent {
     private parentSectionId:string;
     private originalTask:ITask;
 
-    constructor(params:IEditorParams){
+      constructor(params:IEditorParams){
         this.isAddSubTask = params.isAddSubTask
         this.parent = params.parent
         this.choosenPriority = params.task.data.priority;
