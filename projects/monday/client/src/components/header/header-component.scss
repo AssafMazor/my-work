@@ -21,6 +21,7 @@
 
         &:hover {
           background-color: #e6e9ef;
+          border-radius: 2px;
         }
       }
 
@@ -182,7 +183,7 @@
         }
       }
 
-      .item {
+      .header-item {
         max-width: 180px;
         padding: 8px 24px 8px 12px;
         height: 35px;
@@ -310,7 +311,7 @@
       }
     }
 
-    .new-task-btn-wrap {
+    .new-item-btn-wrap {
       width: 103px;
       height: 32px;
       background-color: #0073ea;

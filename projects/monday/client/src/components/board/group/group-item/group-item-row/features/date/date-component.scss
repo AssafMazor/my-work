@@ -1,0 +1,176 @@
+.date-dialog {
+  background: #ffffff;
+  box-shadow: 0px 8px 16px 0px #0000002b;
+  border: 1px solid;
+  border-color: #e6e9ef;
+  left: 679px;
+  width: 327px;
+  top: 46px;
+  position: absolute;
+  z-index: 3;
+  border-radius: 4px;
+
+  .popper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    bottom: 0;
+  }
+
+  .inside-date-dialog {
+    z-index: 100;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    padding: 0 13px;
+    height: 100%;
+
+    .date-dialog-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .title {
+        margin-top: 5px;
+        color: #0073ea;
+        padding: 0 16px;
+        height: 36px;
+        border-radius: 18px;
+        line-height: 36px;
+        cursor: pointer;
+        font-family: "Roboto", sans-serif;
+        padding-right: 22px;
+      }
+    }
+
+    .flatpickr-calendar {
+      box-shadow: none;
+
+      .flatpickr-months {
+        .flatpickr-month {
+          .flatpickr-current-month {
+            .flatpickr-monthDropdown-months {
+              font-weight: 500;
+
+              .flatpickr-monthDropdown-month {
+                color: red;
+              }
+            }
+            .numInputWrapper {
+              cursor: context-menu;
+
+              &:hover {
+                background-color: #fff;
+              }
+              .numInput {
+                font-weight: 500;
+              }
+
+              .arrowUp {
+                display: none;
+              }
+
+              .arrowDown {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+
+      .flatpickr-innerContainer {
+        .flatpickr-rContainer {
+          .flatpickr-weekdays {
+            .flatpickr-weekdaycontainer {
+              .flatpickr-weekday {
+                color: #676879;
+                font-weight: 400;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .add-time-row {
+      display: flex;
+      min-height: 40px;
+      color: #323338;
+      border-top: 1px solid #c5c7d0;
+      margin: 8px 5px 0px 15px;
+      padding: 8px 7px;
+      align-items: center;
+
+      .text {
+        font-size: 14px;
+        font-weight: 400;
+        padding-left: 11px;
+      }
+
+      .toggle-time-btn {
+        background-color: #c5c7d0;
+        margin: 0 8px;
+        position: relative;
+        height: 24px;
+        width: 41px;
+        cursor: pointer;
+        border-radius: 100px;
+
+        &.active {
+          background-color: #0073ea;
+
+          .toggle-ball {
+            left: 20px;
+          }
+        }
+
+        .toggle-ball {
+          position: absolute;
+          left: 3px;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          top: calc(50% - 9px);
+          background-color: #ffffff;
+          transition: left 100ms cubic-bezier(0, 0, 0.35, 1);
+        }
+      }
+
+      .time-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+
+        .time-wrap {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 40px;
+          border: 1px solid #c4c4c4;
+          border-radius: 4px;
+          padding: 0 12px;
+          font-size: 14px;
+          box-sizing: border-box;
+          width: 119px;
+
+          .clock-icon {
+            width: 17px;
+            margin-right: 1px;
+          }
+
+          .time-input {
+            width: 70px;
+            outline: none;
+            border: none;
+            height: 60%;
+            background: none;
+            font-size: 12px;
+            color: #727272;
+          }
+        }
+      }
+    }
+  }
+}

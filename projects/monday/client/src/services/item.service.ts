@@ -7,7 +7,14 @@ export enum eStatusColor {
     'Stuck' = 2,
     'Done' = 3,
     '' = 4
- };
+};
+
+export enum eStatusClassName {
+    'working' = 1,
+    'stuck' = 2,
+    'done' = 3,
+    'none' = 4
+};
 
 export class ItemService {
     private static _instance: ItemService;
@@ -50,7 +57,7 @@ export class ItemService {
     // getTasks
     //---------------------------------
 
-    getItems(){
+    getItems():IItem[]{
         let filtered = this.itemList.filter((item)=>{
             return item.data.parentId === "-1"
         })
@@ -61,19 +68,51 @@ export class ItemService {
     // getItemsByGroupId
     //---------------------------------
 
-    getItemsByGroupId(groupId:string){
-        let filter = this.itemList.filter((item)=>{
-            return item.data.groupId === groupId
+    getItemsByGroupId(groupId:string):IItem[]{
+        let filtered = this.itemList.filter((item)=>{
+            return item.data.groupId === groupId && item.data.parentId === "-1"
         })
-        return filter
+        return filtered
     }
 
     //--------------------------------
     // getStatusNameById
     //---------------------------------
 
-    getStatusNameById(statusId:number){
+    getStatusNameById(statusId:number):string{
         return Object.keys(eStatusColor)[Object.values(eStatusColor).indexOf(statusId)];
+    }
+
+    //--------------------------------
+    // getItemsArrByStatusId
+    //---------------------------------
+
+    getItemsArrByStatusId(groupId:string,itemsList:IItem[]){
+        return {
+            working:this.getItemsByStatusId(1,groupId) / itemsList.length,
+            stack:this.getItemsByStatusId(2,groupId) / itemsList.length,
+            done:this.getItemsByStatusId(3,groupId) / itemsList.length,
+            none:this.getItemsByStatusId(4,groupId) / itemsList.length,
+        }
+    }
+
+    //--------------------------------
+    // getTasksByStatusId
+    //---------------------------------
+
+    getItemsByStatusId(statusId:number,groupId:string):number{
+        let filtered = this.itemList.filter((item)=>{
+           return item.data.statusId === statusId && item.data.groupId === groupId && item.data.parentId === "-1"
+        })
+        return filtered.length
+    }
+
+    //--------------------------------
+    // getStatusClassNameById
+    //---------------------------------
+
+    getStatusClassNameById(statusId:number):string{
+        return Object.keys(eStatusClassName)[Object.values(eStatusClassName).indexOf(statusId)];
     }
 
     //--------------------------------
@@ -82,13 +121,14 @@ export class ItemService {
 
     addItem(itemName:string,groupId:string,callback:Function){
         let newItem:IItem = {
+            boardId:"1",
             id:new Date().getTime().toString(),
             data:{
                 children:[],
                 name:itemName,
                 statusId:4,
                 members:[],
-                date:new Date().getTime(),
+                date:new Date().setHours(0,0,0,0),
                 groupId:groupId,
                 parentId:"-1",
             }
@@ -101,7 +141,42 @@ export class ItemService {
             },
             success: (result) => {
                 this.itemList = result
-                this.eventEmitter.emit("items-change");
+                this.eventEmitter.emit("items-change",groupId);
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
+    }
+
+    //--------------------------------
+    // addSubItem
+    //---------------------------------
+
+    addSubItem(parent:IItem,callback:Function){
+        let newSubItem:IItem = {
+            boardId:"1",
+            id:new Date().getTime().toString(),
+            data:{
+                children:[],
+                name:"Sub item",
+                statusId:4,
+                members:[],
+                date:new Date().setHours(0,0,0,0),
+                groupId:parent.data.groupId,
+                parentId:parent.id,
+            }
+        }
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:3000/88/${newSubItem.boardId}/addSubItem/${newSubItem.id}`,
+            data: {
+                "data":JSON.stringify(newSubItem),
+            },
+            success: (result) => {
+                this.itemList = result
+                this.eventEmitter.emit("items-change",newSubItem.data.groupId);
                 callback();
             },
             error: () => {
@@ -114,29 +189,95 @@ export class ItemService {
     // addSubTask
     //---------------------------------
 
-    addSubItem(parent:IItem,callback:Function){
-        debugger;
-        let newSubItem:IItem = {
-            id:new Date().getTime().toString(),
-            data:{
-                children:[],
-                name:"Sub item",
-                statusId:4,
-                members:[],
-                date:new Date().getTime(),
-                groupId:parent.data.groupId,
-                parentId:parent.id,
-            }
-        }
+    editItemStatusId(item:IItem,statusId:number,callback:Function){
+        console.log(item)
         $.ajax({
-            type: "POST",
-            url: `http://localhost:3000/88/1/addSubItem/${newSubItem.id}`,
+            type: "PUT",
+            url: `http://localhost:3000/88/1/status/${item.id}`,
             data: {
-                "data":JSON.stringify(newSubItem),
+                "data":statusId.toString(),
             },
             success: (result) => {
                 this.itemList = result
-                this.eventEmitter.emit("items-change");
+                this.eventEmitter.emit("items-change", item.data.groupId);
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
+    }
+
+    //--------------------------------
+    // editItemDateId
+    //---------------------------------
+
+    editItemDateId(selectedDatesNumber:number,item:IItem,callback:Function){
+        $.ajax({
+            type: "PUT",
+            url: `http://localhost:3000/88/1/date/${item.id}`,
+            data: {
+                "data":selectedDatesNumber.toString(),
+            },
+            success: (result) => {
+                this.itemList = result
+                this.eventEmitter.emit("items-change",item.data.groupId);
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
+    }
+
+    //--------------------------------
+    // editItemDateId
+    //---------------------------------
+
+    getDoneItems(groupId:string){
+        let filterd = this.itemList.filter((item)=>{
+            return item.data.statusId === 3 && item.data.groupId === groupId && item.data.parentId === "-1"
+        });
+        return filterd
+    }
+
+    //--------------------------------
+    // deleteItem
+    //---------------------------------
+
+    deleteItem(item:IItem,callback:Function){
+        $.ajax({
+            type: "DELETE",
+            url: `http://localhost:3000/88/1/delete/${item.id}`,
+            data: {
+                "data":JSON.stringify(item),
+            },
+            success: (result) => {
+                this.itemList = result
+                this.eventEmitter.emit("items-change",item.data.groupId);
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
+    }
+
+    //--------------------------------
+    // duplicateItem
+    //---------------------------------
+
+    duplicateItem(item:IItem,callback:Function){
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:3000/88/1/duplicateItem/${item.id}`,
+            data: {
+                "data":JSON.stringify(item),
+            },
+            success: (result) => {
+                debugger;
+                this.itemList = result
+                this.eventEmitter.emit("items-change",item.data.groupId);
                 callback();
             },
             error: () => {

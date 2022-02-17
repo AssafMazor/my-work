@@ -156,4 +156,92 @@
       }
     }
   }
+
+  .total-items-features {
+    width: 1217px;
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+    height: 36px;
+
+    .total-progress-tracking-item-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+
+      .total-progress-tracking-item-wrap {
+        width: 140px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .total-progress-warp {
+          height: 22px;
+          line-height: 22px;
+          border-radius: 2px;
+          border: 2px solid;
+          border-color: #258750;
+          overflow: hidden;
+          flex: 1 1 auto;
+          margin-left: 8px;
+          margin-right: 8px;
+
+          .total-progress-row {
+            float: left;
+            height: 100%;
+            background-color: #258750;
+            transition: 0.3s all ease-in-out;
+            width: 0;
+          }
+        }
+
+        .total-progress-percent {
+          width: 40px;
+          color: #666;
+          flex: 0 0 30px;
+          margin-right: 8px;
+          text-align: right;
+          font-size: 13px;
+          font-family: "Roboto", sans-serif;
+        }
+      }
+    }
+
+    .status-warp {
+      width: 1392px;
+      height: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .status-color-row {
+        width: 139px;
+        display: flex;
+        height: 100%;
+        align-items: center;
+
+        .status-color {
+          height: 24px;
+
+          &.working {
+            background-color: #fdab3d;
+          }
+
+          &.stack {
+            background-color: #e2445c;
+          }
+
+          &.done {
+            background-color: #00c875;
+          }
+
+          &.none {
+            background-color: #c4c4c4;
+          }
+        }
+      }
+    }
+  }
 }

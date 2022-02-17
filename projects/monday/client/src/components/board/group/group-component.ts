@@ -7,6 +7,7 @@ import { IItem } from "../../../interfaces/item.interface";
 import { GroupItemComponent } from "./group-item/group-item-component";
 
 import "../group/group-component.scss"
+import { precompile } from "handlebars";
 const groupTemplate = require('../group/group-component.hbs');
 
 export class GroupComponent {
@@ -24,9 +25,13 @@ export class GroupComponent {
         this.$host = $host
         this.renderHtml();
 
-        this.itemService.eventEmitter.on('items-change', () => {
-            this.itemsList = this.itemService.getItems();
-            this.renderTasks()
+        this.itemService.eventEmitter.on('items-change', (groupId:string) => {
+            if(this.group.id === groupId){
+                this.itemsList = this.itemService.getItemsByGroupId(this.group.id);
+                this.renderTasks();
+                this.updateDoneItemProgressBar();
+                this.updateStatusWidth();
+            }
         });
     }
 
@@ -37,11 +42,12 @@ export class GroupComponent {
     renderHtml(){
         this.itemsList = this.itemService.getItemsByGroupId(this.group.id);
 
-        this.$el =  $(groupTemplate({
+        this.$el = $(groupTemplate({
             itemsList:this.itemsList,
-            group:this.group
+            group:this.group,
+            totalProgress:this.getDoneItemsPercent(),
+            totalStatusWidthObj:this.getItemsStatusWidth(),
         }));
-
         this.$host.append(this.$el);
         this.renderTasks();
         this.initEvents()
@@ -56,7 +62,7 @@ export class GroupComponent {
             this.onAddTaskItemClick(e);
         })
         this.$el.find(".add-item-name").on("input",(e)=>{
-            this.onAddTaskNameInput(e)
+            this.onAddItemNameInput(e)
         })
     }
 
@@ -64,10 +70,10 @@ export class GroupComponent {
     // onAddTaskNameInput
     //---------------------------------
 
-    onAddTaskNameInput(e){
+    onAddItemNameInput(e){
         this.$el.find(".add-item-btn").removeClass("hide");
-        
-        if(this.$el.find(".add-taitemsk-name").val() !== ""){
+
+        if(this.$el.find(".add-item-name").val() !== ""){
             this.$el.find(".add-item-btn").removeClass("disable");
         }else {
             this.$el.find(".add-item-btn").addClass("disable");
@@ -81,6 +87,7 @@ export class GroupComponent {
     onAddTaskItemClick(e){
         this.itemService.addItem(this.$el.find(".add-item-name").val(), this.group.id,(()=>{}));
         this.$el.find(".add-item-name").val("");
+        this.$el.find(".add-item-btn").addClass("disable");
     }
 
     //------------------------------
@@ -95,10 +102,60 @@ export class GroupComponent {
         })
     }
 
-    //------------------------------
-    // renderTask
+    //-----------------------------
+    // getDoneItemsPercent
     //-----------------------------
 
-    renderTask(item:IItem){  
+    getDoneItemsPercent(){
+        let doneItems = this.itemService.getDoneItems(this.group.id);
+        let percent = this.itemsList.length / doneItems.length
+        percent = Math.trunc( 100 / percent );
+
+        if(isNaN(percent)){
+            return "0%"
+        }else {
+            return percent + "%"
+        }
+    }
+
+    //-----------------------------
+    // updateStatusWidth
+    //-----------------------------
+
+    updateStatusWidth(){
+        let statusWidthObj:object = this.getItemsStatusWidth();
+
+        this.$el.find(".status-color.working").width(statusWidthObj["workingWidth"] + "%");
+        this.$el.find(".status-color.stack").width(statusWidthObj["stackWidth"] + "%");
+        this.$el.find(".status-color.done").width(statusWidthObj["doneWidth"] + "%");
+        this.$el.find(".status-color.none").width(statusWidthObj["noneWidth"] + "%")
+    }
+
+    //-----------------------------
+    // getItemsStatusWidth
+    //-----------------------------
+
+    getItemsStatusWidth():object{
+        let statusList = this.itemService.getItemsArrByStatusId(this.group.id,this.itemService.getItemsByGroupId(this.group.id));
+        let total = statusList.working + statusList.stack + statusList.done + statusList.none
+        debugger;
+
+        let obj =  {
+            workingWidth:(statusList.working / total) *  100,
+            stackWidth:(statusList.stack / total) *  100,
+            doneWidth:( statusList.done / total) *  100,
+            noneWidth:(statusList.none / total) *  100,
+        }
+        return obj
+    }
+
+    //-----------------------------
+    // updateDoneItemProgressBar
+    //-----------------------------
+    
+    updateDoneItemProgressBar(){
+        let percent = this.getDoneItemsPercent();
+        this.$el.find(".total-progress-row").css("width",percent);
+        this.$el.find(".total-progress-percent").html(percent);
     }
 }

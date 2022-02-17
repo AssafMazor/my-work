@@ -23,7 +23,7 @@ export class HeaderComponent {
     }
 
     initEvents(){
-        this.$el.find(".new-task-btn-wrap .text").on("click",(e)=>{
+        this.$el.find(".new-item-btn-wrap .text").on("click",(e)=>{
             this.onAddTaskItemClick(e)
         })
     }
@@ -31,6 +31,6 @@ export class HeaderComponent {
     onAddTaskItemClick(e){
        let groupId = this.groupService.getGroupList()[0].id;
 
-       this.ItemService.addItem("New task",groupId,(()=>{}));
+       this.ItemService.addItem("New item",groupId,(()=>{}));
     }
 }

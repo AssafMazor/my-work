@@ -17,7 +17,13 @@ export class CommonService {
     //-------------------------
 
     getDate(sentTime:any):string{
-      return sentTime.format('D MMM');
+      let start = moment(sentTime).startOf('day').valueOf();
+
+      if(new Date(sentTime).getTime() === start){
+        return sentTime.format('D MMM');
+      }else {
+        return sentTime.format('D MMM , hh:mm');
+      }
     }
     
     public static get Instance(){

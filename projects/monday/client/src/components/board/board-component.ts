@@ -46,7 +46,7 @@ export class boardComponent {
     renderGroups(){
         this.$el.find(".group-list").html("");
 
-        this.groupList.forEach((group)=>{
+        this.groupList.forEach((group:IGroup)=>{
             new GroupComponent(group,this,this.$el.find(".group-list"));
         })
     }

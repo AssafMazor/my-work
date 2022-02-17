@@ -45,7 +45,31 @@
             </div>
             <input type="text" class="add-item-name" placeholder="+ Add item">
 
-            <div class="add-tasitemk-btn hide disable">Add
+            <div class="add-item-btn hide disable">Add
+            </div>
+        </div>
+    </div>  
+    <div class="total-items-features">
+        <div class="status-warp">
+            <div class="status-color-row">
+                <div class="status-color working" style="width: {{totalStatusWidthObj.workingWidth}}%;">
+                </div>
+                <div class="status-color stack" style="width: {{totalStatusWidthObj.stackWidth}}%;">
+                </div>
+                <div class="status-color done" style="width: {{totalStatusWidthObj.doneWidth}}%;">
+                </div>
+                <div class="status-color none" style="width: {{totalStatusWidthObj.noneWidth}}%;">
+                </div>
+            </div>
+        </div>
+        <div class="total-progress-tracking-item-wrapper">
+            <div class="total-progress-tracking-item-wrap">
+                <div class="total-progress-warp">
+                    <div class="total-progress-row" style="width: {{totalProgress}};">
+                    </div>
+                </div>
+                <div class="total-progress-percent" >{{totalProgress}}
+                </div>
             </div>
         </div>
     </div>
