@@ -2,8 +2,8 @@ import  $ from "jquery";
 import moment from "moment";
 
 export interface IPosition{
-    btnClass:string,
-    dialogClass: string
+  btnClass:string,
+  dialogClass: string
 }
 
 export class CommonService {

@@ -18,7 +18,6 @@ export class SectionsService {
             type: "get",
             url: `http://localhost:3000/${this.userId}/sections`,
             success: (result) => {
-                debugger;
                 this.sectionList = result
                 callback();
             },

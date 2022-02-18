@@ -2,6 +2,7 @@
   padding-bottom: 40px;
   padding-top: 18px;
   padding-left: 16px;
+  position: relative;
 
   .group-header {
     display: flex;
@@ -10,7 +11,7 @@
 
     .bottom-arrow-btn-wrap {
       position: absolute;
-      left: 341px;
+      left: 11px;
       border-radius: 50%;
       width: 16px;
       height: 16px;
@@ -18,22 +19,57 @@
       justify-content: center;
       align-items: center;
       font-size: 14px;
-      border: 1px solid;
+      border: 1px solid #ffcb00;
       transition: color 0.1s ease, background-color 0.1s ease, opacity 0.1s ease;
       background-color: #ffcb00;
-      border-color: #ffcb00;
-      margin-right: 6px;
+
+      &.active {
+        background-color: #c9e1fb;
+        border: 1px solid #c9e1fb;
+        color: black;
+
+        .bottom-arrow-btn {
+          color: #4774e7;
+        }
+      }
+
+      .bottom-arrow-btn {
+        color: white;
+      }
     }
 
-    .group-name-wrap {
+    .group-name-wrapper {
       width: 435px;
       padding-left: 17px;
-      .group-name {
-        color: #ffcb00;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 100px;
+
+      .group-name-wrap {
+        display: flex;
+        align-items: center;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // white-space: nowrap;
+
+        .group-name {
+          color: #ffcb00;
+          display: flex;
+          align-items: center;
+          padding: 5px;
+          border: none;
+          outline: none;
+          font-size: 18px;
+
+          &:hover {
+            cursor: text;
+            border: 1px dashed;
+            border-color: #c5c7d0;
+          }
+
+          &:focus {
+            width: 100%;
+            cursor: text;
+            border: 1px dashed #c5c7d0;
+          }
+        }
       }
     }
 
@@ -88,6 +124,48 @@
       align-items: center;
       margin-left: 10px;
       justify-content: center;
+    }
+  }
+
+  .group-settings-dialog {
+    width: 264px;
+    transition: all 50ms ease-in;
+    transition-property: opacity, width;
+    position: absolute;
+    height: 108px;
+    border-radius: 8px;
+    color: #323338;
+    box-shadow: 0 4px 17px 6px #0000001a;
+    background-color: #fff;
+    z-index: 2;
+    top: 49px;
+    left: 14px;
+
+    .inside {
+      padding: 6px;
+
+      .grou-settings-item {
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: #323338;
+        font-weight: 400;
+        cursor: pointer;
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+        font-family: "Roboto", sans-serif;
+
+        &:hover {
+          background-color: #e6e9ef;
+        }
+
+        .group-settings-icon {
+          color: #676879;
+          margin-right: 8px;
+          width: 16px;
+          height: 24px;
+        }
+      }
     }
   }
 

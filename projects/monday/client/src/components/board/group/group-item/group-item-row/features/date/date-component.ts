@@ -8,7 +8,7 @@ import { IItem } from "../../../../../../../interfaces/item.interface";
 import "./date-component.scss"
 const dateTemplate = require('./date-component.hbs');
 
-export class dateDialogComponent {
+export class DateDialogComponent {
     private $el:any;
     private parent:any;
     private itemService:ItemService = ItemService.Instance

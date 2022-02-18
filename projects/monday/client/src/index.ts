@@ -1,5 +1,5 @@
 import './style.scss';
-import $, { data } from "jquery"
+import $ from "jquery";
 import { MainComponent } from './components/main/main-component';
 import Backbone from "backbone";
 import { UiManagerService } from "./services/uiManager.service";

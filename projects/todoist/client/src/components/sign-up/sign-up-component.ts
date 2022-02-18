@@ -52,7 +52,6 @@ export class SignUpComponent {
             data:JSON.stringify(newUser),
           },
           success: (result) => {
-            debugger;
             window.localStorage.setItem('userId',result.id);
             window.localStorage.setItem('isLoggin','true');
             window.location.replace('http://localhost:4000');

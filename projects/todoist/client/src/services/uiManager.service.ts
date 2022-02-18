@@ -70,7 +70,6 @@ export class UiManagerService {
     //----------------------------------
 
     showSignUpPage(){
-        debugger;
         new SignUpComponent()
     }
 

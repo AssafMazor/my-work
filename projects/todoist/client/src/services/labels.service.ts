@@ -129,7 +129,6 @@ export class LabelsService {
             type: "DELETE",
             url: `http://localhost:3000/${this.userId}/deleteLabel/${deletedLabelId}`,
             success: (result) => {
-                debugger;
                 this.labelList = result.labels
                 this.eventEmitter.emit('label-change', this.labelList);
                 this.tasksService.taskList = result.tasks
@@ -162,7 +161,6 @@ export class LabelsService {
             type: "PUT",
             url: `http://localhost:3000/${this.userId}/toggleFavoriteLabel/${labelId}`,
             success: (result) => {
-                debugger;
                 this.labelList = result
                 this.eventEmitter.emit('label-change', this.labelList);
                 callback()

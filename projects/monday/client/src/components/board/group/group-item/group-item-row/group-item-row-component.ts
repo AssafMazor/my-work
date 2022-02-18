@@ -6,7 +6,7 @@ import { IMember } from "../../../../../interfaces/member.interface";
 import { ItemService } from "../../../../../services/item.service";
 import { IItem } from "../../../../../interfaces/item.interface";
 import { StatusDialogComponent } from "./features/status/status-component";
-import { dateDialogComponent } from "./features/date/date-component";
+import { DateDialogComponent } from "./features/date/date-component";
 
 import "./group-item-row-component.scss"
 const groupTemplate = require('./group-item-row-component.hbs');
@@ -16,7 +16,7 @@ export enum eTaskMode {
     item,
 }
 
-export class taskListItemComponent {
+export class GroupItemRowComponent {
     private $el:any;
     private parent:any;
     private item:IItem;
@@ -140,7 +140,7 @@ export class taskListItemComponent {
 
     onDateItemWarpClick(e){
         this.$el.find(".date-dialog").removeClass("hide");
-        new dateDialogComponent(this.item,this);
+        new DateDialogComponent(this.item,this);
     }
 
     //-----------------------------

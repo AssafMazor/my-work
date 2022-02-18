@@ -8,10 +8,10 @@ import { GroupService } from "../../services/group.service";
 import "../board/board-component.scss"
 const boardTemplate = require('../board/board-component.hbs');
 
-export class boardComponent {
+export class BoardComponent {
     public $el:any;
     private itemService:ItemService = ItemService.Instance;
-    private taskList:IItem[] = [];
+    private itemList:IItem[] = [];
     private groupService:GroupService = GroupService.Instance
     private groupList:IGroup[] = [];
 
@@ -29,7 +29,7 @@ export class boardComponent {
     //-----------------------------
 
     renderHtml(){
-        this.taskList = this.itemService.getItems();
+        this.itemList = this.itemService.getItems();
         this.groupList = this.groupService.getGroupList();
         this.$el =  $(boardTemplate({}));
 

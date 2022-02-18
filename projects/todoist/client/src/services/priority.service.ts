@@ -25,7 +25,6 @@ export class PriorityService {
             type: "get",
             url: `http://localhost:3000/${this.userId}/priorities`,
             success: (result) => {
-                debugger;
                 this.priorityList = result;
                 this.eventEmitter.emit("prioritys-change" , this.priorityList)     
                 callback()

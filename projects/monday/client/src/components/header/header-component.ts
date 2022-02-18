@@ -1,5 +1,4 @@
 import $ from "jquery"
-import { taskListItemComponent } from "../board/group/group-item/group-item-row/group-item-row-component";
 import { ItemService } from "../../services/item.service";
 import { GroupService } from "../../services/group.service";
 

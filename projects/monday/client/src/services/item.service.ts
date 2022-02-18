@@ -33,6 +33,7 @@ export class ItemService {
             type: "GET",
             url: `http://localhost:3000/88/1/items`,
             success: (result) => {
+                console.log(result)
                 this.itemList = result;
                 callback();
             },
@@ -46,7 +47,7 @@ export class ItemService {
     // laodData
     //---------------------------------
 
-    getTask(taskId:string):IItem{
+    getItem(taskId:string):IItem{
         let filtered = this.itemList.filter((item)=>{
             return item.id === taskId
         })[0]
@@ -59,7 +60,7 @@ export class ItemService {
 
     getItems():IItem[]{
         let filtered = this.itemList.filter((item)=>{
-            return item.data.parentId === "-1"
+            return (item.data.parentId === "-1" || "-1_1")
         })
         return filtered;
     }
@@ -70,7 +71,8 @@ export class ItemService {
 
     getItemsByGroupId(groupId:string):IItem[]{
         let filtered = this.itemList.filter((item)=>{
-            return item.data.groupId === groupId && item.data.parentId === "-1"
+            debugger;
+            return item.data.groupId === groupId && (item.data.parentId === "-1" || "-1_1")
         })
         return filtered
     }
@@ -102,7 +104,7 @@ export class ItemService {
 
     getItemsByStatusId(statusId:number,groupId:string):number{
         let filtered = this.itemList.filter((item)=>{
-           return item.data.statusId === statusId && item.data.groupId === groupId && item.data.parentId === "-1"
+           return item.data.statusId === statusId && item.data.groupId === groupId && (item.data.parentId === "-1" || "-1_1")
         })
         return filtered.length
     }
@@ -236,7 +238,7 @@ export class ItemService {
 
     getDoneItems(groupId:string){
         let filterd = this.itemList.filter((item)=>{
-            return item.data.statusId === 3 && item.data.groupId === groupId && item.data.parentId === "-1"
+            return item.data.statusId === 3 && item.data.groupId === groupId && (item.data.parentId === "-1" || "-1_1")
         });
         return filterd
     }
@@ -248,7 +250,7 @@ export class ItemService {
     deleteItem(item:IItem,callback:Function){
         $.ajax({
             type: "DELETE",
-            url: `http://localhost:3000/88/1/delete/${item.id}`,
+            url: `http://localhost:3000/88/${item.boardId}/delete/${item.id}`,
             data: {
                 "data":JSON.stringify(item),
             },
@@ -275,7 +277,6 @@ export class ItemService {
                 "data":JSON.stringify(item),
             },
             success: (result) => {
-                debugger;
                 this.itemList = result
                 this.eventEmitter.emit("items-change",item.data.groupId);
                 callback();

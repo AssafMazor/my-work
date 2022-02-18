@@ -1,7 +1,7 @@
 import $ from "jquery";;
 
-export class boardService {
-    private static _instance: boardService;
+export class BoardService {
+    private static _instance: BoardService;
 
     constructor(){
     }

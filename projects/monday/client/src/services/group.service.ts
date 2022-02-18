@@ -11,6 +11,10 @@ export class GroupService {
     constructor(){
     }
 
+    //--------------------------------
+    // laodData
+    //---------------------------------
+
     laodData(callback){
         $.ajax({
             type: "GET",
@@ -25,9 +29,17 @@ export class GroupService {
         });
     }
 
+    //--------------------------------
+    // getGroupList
+    //---------------------------------
+
     getGroupList(){
         return this.groupList
     }
+
+    //--------------------------------
+    // addGroup
+    //---------------------------------
 
     addGroup(callback){
         $.ajax({
@@ -37,6 +49,81 @@ export class GroupService {
                 "name":"New Group",
             },
             success: (result) => {
+                this.groupList = result
+                this.eventEmitter.emit("group-change");
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
+    }
+
+    //--------------------------------
+    // changeGroupName
+    //---------------------------------
+
+    changeGroupName(group:IGroup,groupName:string,callback:Function){
+        $.ajax({
+            type: "PUT",
+            url: `http://localhost:3000/88/1/chengeName/${group.id}`,
+            data: {
+                "data":{
+                    groupId:group.id,
+                    groupName:groupName
+                },
+            },
+            success: (result) => {
+                this.groupList = result
+                this.eventEmitter.emit("group-change");
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
+    }
+
+    //--------------------------------
+    // deleteGroup
+    //---------------------------------
+
+    deleteGroup(group:IGroup,callback:Function){
+        $.ajax({
+            type: "DELETE",
+            url: `http://localhost:3000/88/1/deleteGroup/${group.id}`,
+            data: {
+                "data":group.id
+            },
+            success: (result) => {
+                this.groupList = result
+                this.eventEmitter.emit("group-change");
+                callback();
+            },
+            error: () => {
+                return;
+            }
+        });
+    }
+
+    //--------------------------------
+    // duplicateGroup
+    //---------------------------------
+
+    duplicateGroup(group:IGroup,callback:Function){
+        let serverGroup = {
+            boardId:"1",
+            groupId:group.id,
+            groupName:group.name
+        }
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:3000/88/1/duplicateGroup/${group.id}`,
+            data: {
+                "data":serverGroup
+            },
+            success: (result) => {
+                console.log(result)
                 this.groupList = result
                 this.eventEmitter.emit("group-change");
                 callback();

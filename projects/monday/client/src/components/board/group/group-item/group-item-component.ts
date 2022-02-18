@@ -1,7 +1,7 @@
 import $ from "jquery"
 import { ItemService } from "../../../../services/item.service";
 import { IItem } from "../../../../interfaces/item.interface";
-import { taskListItemComponent , eTaskMode } from "./group-item-row/group-item-row-component";
+import { GroupItemRowComponent , eTaskMode } from "./group-item-row/group-item-row-component";
 
 import "../group-item/group-item-component.scss"
 const groupTemplate = require('../group-item/group-item-component.hbs');
@@ -50,7 +50,11 @@ export class GroupItemComponent {
     //---------------------------------
     
     onAddSubItemBtnClick(e){
-        this.itemService.addSubItem(this.item,(()=>{}));
+        this.itemService.addSubItem(this.item,(()=>{
+            this.$el.find(".add-sub-item-btn").addClass("hide");
+            this.$el.find(".add-sub-item-btn").addClass("disable");
+            this.$el.find(".add-sub-item-name").val("");
+        }));
     }
 
     //--------------------------------
@@ -72,12 +76,12 @@ export class GroupItemComponent {
     //---------------------------------
 
     renderTasks(){
-        new taskListItemComponent(this.item,this,this.$el.find(".item-wrap"),eTaskMode.item);
+        new GroupItemRowComponent(this.item,this,this.$el.find(".item-wrap"),eTaskMode.item);
         
         for(const childId of this.item.data.children){
-            let item = this.itemService.getTask(childId);
+            let item = this.itemService.getItem(childId);
 
-            new taskListItemComponent(item,this,this.$el.find(".sub-item-list-warp .sub-item-list"),eTaskMode.sub);
+            new GroupItemRowComponent(item,this,this.$el.find(".sub-item-list-warp .sub-item-list"),eTaskMode.sub);
         }
     }
 }

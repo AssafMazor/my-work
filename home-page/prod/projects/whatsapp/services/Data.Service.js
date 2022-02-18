@@ -33,7 +33,6 @@ export class DataService {
   }
 
   getBlocked(){
-    debugger;
     var fillterd = this.contactList.filter((item)=> {
       return item.isBlocked
     });
